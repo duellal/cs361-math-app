@@ -1,0 +1,33 @@
+{
+  "name": "duellal-math-app",
+  "author": "Alex Duell",
+  "version": "0.1.0",
+  "description": "Math learning and practice app created for CS 361 - Software Engineering I",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duellal/cs361-math-app.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duellal/cs361-math-app/issues"
+  },
+  "homepage": "https://github.com/duellal/cs361-math-app#readme",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.5.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.4",
+    "@eslint/eslintrc": "^3"
+  }
+}
