@@ -1,3 +1,4 @@
+import Navigation from "./__components/Navigation";
 import "./globals.css";
 
 export const metadata = {
@@ -23,9 +24,13 @@ export default function RootLayout({ children }) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
       <link rel="manifest" href="/favicon/manifest.json"/>
       
-      <body>
-        {children}
-      </body>
+        <body>
+          <Navigation>
+            <main>
+              {children}
+            </main>
+          </Navigation>
+        </body>
     </html>
   );
 }
