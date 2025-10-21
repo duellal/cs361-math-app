@@ -36,7 +36,7 @@ export default function Navigation() {
                 </Link>
             </div>
 
-            <div
+            <nav
                 className="h-[60px] mr-[70px] items-end flex justify-between"
             >
                 {
@@ -53,7 +53,7 @@ export default function Navigation() {
                         )
                     })
                 }
-            </div>
+            </nav>
         </div>
     );
 }
