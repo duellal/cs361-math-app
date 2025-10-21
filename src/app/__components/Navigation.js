@@ -2,6 +2,21 @@ import Image from "next/image";
 import logo from "../../../public/images/math-path-logo.jpg"
 import Link from "next/link";
 
+const nav_pages = [
+    {
+        name: 'home',
+        href: '/'
+    },
+    {
+        name: 'practice',
+        href: '/topics'
+    },
+    {
+        name: 'help',
+        href: '/help'
+    },
+]
+
 export default function Navigation() {
     return (
         <div
@@ -24,18 +39,20 @@ export default function Navigation() {
             <div
                 className="h-[60px] mr-[70px] items-end flex justify-between"
             >
-                <Link 
-                    href={'/topics'}
-                    className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue"
-                >
-                    Practice
-                </Link>
-                <Link 
-                    href={'/help'}
-                    className="border-b-[3px] border-grey text-white hover:border-light-blue"
-                >
-                    Help
-                </Link>
+                {
+                    nav_pages.map((page, idx) => {
+                        const { name, href } = page
+                        return (
+                            <Link
+                                key={`${idx + Math.random()}-${name}`}
+                                href={href}
+                                className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue capitalize"
+                            >
+                                {name}
+                            </Link>
+                        )
+                    })
+                }
             </div>
         </div>
     );
