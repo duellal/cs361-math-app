@@ -4,6 +4,7 @@
 /* Custom Variable Colors */
 @theme {
     --color-white: #F5F7FA;
+    --color-background-blue: #0087F3;
     --color-dark-blue: #0A3D62;
     --color-light-blue: #0ABDE3;
     --color-medium-blue: #1A84D0;
@@ -16,13 +17,6 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --color-white: #F5F7FA;
-    --color-dark-blue: #0A3D62;
-    --color-light-blue: #0ABDE3;
-    --color-medium-blue: #1A84D0;
-    --color-grey: #809AAE;
-    --color-red: #EE5253;
-    --color-green: #31DB3C; 
   }
 }
 

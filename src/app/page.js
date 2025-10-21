@@ -26,7 +26,17 @@ export default function Home() {
         className="w-full flex place-content-center-safe py-[56px]"
       >
         <button
-          className="border border-dark-blue w-[180px] h-[60px] bg-white rounded-full flex py-1 px-2 place-items-center mt-[-10px]"
+          className="flex w-[180px] h-[60px] rounded-full py-1 px-2 place-items-center mt-[-10px] cursor-pointer
+            outline-3 outline-dark-blue 
+            bg-[linear-gradient(180deg,var(--color-white)_0%,var(--color-medium-blue)_100%)]
+            shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+            transition-all ease-in-out
+
+            hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+            hover:brightness-[1.1]
+
+            active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
+            active:translate-y-[2px]"
           onClick={evt => {
             evt.preventDefault()
               return router.push('/topics')
