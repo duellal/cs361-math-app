@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Navigation() {
     return (
         <div
-            className="w-full flex items-center justify-between h-[100px] bg-[#0A3D62]"
+            className="w-full flex items-center justify-between h-[100px] bg-dark-blue"
         >
             <div className="flex">
                 <Link
@@ -26,13 +26,13 @@ export default function Navigation() {
             >
                 <Link 
                     href={'/topics'}
-                    className="mr-[17px] border-b-[3px] border-[#809AAE]"
+                    className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue"
                 >
                     Practice
                 </Link>
                 <Link 
                     href={'/help'}
-                    className="border-b-[3px] border-[#809AAE]"
+                    className="border-b-[3px] border-grey text-white hover:border-light-blue"
                 >
                     Help
                 </Link>
