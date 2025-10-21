@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Noto_Sans } from "next/font/google"
 import Navigation from "./__components/Navigation";
+import Footer from "./__components/Footer";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],         // choose subsets you need
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
           <main>
             {children}
           </main>
+        <Footer />
       </body>
     </html>
   );
