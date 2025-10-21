@@ -1,5 +1,13 @@
 import "./globals.css";
+import { Noto_Sans } from "next/font/google"
 import Navigation from "./__components/Navigation";
+
+const notoSans = Noto_Sans({
+  subsets: ["latin"],         // choose subsets you need
+  weight: ["400", "500", "700"], // optional weights
+  display: "swap",            // avoids invisible text flash
+  variable: "--font-noto-sans", // optional: sets a CSS variable
+});
 
 export const metadata = {
   title: "Math Practice App",
@@ -8,7 +16,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html 
+      lang="en" 
+      suppressHydrationWarning
+    >
       <head>
         <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png" />
@@ -26,14 +37,12 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/favicon/manifest.json" />
       </head>
       
-      
-        <body>
-          <Navigation>
-            <main>
-              {children}
-            </main>
-          </Navigation>
-        </body>
+      <body>
+        <Navigation />
+          <main>
+            {children}
+          </main>
+      </body>
     </html>
   );
 }
