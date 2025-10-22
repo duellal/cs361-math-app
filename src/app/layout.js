@@ -1,7 +1,13 @@
-import "./globals.css";
-import { Noto_Sans } from "next/font/google"
+// General Imports
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+
+// Components
 import Navigation from "./__components/Navigation";
 import Footer from "./__components/Footer";
+
+// Styling
+import "./globals.css";
+import { Noto_Sans } from "next/font/google"
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],         // choose subsets you need
@@ -36,14 +42,18 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
         <link rel="manifest" href="/favicon/manifest.json" />
+
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       
       <body>
-        <Navigation />
-          <main>
-            {children}
-          </main>
-        <Footer />
+        <AppRouterCacheProvider>
+          <Navigation />
+            <main>
+              {children}
+            </main>
+          <Footer />
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

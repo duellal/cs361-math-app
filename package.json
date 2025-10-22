@@ -19,7 +19,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@mui/material-nextjs": "^7.3.3",
     "next": "15.5.4",
+    "phosphor-icons": "^1.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "redux": "^5.0.1"
