@@ -10,7 +10,7 @@ export default function Practice() {
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            Practice Pages
+            Practice Page
         </div>
     );
 }

@@ -25,8 +25,8 @@
 
 /* CSS for the App */
 body {
-  /* background: var(--foreground);
-  color: var(--background);  */
+  background: var(--color-dark-blue);
+  color: var(--color-white); 
   font-family: Arial, Helvetica, sans-serif;
   background-image: url("../../public/images/background/blue-numbers-prism-background.jpg");
   background-repeat: repeat;

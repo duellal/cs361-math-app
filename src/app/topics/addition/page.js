@@ -10,7 +10,7 @@ export default function PracticeAddition() {
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            Practice Page
+            Practice Addition Page
         </div>
     );
 }
