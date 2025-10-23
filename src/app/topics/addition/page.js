@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 
-export default function Practice() {
+export default function PracticeAddition() {
     const router = useRouter()
 
     return (
