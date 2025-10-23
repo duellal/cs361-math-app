@@ -8,6 +8,8 @@ import Footer from "./__components/Footer";
 // Styling
 import "./globals.css";
 import { Noto_Sans } from "next/font/google"
+import { CssBaseline } from '@mui/material';
+
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],         // choose subsets you need
@@ -15,6 +17,11 @@ const notoSans = Noto_Sans({
   display: "swap",            // avoids invisible text flash
   variable: "--font-noto-sans", // optional: sets a CSS variable
 });
+
+const mui_options = { 
+  enableCssLayer: true,
+  key: 'css'
+}
 
 export const metadata = {
   title: "Math Practice App",
@@ -47,12 +54,14 @@ export default function RootLayout({ children }) {
       </head>
       
       <body>
-        <AppRouterCacheProvider>
-          <Navigation />
-            <main>
-              {children}
-            </main>
-          <Footer />
+        <AppRouterCacheProvider options={mui_options}>
+          <CssBaseline>
+              <Navigation />
+                <main>
+                  {children}
+                </main>
+              <Footer />
+          </CssBaseline>
         </AppRouterCacheProvider>
       </body>
     </html>

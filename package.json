@@ -20,7 +20,11 @@
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.4",
     "@mui/material-nextjs": "^7.3.3",
+    "@phosphor-icons/react": "^2.1.10",
     "next": "15.5.4",
     "phosphor-icons": "^1.4.2",
     "react": "19.1.0",
