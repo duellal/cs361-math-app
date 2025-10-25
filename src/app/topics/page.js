@@ -119,7 +119,7 @@ export default function Topics() {
       className="w-full mt-[32px] flex flex-wrap place-content-center"
     >
       <h1
-        className="w-full text-[77px] text-white font-bold text-center mb-[50px]"
+        className="w-full text-[65px] text-white font-bold text-center mb-[50px]"
       >
         Math Paths
       </h1>

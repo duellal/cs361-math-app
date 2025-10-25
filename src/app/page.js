@@ -6,9 +6,6 @@ import practice_example from "../../public/images/home-practice-page-example.jpg
 import { useRouter } from "next/navigation";
 import ContentDiv from "./__components/contentDiv";
 
-const tw_variables = {
-  why_mathpath_divs: 'border-[12px] border-white rounded-[20%] bg-medium-blue flex flex-wrap place-content-center'
-}
 
 export default function Home() {
   const router = useRouter()
@@ -61,13 +58,12 @@ export default function Home() {
         <ContentDiv
           title={'Practice Your Problem Solving Skills!'}
           text={'MathPath is a fun, free way to practice your math skills. Regardless of your mathematical expertise, you will find something that can help you solidify your knowledge.'}
-          div_tw={tw_variables.why_mathpath_divs}
         />
 
         <ContentDiv
           title={null}
           text={null}
-          div_tw={`${tw_variables.why_mathpath_divs} w-[430px] h-[240px] px-0 py-0`}
+          div_tw={`w-[430px] h-[240px] px-0 py-0`}
           img_src={practice_example}
           img_alt={``}
           img_tw={`rounded-[18%]`}

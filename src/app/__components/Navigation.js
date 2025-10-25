@@ -46,7 +46,7 @@ export default function Navigation() {
                             <Link
                                 key={`${idx + Math.random()}-${name}`}
                                 href={href}
-                                className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue capitalize"
+                                className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue capitalize text-[16px]"
                             >
                                 {name}
                             </Link>
