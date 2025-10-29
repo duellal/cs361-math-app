@@ -1,19 +1,16 @@
 'use client'
 
-import PageUnderConstruction from "@/app/__components/PageConstruction";
 import { useRouter } from "next/navigation";
 
 
-export default function PracticeAddition() {
+export default function PageUnderConstruction() {
     const router = useRouter()
 
     return (
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            Practice Addition Page
-
-            <PageUnderConstruction />
+            Page Under Construction
         </div>
     );
 }

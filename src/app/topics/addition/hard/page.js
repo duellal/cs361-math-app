@@ -11,7 +11,7 @@ export default function PracticeAddition() {
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            Practice Addition Page
+            HARD Practice Addition Page
 
             <PageUnderConstruction />
         </div>

@@ -2,6 +2,7 @@
 
 import PageUnderConstruction from "@/app/__components/PageConstruction";
 import { useRouter } from "next/navigation";
+import PracticeProblemsDiv from "../../__components/practice_component/practice";
 
 
 export default function PracticeAddition() {
@@ -11,9 +12,11 @@ export default function PracticeAddition() {
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            Practice Addition Page
+            <h2 className="w-full text-center text-[20px]">
+                EASY Practice Addition Page
+            </h2>
 
-            <PageUnderConstruction />
+            <PracticeProblemsDiv />
         </div>
     );
 }
