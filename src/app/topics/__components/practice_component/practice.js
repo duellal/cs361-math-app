@@ -12,6 +12,23 @@ const bottomBtns = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-poin
 export default function PracticeProblemsDiv() {
     const router = useRouter()
 
+    const handleHint = () => {
+        console.log('Hint btn')
+    }
+
+    const handleTutorialBtn = () => {
+        console.log('Tutorial btn')
+    }
+
+    const handleSubmit = () => {
+        console.log('Submit btn')
+    }
+
+    const handleSkip = () => {
+        console.log('Skip btn')
+    }
+
+
     return (
         <div
             className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMargins}`}
@@ -25,14 +42,14 @@ export default function PracticeProblemsDiv() {
                 <div className={`w-[50%] flex justify-end self-center`}>
                     <PrblmBtn 
                         text={'Need a Hint?'}
-                        handleSubmit={null}
+                        handleClick={handleHint}
                         tw={`${bottomBtns} w-auto`}
                     />
 
                 
                     <PrblmBtn
                         text={'?'}
-                        handleSubmit={null}
+                        handleClick={handleTutorialBtn}
                         tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer`}
                     />
                 </div>
@@ -70,13 +87,13 @@ export default function PracticeProblemsDiv() {
                     <PrblmBtn
                         text={'Submit'}
                         tw={`${bottomBtns} mb-[15px]`}
-                        handleSubmit={null}
+                        handleClick={handleSubmit}
                     />
 
                     <PrblmBtn
                         text={'Skip Problem'}
                         tw={`${bottomBtns}`}
-                        handleSubmit={null}
+                        handleClick={handleSkip}
                     />
                 </div>
             </div>
