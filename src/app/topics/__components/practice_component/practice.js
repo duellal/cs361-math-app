@@ -1,8 +1,12 @@
 'use client'
 
 import PrblmBtn from "@/app/__components/PracticePrblmBtn";
-import { QuestionIcon } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
+import { SimpleProblem } from "./problem";
+
+const divMargins = `px-[50px] py-[20px]`
+const mainBtnTw = `rounded-lg h-[45px]`
+const bottomBtns = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
 
 
 export default function PracticeProblemsDiv() {
@@ -10,44 +14,71 @@ export default function PracticeProblemsDiv() {
 
     return (
         <div
-            className="w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue"
+            className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMargins}`}
         >
             {/* h2, hint button + tutorial button */}
-            <div className="w-full flex items-end justify-between ml-[70px] mr-[45px] mt-[20px]">
-                <h2 className="w-[250px] border-b-2 border-light-blue text-[35px] font-bold">
+            <div className={`w-full flex items-end justify-between`}>
+                <h2 className={`w-[250px] border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
                     Directions
                 </h2>
 
-                <div className="w-[50%] flex justify-end self-center">
+                <div className={`w-[50%] flex justify-end self-center`}>
                     <PrblmBtn 
                         text={'Need a Hint?'}
                         handleSubmit={null}
-                        tw={`rounded-lg h-[45px]`}
+                        tw={`${bottomBtns} w-auto`}
                     />
 
                 
                     <PrblmBtn
                         text={'?'}
                         handleSubmit={null}
-                        tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center`}
+                        tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer`}
                     />
                 </div>
             </div>
+            
             {/* Instructions */}
             <div
-                className="w-full text-[24px] font-medium  ml-[70px] mr-[45px] mt-[10px]"
+                className={`w-full text-[24px] font-medium`}
             >
                 <p>
                     Input the best answer below.
                 </p>
             </div>
+
             {/* Problem */}
-            <div>
+            <SimpleProblem
+                numArr={[20, '+', 13, '=', null]}
+            />
 
-            </div>
             {/* Answer Input + Submit/Skip Problem Btns */}
-            <div>
+            <div className={`w-full mb-[20px] flex justify-between`}>
+                <div className="w-[75%] h-[50%] flex justify-between">
+                    <p className={`font-bold text-[30px] mr-[15px] content-end`}>
+                        Answer:
+                    </p>
 
+                    <input
+                        type="text"
+                        placeholder="Type Answer Here"
+                        className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
+                    />
+                </div>
+
+                <div className="">
+                    <PrblmBtn
+                        text={'Submit'}
+                        tw={`${bottomBtns} mb-[15px]`}
+                        handleSubmit={null}
+                    />
+
+                    <PrblmBtn
+                        text={'Skip Problem'}
+                        tw={`${bottomBtns}`}
+                        handleSubmit={null}
+                    />
+                </div>
             </div>
         </div>
     );
