@@ -16,7 +16,7 @@ export default function Help() {
         className={`w-full place-items-center mb-[150px]`}
       >
         <h1
-          className="w-[900px] justify-center text-center text-[65px] font-bold mb-[50px]"
+          className="w-[900px] mb-[50px]"
         >
           Instructions for Practicing Problems
         </h1>
@@ -24,7 +24,7 @@ export default function Help() {
         <ContentDiv
           div_key={`${Math.random()}-instructions`}
           text={instructions}
-          div_tw={'w-[1000px] text-white p-[40px]'}
+          div_tw={'border-[12px] border-white bg-medium-blue w-[1000px] text-white p-[40px]'}
           p_tw={`text-left text-[18px]`}
           li_tw={``}
           ul_tw={`mx-5 my-5`}
@@ -48,7 +48,7 @@ export default function Help() {
             text: 'mathpath.help@ethereal.email',
             tw: 'text-white hover:border-b-2 hover:border-white'
           }}
-          div_tw={'w-[560px] px-8'}
+          div_tw={'border-[12px] border-white bg-medium-blue w-[560px] px-8'}
           p_tw={`w-full text-center text-[18px]`}
           li_tw={``}
           ul_tw={`mx-5 my-5`}

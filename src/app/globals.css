@@ -39,3 +39,10 @@ body {
   width: 100%;
   height: 295px;
 }
+
+h1{
+  justify-content: center;
+  text-align: center;
+  font-size: 65px;
+  font-weight: bold; 
+}

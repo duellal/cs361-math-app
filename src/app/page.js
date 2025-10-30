@@ -56,14 +56,16 @@ export default function Home() {
         </h1>
         
         <ContentDiv
+          div_tw={`border-[12px] border-white bg-medium-blue`}
+          h2_tw={`text-white`}
           title={'Practice Your Problem Solving Skills!'}
           text={'MathPath is a fun, free way to practice your math skills. Regardless of your mathematical expertise, you will find something that can help you solidify your knowledge.'}
         />
 
         <ContentDiv
+          div_tw={`border-[12px] border-white bg-medium-blue w-[430px] h-[240px] px-0 py-0`}
           title={null}
           text={null}
-          div_tw={`w-[430px] h-[240px] px-0 py-0`}
           img_src={practice_example}
           img_alt={``}
           img_tw={`rounded-[18%]`}

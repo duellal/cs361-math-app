@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 
 
 export default function ContentDiv(props) {
-    const { div_key, div_tw, h2_tw, img_alt, img_src, img_tw, li_tw, link, p_tw, title, text, ul_tw } = props
+    let { div_key, div_tw, h2_tw, img_alt, img_src, img_tw, li_tw, link, order, p_tw, title, text, ul_tw } = props
+
     const router = useRouter()
-    let order = []
+    order ? order : order = []
     
     if(title){
         order.push(
@@ -96,7 +97,7 @@ export default function ContentDiv(props) {
     return (
         <div
             key={div_key}
-            className={`p-[15px] w-[330px] rounded-[60px] border-[12px] border-white bg-medium-blue place-content-center ${div_tw} `}
+            className={`p-[15px] w-[330px] rounded-[60px] place-content-center ${div_tw} `}
         >
             { order?.map(elem => {
                 return elem

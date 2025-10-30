@@ -12,10 +12,19 @@ export default function PracticeAddition() {
         <div
             className="w-full mt-[32px] flex flex-wrap place-content-center"
         >
-            <h2 className="w-full text-center text-[20px]">
-                EASY Practice Addition Page
-            </h2>
+            {/* Headers */}
+            <div>
+                <h1 className="w-full">
+                    Practice Problems
+                </h1>
 
+                <h2
+                    className="w-full text-center font-bold text-[40px] mb-[50px]"
+                >
+                    Easy Addition
+                </h2>
+            </div>
+            
             <PracticeProblemsDiv />
         </div>
     );

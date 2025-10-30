@@ -3,6 +3,8 @@
 import PrblmBtn from "@/app/__components/PracticePrblmBtn";
 import { useRouter } from "next/navigation";
 import { SimpleProblem } from "./problem";
+import { useState } from "react";
+import ContentDiv from "@/app/__components/contentDiv";
 
 const divMargins = `px-[50px] py-[20px]`
 const mainBtnTw = `rounded-lg h-[45px]`
@@ -11,9 +13,38 @@ const bottomBtns = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-poin
 
 export default function PracticeProblemsDiv() {
     const router = useRouter()
+    const [hintPopup, setHintPopup] = useState(false)
+    const [blurBg, setBlurBg] = useState(false)
 
-    const handleHint = () => {
-        console.log('Hint btn')
+    let answer = 33
+    let hint = {
+        33: `What is 20 + 10, and 0 + 3? Then, add those two sums together.`
+    }
+
+
+    const hintBtn = <button>
+
+    </button>
+    
+    const title = <h2 
+                    key={`hint`}
+                    className={`text-[24px]/8 font-[500] text-center pb-[10px] text-dark-blue`}
+                >
+                    Hint
+                </h2>
+
+    const text = <p
+        key={`hint-text`}
+        className={`text-dark-blue text-center text-[15px] px-[20px] font-[500]`}
+    >
+        { hint[answer] }
+    </p>
+
+
+    const handleHint = (evt) => {
+        evt.preventDefault()
+        setHintPopup(true)
+        setBlurBg(true)
     }
 
     const handleTutorialBtn = () => {
@@ -97,6 +128,19 @@ export default function PracticeProblemsDiv() {
                     />
                 </div>
             </div>
+
+            {
+                hintPopup && 
+                <div
+                    className={`size-full ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] flex place-items-center place-content-center`}
+                >
+                    <ContentDiv
+                        div_key={`hint-div`}
+                        div_tw={`w-[460px] border-[12px] border-light-blue bg-white text-dark-blue h-[200px]`}
+                        order={[hintBtn, title, text]}
+                    />
+                </div>
+            }
         </div>
     );
 }
