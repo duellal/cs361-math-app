@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
+import { XIcon } from "@phosphor-icons/react";
 
 const divMargins = `px-[50px] py-[20px]`
 const mainBtnTw = `rounded-lg h-[45px]`
@@ -13,42 +14,35 @@ const bottomBtns = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-poin
 
 export default function PracticeProblemsDiv() {
     const router = useRouter()
-    const [hintPopup, setHintPopup] = useState(false)
+
+    // States:
     const [blurBg, setBlurBg] = useState(false)
+    const [hintPopup, setHintPopup] = useState(false)
+    const [tutorialPopup, setTutorialPopup] = useState(false)
 
     let answer = 33
     let hint = {
         33: `What is 20 + 10, and 0 + 3? Then, add those two sums together.`
     }
 
-
-    const hintBtn = <button>
-
-    </button>
-    
-    const title = <h2 
-                    key={`hint`}
-                    className={`text-[24px]/8 font-[500] text-center pb-[10px] text-dark-blue`}
-                >
-                    Hint
-                </h2>
-
-    const text = <p
-        key={`hint-text`}
-        className={`text-dark-blue text-center text-[15px] px-[20px] font-[500]`}
-    >
-        { hint[answer] }
-    </p>
-
-
-    const handleHint = (evt) => {
-        evt.preventDefault()
-        setHintPopup(true)
+    const handleHint = () => {
         setBlurBg(true)
+        setHintPopup(true)
+    }
+
+    const handleHintClose = (evt) => {
+        setHintPopup(false)
+        setBlurBg(false)
     }
 
     const handleTutorialBtn = () => {
-        console.log('Tutorial btn')
+        setBlurBg(true)
+        setTutorialPopup(true) 
+    }
+
+    const handleTutorialClose = (evt) => {
+        setTutorialPopup(false)
+        setBlurBg(false)
     }
 
     const handleSubmit = () => {
@@ -60,13 +54,62 @@ export default function PracticeProblemsDiv() {
     }
 
 
+    const hintBtn = <div className="w-full">
+                        <button
+                            onClick={handleHintClose}
+                            className="cursor-pointer absolute top-[20px] right-[30px]"
+                        >
+                            <XIcon size={22} weight="bold" />
+                        </button>
+                    </div>
+    
+    const title = <h2 
+                    key={`hint`}
+                    className={`text-[24px]/8 font-[500] text-center pb-[10px] text-dark-blue mb-[-10px]`}
+                >
+                    Hint
+                </h2>
+
+    const text = <p
+                    key={`hint-text`}
+                    className={`text-dark-blue text-center text-[15px] px-[20px] font-[500]`}
+                >
+                    { hint[answer] }
+                </p>
+
+    const tutorialBtn = <button
+                            onClick={handleTutorialClose}
+                            className="cursor-pointer absolute top-[20px] right-[30px] text-dark-blue"
+                        >
+                            <XIcon size={22} weight="bold" />
+                        </button>
+
+    const tutorialH2 = <h2 
+                            key={`tutorial-h2`}
+                            className={`text-[24px]/8 font-bold text-center pb-[10px] text-dark-blue mb-[-10px] w-full`}
+                        >
+                            Tutorial
+                        </h2>
+
+    const tutorialVideo = <video
+                            key={`tutorial-video`}
+                            width={500}
+                            height={300}
+                            controls
+                            autoPlay
+                            className="rounded-[40px] mt-[20px]"
+                        >
+                            <source src={null} type="video/mp4" />
+                        </video>
+    
+
     return (
         <div
             className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMargins}`}
         >
             {/* h2, hint button + tutorial button */}
             <div className={`w-full flex items-end justify-between`}>
-                <h2 className={`w-[250px] border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
+                <h2 className={`border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
                     Directions
                 </h2>
 
@@ -131,15 +174,28 @@ export default function PracticeProblemsDiv() {
 
             {
                 hintPopup && 
-                <div
-                    className={`size-full ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] flex place-items-center place-content-center`}
-                >
-                    <ContentDiv
-                        div_key={`hint-div`}
-                        div_tw={`w-[460px] border-[12px] border-light-blue bg-white text-dark-blue h-[200px]`}
-                        order={[hintBtn, title, text]}
-                    />
-                </div>
+                    <div
+                        className={`w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`}
+                    >
+                        <ContentDiv
+                            div_key={`hint-div`}
+                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue h-[200px] flex content-evenly flex-wrap`}
+                            order={[hintBtn, title, text]}
+                        />
+                    </div>
+            }
+
+            {
+                tutorialPopup &&
+                    <div
+                        className={`w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`}
+                    >
+                        <ContentDiv
+                            div_key={`tutorial-div`}
+                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between`}
+                            order={[tutorialH2, tutorialBtn, tutorialVideo]}
+                        />
+                    </div>
             }
         </div>
     );

@@ -10,7 +10,7 @@ export default function PracticeAddition() {
 
     return (
         <div
-            className="w-full mt-[32px] flex flex-wrap place-content-center"
+            className="w-full mt-[32px] flex flex-wrap content-start justify-center"
         >
             {/* Headers */}
             <div>
