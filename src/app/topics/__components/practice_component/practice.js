@@ -21,8 +21,9 @@ export default function PracticeProblemsDiv() {
     // States:
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
-    const [confirmAnswer, setConfirmAnswer] = useState(false)
+    const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
+    const [submitDisable, setSubmitDisable] = useState(true)
     const [videoPopup, setVideoPopup] = useState(false)
 
     // Styling with Variables:
@@ -58,7 +59,7 @@ export default function PracticeProblemsDiv() {
         console.log('Submit Answer?', answerInput)
         let answer = Number(answerInput)
         if(answer){
-            setConfirmAnswer(true)
+            setConfirmAnswerPopup(true)
         }
         else{
             console.log('Handle Error here')
@@ -175,14 +176,26 @@ export default function PracticeProblemsDiv() {
                         type="text"
                         placeholder="Type Answer Here"
                         className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
-                        onChange={(evt => setAnswer(evt.target.value))}
+                        onChange={(evt => {
+                            let value = evt.target.value
+
+                            if(value.length > 0){
+                                setSubmitDisable(false)
+                            }
+                            else{
+                                setSubmitDisable(true)
+                            }
+
+                            setAnswer(value)
+                        })}
                     />
                 </div>
 
                 <div className="">
                     <PrblmBtn
+                        disabled={submitDisable}
                         text={'Submit'}
-                        tw={`${bottomBtnsTw} mb-[15px]`}
+                        tw={`${bottomBtnsTw} mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
                         handleClick={handleSubmit}
                     />
 
@@ -213,6 +226,12 @@ export default function PracticeProblemsDiv() {
                             div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between`}
                             order={[videoH2, videoCancelBtn, videoVideo]}
                         />
+                    </div>
+            }
+
+            {
+                confirmAnswerPopup && 
+                    <div>
                     </div>
             }
         </div>
