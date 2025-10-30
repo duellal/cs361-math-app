@@ -1,7 +1,7 @@
 'use client'
 
 export function SimpleProblem(props){
-    const { numArr} = props
+    const { numArr } = props
 
     return (
         <div className="w-full text-center text-[67px] text-black flex place-items-center justify-center my-[40px]">

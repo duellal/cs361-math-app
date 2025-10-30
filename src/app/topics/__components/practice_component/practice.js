@@ -7,18 +7,27 @@ import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
 
-const divMargins = `px-[50px] py-[20px]`
+const divMarginsTw = `px-[50px] py-[20px]`
 const mainBtnTw = `rounded-lg h-[45px]`
-const bottomBtns = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
+const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
+const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
+cursor-pointer absolute top-[20px] right-[30px]`
+const h2Tw = `text-[30px] font-bold text-center pb-[10px] text-dark-blue w-full`
 
 
 export default function PracticeProblemsDiv() {
     const router = useRouter()
 
     // States:
+    const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
+    const [confirmAnswer, setConfirmAnswer] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
-    const [tutorialPopup, setTutorialPopup] = useState(false)
+    const [videoPopup, setVideoPopup] = useState(false)
+
+    // Styling with Variables:
+    const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
+
 
     let answer = 33
     let hint = {
@@ -35,18 +44,25 @@ export default function PracticeProblemsDiv() {
         setBlurBg(false)
     }
 
-    const handleTutorialBtn = () => {
+    const handleVideoBtn = () => {
         setBlurBg(true)
-        setTutorialPopup(true) 
+        setVideoPopup(true) 
     }
 
-    const handleTutorialClose = (evt) => {
-        setTutorialPopup(false)
+    const handleVideoClose = (evt) => {
+        setVideoPopup(false)
         setBlurBg(false)
     }
 
     const handleSubmit = () => {
-        console.log('Submit btn')
+        console.log('Submit Answer?', answerInput)
+        let answer = Number(answerInput)
+        if(answer){
+            setConfirmAnswer(true)
+        }
+        else{
+            console.log('Handle Error here')
+        }
     }
 
     const handleSkip = () => {
@@ -54,44 +70,48 @@ export default function PracticeProblemsDiv() {
     }
 
 
-    const hintBtn = <div className="w-full">
+    const hintCancelBtn = <div 
+                        key={`hint-div`}
+                        className="w-full"
+                    >
                         <button
                             onClick={handleHintClose}
-                            className="cursor-pointer absolute top-[20px] right-[30px]"
+                            className={`${cancelBtnTw}`}
                         >
                             <XIcon size={22} weight="bold" />
                         </button>
                     </div>
     
-    const title = <h2 
-                    key={`hint`}
-                    className={`text-[24px]/8 font-[500] text-center pb-[10px] text-dark-blue mb-[-10px]`}
-                >
-                    Hint
-                </h2>
+    const hintH2 =  <h2 
+                        key={`hint`}
+                        className={h2Tw}
+                    >
+                        Hint
+                    </h2>
 
     const text = <p
                     key={`hint-text`}
-                    className={`text-dark-blue text-center text-[15px] px-[20px] font-[500]`}
+                    className={`text-dark-blue text-center text-[18px] px-[20px] font-[500]`}
                 >
                     { hint[answer] }
                 </p>
 
-    const tutorialBtn = <button
-                            onClick={handleTutorialClose}
-                            className="cursor-pointer absolute top-[20px] right-[30px] text-dark-blue"
-                        >
-                            <XIcon size={22} weight="bold" />
-                        </button>
+    const videoCancelBtn = <button
+                        key={`tutorial-btn`}
+                        onClick={handleVideoClose}
+                        className={`${cancelBtnTw} text-dark-blue`}
+                    >
+                        <XIcon size={22} weight="bold" />
+                    </button>
 
-    const tutorialH2 = <h2 
-                            key={`tutorial-h2`}
-                            className={`text-[24px]/8 font-bold text-center pb-[10px] text-dark-blue mb-[-10px] w-full`}
-                        >
+    const videoH2 = <h2 
+                        key={`tutorial-h2`}
+                        className={`${h2Tw} mb-[-10px]`}
+                    >
                             Tutorial
                         </h2>
 
-    const tutorialVideo = <video
+    const videoVideo = <video
                             key={`tutorial-video`}
                             width={500}
                             height={300}
@@ -105,7 +125,7 @@ export default function PracticeProblemsDiv() {
 
     return (
         <div
-            className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMargins}`}
+            className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
         >
             {/* h2, hint button + tutorial button */}
             <div className={`w-full flex items-end justify-between`}>
@@ -117,13 +137,13 @@ export default function PracticeProblemsDiv() {
                     <PrblmBtn 
                         text={'Need a Hint?'}
                         handleClick={handleHint}
-                        tw={`${bottomBtns} w-auto`}
+                        tw={`${bottomBtnsTw} w-auto`}
                     />
 
                 
                     <PrblmBtn
                         text={'?'}
-                        handleClick={handleTutorialBtn}
+                        handleClick={handleVideoBtn}
                         tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer`}
                     />
                 </div>
@@ -141,6 +161,7 @@ export default function PracticeProblemsDiv() {
             {/* Problem */}
             <SimpleProblem
                 numArr={[20, '+', 13, '=', null]}
+                setAnswer={setAnswer}
             />
 
             {/* Answer Input + Submit/Skip Problem Btns */}
@@ -154,19 +175,20 @@ export default function PracticeProblemsDiv() {
                         type="text"
                         placeholder="Type Answer Here"
                         className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
+                        onChange={(evt => setAnswer(evt.target.value))}
                     />
                 </div>
 
                 <div className="">
                     <PrblmBtn
                         text={'Submit'}
-                        tw={`${bottomBtns} mb-[15px]`}
+                        tw={`${bottomBtnsTw} mb-[15px]`}
                         handleClick={handleSubmit}
                     />
 
                     <PrblmBtn
                         text={'Skip Problem'}
-                        tw={`${bottomBtns}`}
+                        tw={`${bottomBtnsTw}`}
                         handleClick={handleSkip}
                     />
                 </div>
@@ -174,26 +196,22 @@ export default function PracticeProblemsDiv() {
 
             {
                 hintPopup && 
-                    <div
-                        className={`w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`}
-                    >
+                    <div className={`${popupDivTw}`}>
                         <ContentDiv
                             div_key={`hint-div`}
-                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue h-[200px] flex content-evenly flex-wrap`}
-                            order={[hintBtn, title, text]}
+                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap`}
+                            order={[hintCancelBtn, hintH2, text]}
                         />
                     </div>
             }
 
             {
-                tutorialPopup &&
-                    <div
-                        className={`w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`}
-                    >
+                videoPopup &&
+                    <div className={`${popupDivTw}`}>
                         <ContentDiv
                             div_key={`tutorial-div`}
                             div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between`}
-                            order={[tutorialH2, tutorialBtn, tutorialVideo]}
+                            order={[videoH2, videoCancelBtn, videoVideo]}
                         />
                     </div>
             }
