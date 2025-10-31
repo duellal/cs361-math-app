@@ -7,12 +7,19 @@ import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
 
-const divMarginsTw = `px-[50px] py-[20px]`
+
+// Buttons
 const mainBtnTw = `rounded-lg h-[45px]`
 const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
+const confirmAnswerBtnTw = `${bottomBtnsTw} w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
 const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
-cursor-pointer absolute top-[20px] right-[30px]`
-const h2Tw = `text-[30px] font-bold text-center pb-[10px] text-dark-blue w-full`
+cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
+
+// Divs
+const divMarginsTw = `px-[50px] py-[20px]`
+
+// Headers
+const h2Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 
 export default function PracticeProblemsDiv() {
@@ -35,6 +42,27 @@ export default function PracticeProblemsDiv() {
         33: `What is 20 + 10, and 0 + 3? Then, add those two sums together.`
     }
 
+
+    const handleConfirm = () => {
+        console.log('Submit Answer?', answerInput)
+        let answer = Number(answerInput)
+
+        if (answer) {
+            setConfirmAnswerPopup(true)
+            setAnswer(answer)
+        }
+        else {
+            console.log('Handle Error here')
+        }
+
+        setBlurBg(true)
+    }
+
+    const handleConfirmClose = (evt) => {
+        setConfirmAnswerPopup(false)
+        setBlurBg(false)
+    }
+
     const handleHint = () => {
         setBlurBg(true)
         setHintPopup(true)
@@ -55,24 +83,68 @@ export default function PracticeProblemsDiv() {
         setBlurBg(false)
     }
 
-    const handleSubmit = () => {
-        console.log('Submit Answer?', answerInput)
-        let answer = Number(answerInput)
-        if(answer){
-            setConfirmAnswerPopup(true)
-        }
-        else{
-            console.log('Handle Error here')
-        }
-    }
-
     const handleSkip = () => {
         console.log('Skip btn')
     }
 
 
+    let confirmAnswer = <div 
+                            className="w-full flex flex-wrap justify-center text-dark-blue text-center"
+                            key={`confirm-answer-box-div`}
+                        >
+                            <p className="w-full mb-[10px]">
+                                You answered:
+                            </p>
+                            <div className="w-fit px-[25px] py-[3px] border-2 border-dark-blue">
+                                { answerInput }
+                            </div>
+                        </div>
+
+    let confirmBtns =   <div 
+                            className="w-[95%] text-dark-blue flex justify-between"
+                            key={`confirm-btn-div`}
+                        >
+                            <PrblmBtn
+                                text={'Yes, submit my answer'}
+                                handleClick={handleConfirm}
+                                tw={`${confirmAnswerBtnTw}`}
+                            />
+
+                            <PrblmBtn
+                                text={'No, I want to edit my answer'}
+                                handleClick={handleConfirmClose}
+                                tw={`${confirmAnswerBtnTw}`}
+                            />
+                        </div>
+
+    let confirmCancelBtn = <div
+                                key={`confirm-cancel-div`}
+                                className="w-full"
+                            >
+                                <button
+                                    onClick={handleConfirmClose}
+                                    className={`${cancelBtnTw}`}
+                                >
+                                    <XIcon size={22} weight="bold" />
+                                </button>
+                            </div>
+
+    const confirmH2 = <h2
+                        key={`confirmAnswer-h2`}
+                        className={h2Tw}
+                    >
+                        Confirm Answer
+                    </h2>
+
+
+    let confirmText =   <p
+                            className="w-full text-dark-blue text-center mt-[30px] mb-[20px]"
+                        >
+                            Would you like to submit your answer?
+                        </p>
+
     const hintCancelBtn = <div 
-                        key={`hint-div`}
+                        key={`hint-cancel-div`}
                         className="w-full"
                     >
                         <button
@@ -90,7 +162,7 @@ export default function PracticeProblemsDiv() {
                         Hint
                     </h2>
 
-    const text = <p
+    const hintText = <p
                     key={`hint-text`}
                     className={`text-dark-blue text-center text-[18px] px-[20px] font-[500]`}
                 >
@@ -100,7 +172,7 @@ export default function PracticeProblemsDiv() {
     const videoCancelBtn = <button
                         key={`tutorial-btn`}
                         onClick={handleVideoClose}
-                        className={`${cancelBtnTw} text-dark-blue`}
+                        className={`${cancelBtnTw}`}
                     >
                         <XIcon size={22} weight="bold" />
                     </button>
@@ -196,7 +268,7 @@ export default function PracticeProblemsDiv() {
                         disabled={submitDisable}
                         text={'Submit'}
                         tw={`${bottomBtnsTw} mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
-                        handleClick={handleSubmit}
+                        handleClick={handleConfirm}
                     />
 
                     <PrblmBtn
@@ -213,7 +285,7 @@ export default function PracticeProblemsDiv() {
                         <ContentDiv
                             div_key={`hint-div`}
                             div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap`}
-                            order={[hintCancelBtn, hintH2, text]}
+                            order={[hintCancelBtn, hintH2, hintText]}
                         />
                     </div>
             }
@@ -231,7 +303,12 @@ export default function PracticeProblemsDiv() {
 
             {
                 confirmAnswerPopup && 
-                    <div>
+                    <div className={`${popupDivTw}`}>
+                        <ContentDiv
+                            div_key={`tutorial-div`}
+                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px]`}
+                            order={[confirmH2, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
+                        />
                     </div>
             }
         </div>

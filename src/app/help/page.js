@@ -10,7 +10,7 @@ export default function Help() {
 
   return (
     <div
-      className="w-full mt-[32px] flex flex-wrap place-content-center"
+      className="w-full mt-[32px]"
     >
       <div
         className={`w-full place-items-center mb-[150px]`}

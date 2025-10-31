@@ -33,6 +33,11 @@ body {
   background-size: 100vw;
   background-position-y: 100px;
   font-family: "Noto Sans", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+main{
+  min-height: calc(80vh);
 }
 
 #banner-img {
