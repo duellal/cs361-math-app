@@ -278,7 +278,7 @@ export default function PracticeProblemsDiv(props) {
 
                         {
                             inputErr ? 
-                                <p className="text-red font-bold mt-[10px] text-center [text-shadow:0px_0px_10px_white]">
+                                <p className="text-error-red font-bold mt-[10px] text-center [text-shadow:0px_0px_10px_white]">
                                     Input must be a number
                                 </p>
                             : null
