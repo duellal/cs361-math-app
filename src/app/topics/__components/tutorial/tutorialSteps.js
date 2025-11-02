@@ -1,4 +1,4 @@
-export default tutorialStepsArr = [
+const tutorialStepsArr = [
     `Click the question mark to see a video tutorial!`, 
     `At any time, if you need help solving the problem, click the "Need a Hint?" button.`,
     `Move your cursor over this box and click to input your answer!`,
@@ -9,3 +9,5 @@ export default tutorialStepsArr = [
     `If you would like to give the problem another shot, click "Try Again".`,
     `If you want to go to the next problem, click this button!`,
 ]
+
+export default tutorialStepsArr

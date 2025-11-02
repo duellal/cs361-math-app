@@ -1,25 +1,46 @@
 'use client'
 
+import PrblmBtn from "@/app/__components/PracticePrblmBtn";
+
 
 export default function TutorialComponent(props) {
-    const { arrowBeforeTw, arrowAfterTw, bubbleDivTw, numStep, text, textTw, totalSteps } = props
+    const { arrowBeforeTw, arrowAfterTw, btnsDivTw, btnsTw, btnArr, bubbleDivTw, mainDivTw, numStep, text, textTw, totalSteps } = props
     return (
         <div
-            className={`relative left-[52%] -top-[78%] text-dark-blue`}
+            className={`${mainDivTw}`}
         >
             <div
                 className={`${bubbleDivTw} ${arrowBeforeTw} ${arrowAfterTw}`}
             >
                 <div
-                    className="w-full text-end text-[12px] font-medium"
+                    className="w-full text-end text-[12px]"
                 >
                     {numStep} / {totalSteps}
                 </div>
-                <p className={`${textTw}`}>
-                    {text}
-                </p>
+                
+                <div
+                    className="w-full"
+                >
+                    <p className={`${textTw}`}>
+                        {text}
+                    </p>
+
+                    <div className={`${btnsDivTw}`} >
+                        {
+                            btnArr && btnArr.map((btn_text, btn_idx) => {
+                                return(
+                                    <PrblmBtn
+                                        key={`btn-${btn_text}-${btn_idx}`}
+                                        text={btn_text}
+                                        tw={`${btnsTw}`}
+                                        handleClick={null}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
+                </div> 
             </div>
-            
         </div>
     );
 }

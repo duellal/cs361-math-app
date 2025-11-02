@@ -6,21 +6,24 @@ import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
+
+// Components
 import TutorialComponent from "../tutorial/tutorial";
 
-
+// Styling:
 // Buttons
 const mainBtnTw = `rounded-lg h-[45px]`
-const bottomBtnsTw = `${mainBtnTw} w-[132px] text-center p-3 cursor-pointer`
-const confirmAnswerBtnTw = `${bottomBtnsTw} w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
+const bottomBtnsTw = `${mainBtnTw} text-center cursor-pointer`
+const confirmAnswerBtnTw = `${bottomBtnsTw} w-[132px] p-3 bg-white w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
 const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
 cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
-
 // Divs
 const divMarginsTw = `px-[50px] py-[20px]`
-
 // Headers
 const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
+
+// Variables
+import tutorialStepsArr from "../tutorial/tutorialSteps";
 
 
 export default function PracticeProblemsDiv(props) {
@@ -32,8 +35,7 @@ export default function PracticeProblemsDiv(props) {
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
-    const [numStep, setNumStep] = useState(1)
-    const [totalSteps, setTotalSteps] = useState(8)
+    const [numStep, setNumStep] = useState(0)
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
@@ -233,22 +235,22 @@ export default function PracticeProblemsDiv(props) {
         >
             {/* h3, hint button + tutorial button */}
             <div className={`w-full flex items-end justify-between`}>
-                <h3 className={`border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
+                <h3 className={`max-w-fit border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
                     Directions
                 </h3>
 
-                <div className={`w-[50%] flex justify-end self-center`}>
+                <div className={`flex justify-end self-center`}>
                     <PrblmBtn 
                         text={'Need a Hint?'}
                         handleClick={handleHint}
-                        tw={`${bottomBtnsTw} w-auto`}
+                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white w-auto mx-[10px]`}
                     />
 
                 
                     <PrblmBtn
                         text={'?'}
                         handleClick={handleVideoBtn}
-                        tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer`}
+                        tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white`}
                     />
                 </div>
             </div>
@@ -317,13 +319,13 @@ export default function PracticeProblemsDiv(props) {
                     <PrblmBtn
                         disabled={submitDisable}
                         text={'Submit'}
-                        tw={`${bottomBtnsTw} mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
+                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
                         handleClick={handleConfirm}
                     />
 
                     <PrblmBtn
                         text={'Skip Problem'}
-                        tw={`${bottomBtnsTw}`}
+                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white`}
                         handleClick={handleSkip}
                     />
                 </div>
@@ -364,29 +366,40 @@ export default function PracticeProblemsDiv(props) {
 
             {
                 !tutorialDisable && 
-                    <TutorialComponent
-                        text={`Some text for width here`}
-                        textTw={`text-wrap text-dark-blue`}
-                        bubbleDivTw={`relative left-1/5 top-[-125px] min-size-fit bg-white 
-                            border-4 border-dark-blue rounded-[10px] px-3 pt-2 pb-5`
-                        }
-                        arrowBeforeTw={`before:content-[''] before:absolute
-                            before:left-[18%] before:bottom-[-32px]
-                            before:border-l-[16px] before:border-l-dark-blue
-                            before:border-r-[16px] before:border-r-transparent
-                            before:border-t-[16px] before:border-t-dark-blue
-                            before:border-b-[16px] before:border-b-transparent`
-                        }
-                        arrowAfterTw={`after:content-[''] after:absolute
-                            after:left-[20%] after:bottom-[-20px]
-                            after:border-l-[10px] after:border-l-white
-                            after:border-r-[10px] after:border-r-transparent
-                            after:border-t-[10px] after:border-t-white
-                            after:border-b-[10px] after:border-b-transparent`
-                        }
-                        numStep={numStep}
-                        totalSteps={totalSteps}
-                    />
+                    tutorialStepsArr.map((step, step_idx) => {
+
+                        return(
+                            numStep === step_idx && <TutorialComponent
+                                key={`tutorial-step-${step_idx + 1}`}
+                                arrowBeforeTw={`before:content-[''] before:absolute
+                                    before:left-[18.5%] before:bottom-[-32px]
+                                    before:border-l-[16px] before:border-l-dark-blue
+                                    before:border-r-[16px] before:border-r-transparent
+                                    before:border-t-[16px] before:border-t-dark-blue
+                                    before:border-b-[16px] before:border-b-transparent`
+                                }
+                                arrowAfterTw={`after:content-[''] after:absolute
+                                    after:left-[20%] after:bottom-[-20px]
+                                    after:border-l-[10px] after:border-l-white
+                                    after:border-r-[10px] after:border-r-transparent
+                                    after:border-t-[10px] after:border-t-white
+                                    after:border-b-[10px] after:border-b-transparent`
+                                }
+                                btnArr={['Skip Tutorial', 'Next']}
+                                btnsDivTw={`w-full flex justify-evenly my-[8px]`}
+                                btnsTw={`${bottomBtnsTw} h-auto w-[110px] border-2 border-medium-blue bg-light-blue`}
+                                bubbleDivTw={`relative left-[23%] top-[-135px] 
+                                    min-size-fit bg-white 
+                                    border-4 border-dark-blue rounded-[30px] px-3 pt-2 pb-1`
+                                }
+                                mainDivTw={`w-[300px] relative left-[52%] -top-[78%] text-dark-blue text-[14px] font-medium`}
+                                numStep={step_idx + 1}  
+                                text={step}
+                                textTw={`w-[80%] justify-self-center text-center text-dark-blue`}
+                                totalSteps={tutorialStepsArr.length}
+                            />
+                        )
+                    })
             }
         </div>
     );
