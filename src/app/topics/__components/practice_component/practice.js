@@ -23,7 +23,7 @@ const divMarginsTw = `px-[50px] py-[20px]`
 const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 // Variables
-import tutorialStepsArr from "../tutorial/tutorialSteps";
+import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
 
 
 export default function PracticeProblemsDiv(props) {
@@ -367,6 +367,7 @@ export default function PracticeProblemsDiv(props) {
             {
                 !tutorialDisable && 
                     tutorialStepsArr.map((step, step_idx) => {
+                        const { text, mainDivTw } = step
 
                         return(
                             numStep === step_idx && <TutorialComponent
@@ -385,16 +386,18 @@ export default function PracticeProblemsDiv(props) {
                                     after:border-t-[10px] after:border-t-white
                                     after:border-b-[10px] after:border-b-transparent`
                                 }
-                                btnArr={['Skip Tutorial', 'Next']}
+                                btnArr={btnArr}
                                 btnsDivTw={`w-full flex justify-evenly my-[8px]`}
                                 btnsTw={`${bottomBtnsTw} h-auto w-[110px] border-2 border-medium-blue bg-light-blue`}
                                 bubbleDivTw={`relative left-[23%] top-[-135px] 
                                     min-size-fit bg-white 
                                     border-4 border-dark-blue rounded-[30px] px-3 pt-2 pb-1`
                                 }
-                                mainDivTw={`w-[300px] relative left-[52%] -top-[78%] text-dark-blue text-[14px] font-medium`}
+                                mainDivTw={mainDivTw}
                                 numStep={step_idx + 1}  
-                                text={step}
+                                setNumStep={setNumStep}
+                                setTutorialDisable={setTutorialDisable}
+                                text={text}
                                 textTw={`w-[80%] justify-self-center text-center text-dark-blue`}
                                 totalSteps={tutorialStepsArr.length}
                             />
