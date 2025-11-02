@@ -6,7 +6,7 @@ import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
-import TutorialComponent from "../tutorial";
+import TutorialComponent from "../tutorial/tutorial";
 
 
 // Buttons
@@ -32,6 +32,8 @@ export default function PracticeProblemsDiv(props) {
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
+    const [numStep, setNumStep] = useState(1)
+    const [totalSteps, setTotalSteps] = useState(8)
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
@@ -363,7 +365,27 @@ export default function PracticeProblemsDiv(props) {
             {
                 !tutorialDisable && 
                     <TutorialComponent
-                        
+                        text={`Some text for width here`}
+                        textTw={`text-wrap text-dark-blue`}
+                        bubbleDivTw={`relative left-1/5 top-[-125px] min-size-fit bg-white 
+                            border-4 border-dark-blue rounded-[10px] px-3 pt-2 pb-5`
+                        }
+                        arrowBeforeTw={`before:content-[''] before:absolute
+                            before:left-[18%] before:bottom-[-32px]
+                            before:border-l-[16px] before:border-l-dark-blue
+                            before:border-r-[16px] before:border-r-transparent
+                            before:border-t-[16px] before:border-t-dark-blue
+                            before:border-b-[16px] before:border-b-transparent`
+                        }
+                        arrowAfterTw={`after:content-[''] after:absolute
+                            after:left-[20%] after:bottom-[-20px]
+                            after:border-l-[10px] after:border-l-white
+                            after:border-r-[10px] after:border-r-transparent
+                            after:border-t-[10px] after:border-t-white
+                            after:border-b-[10px] after:border-b-transparent`
+                        }
+                        numStep={numStep}
+                        totalSteps={totalSteps}
                     />
             }
         </div>
