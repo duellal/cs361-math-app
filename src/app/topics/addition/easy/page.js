@@ -6,14 +6,16 @@ import PracticeProblems from "../../__components/practice_component/practice";
 
 import { easyProblems } from "../additionPrblms";
 import EmptyPracticeProblems from "../../__components/practice_component/EmptyPracticeState";
+import { SolutionPage } from "../../__components/practice_component/solution";
 
 
 export default function PracticeAddition() {
     const router = useRouter()
 
     // States:
+    const [answerInput, setAnswer] = useState(null)
     const [randomIdx, setRandomIdx] = useState(0)
-
+    const [solutionDiv, setSolutionDiv] = useState(0)
 
     return (
         <div
@@ -33,14 +35,23 @@ export default function PracticeAddition() {
             </div>
             
             {
-                randomIdx !== null ?
-                    <PracticeProblems
-                        prblmArr={easyProblems}
-                        randomIdx={randomIdx}
-                        setRandomIdx={setRandomIdx}
-                    />
+                !solutionDiv ?
+                    easyProblems?.length > 0 && randomIdx !== null ?
+                        <PracticeProblems
+                            answerInput={answerInput}
+                            prblmArr={easyProblems}
+                            randomIdx={randomIdx}
+                            setAnswer={setAnswer}
+                            setRandomIdx={setRandomIdx}
+                            setSolutionDiv={setSolutionDiv}
+                        />
+                    :
+                        <EmptyPracticeProblems />
                 :
-                    <EmptyPracticeProblems />
+                <SolutionPage
+                    prblmObj={easyProblems[randomIdx]}
+                    u_answer={answerInput}
+                />
             }
             
         </div>

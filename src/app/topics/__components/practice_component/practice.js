@@ -6,6 +6,7 @@ import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
+import { SolutionPage } from "./solution";
 
 
 // Buttons
@@ -23,11 +24,10 @@ const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 
 export default function PracticeProblemsDiv(props) {
-    const { prblmArr, randomIdx, setRandomIdx } = props
+    const { answerInput, prblmArr, randomIdx, setAnswer, setRandomIdx, setSolutionDiv } = props
     const router = useRouter()
 
     // States:
-    const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
@@ -87,6 +87,12 @@ export default function PracticeProblemsDiv(props) {
         }
     }
 
+    const handleSubmitBtn = () => {
+        setBlurBg(false)
+        setConfirmAnswerPopup(false)
+        setSolutionDiv(true)
+    }
+
 
     let confirmAnswer = <div 
                             className="w-full flex flex-wrap justify-center text-dark-blue text-center"
@@ -106,7 +112,7 @@ export default function PracticeProblemsDiv(props) {
                         >
                             <PrblmBtn
                                 text={'Yes, submit my answer'}
-                                handleClick={handleConfirm}
+                                handleClick={handleSubmitBtn}
                                 tw={`${confirmAnswerBtnTw}`}
                             />
 
@@ -284,7 +290,7 @@ export default function PracticeProblemsDiv(props) {
                     <div className={`${popupDivTw}`}>
                         <ContentDiv
                             div_key={`hint-div`}
-                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap`}
+                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap rounded-[60px]`}
                             order={[hintCancelBtn, hinth3, hintText]}
                         />
                     </div>
@@ -295,7 +301,7 @@ export default function PracticeProblemsDiv(props) {
                     <div className={`${popupDivTw}`}>
                         <ContentDiv
                             div_key={`tutorial-div`}
-                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between`}
+                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between rounded-[60px]`}
                             order={[videoh3, videoCancelBtn, videoVideo]}
                         />
                     </div>
@@ -306,7 +312,7 @@ export default function PracticeProblemsDiv(props) {
                     <div className={`${popupDivTw}`}>
                         <ContentDiv
                             div_key={`tutorial-div`}
-                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px]`}
+                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px] rounded-[60px]`}
                             order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
                         />
                     </div>

@@ -97,7 +97,7 @@ export default function ContentDiv(props) {
     return (
         <div
             key={div_key}
-            className={`p-[15px] w-[330px] rounded-[60px] place-content-center ${div_tw} `}
+            className={`p-[15px] w-[330px] place-content-center ${div_tw} `}
         >
             { order?.map(elem => {
                 return elem
