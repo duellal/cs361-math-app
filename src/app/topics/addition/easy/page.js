@@ -19,7 +19,6 @@ export default function PracticeAddition() {
     const [solvedArr, setSolvedArr] = useState([])
 
 
-    console.log(solvedArr)
     return (
         <div
             className="w-full mt-[32px] flex flex-wrap content-start justify-center"

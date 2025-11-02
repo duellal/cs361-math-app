@@ -6,6 +6,7 @@ import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
+import TutorialComponent from "../tutorial";
 
 
 // Buttons
@@ -32,6 +33,7 @@ export default function PracticeProblemsDiv(props) {
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
     const [submitDisable, setSubmitDisable] = useState(true)
+    const [tutorialDisable, setTutorialDisable] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
 
     // Styling with Variables:
@@ -356,6 +358,13 @@ export default function PracticeProblemsDiv(props) {
                             order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
                         />
                     </div>
+            }
+
+            {
+                !tutorialDisable && 
+                    <TutorialComponent
+                        
+                    />
             }
         </div>
     );
