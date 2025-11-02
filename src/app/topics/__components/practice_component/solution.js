@@ -61,7 +61,7 @@ export function SolutionPage(props) {
 
             {/* Solution Div */}
             <div
-                className={`w-[90%] border-6 border-dark-blue h-auto ${!showAnswer && 'bg-dark-blue/30'}`}
+                className={`w-[90%] border-6 border-dark-blue h-auto bg-dark-blue/30`}
             >
                 {/* Eye Icon + Tool Tip */}
                 <div className={`text-dark-blue w-full flex justify-end pr-[15px] pt-[5px] relative`}>
@@ -93,7 +93,7 @@ export function SolutionPage(props) {
                 </div>
 
                 {/* Explanation */}
-                <div className={`w-full ${!showAnswer && 'text-dark-blue/0'} justify-center flex`}>
+                <div className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}>
                     {prblmObj.solution}
                 </div>
             </div>
