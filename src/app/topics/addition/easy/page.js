@@ -1,12 +1,19 @@
 'use client'
 
-import PageUnderConstruction from "@/app/__components/PageConstruction";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import PracticeProblemsDiv from "../../__components/practice_component/practice";
+import PracticeProblems from "../../__components/practice_component/practice";
+
+import { easyProblems } from "../additionPrblms";
+import EmptyPracticeProblems from "../../__components/practice_component/EmptyPracticeState";
 
 
 export default function PracticeAddition() {
     const router = useRouter()
+
+    // States:
+    const [randomIdx, setRandomIdx] = useState(0)
+
 
     return (
         <div
@@ -25,7 +32,17 @@ export default function PracticeAddition() {
                 </h2>
             </div>
             
-            <PracticeProblemsDiv />
+            {
+                randomIdx !== null ?
+                    <PracticeProblems
+                        prblmArr={easyProblems}
+                        randomIdx={randomIdx}
+                        setRandomIdx={setRandomIdx}
+                    />
+                :
+                    <EmptyPracticeProblems />
+            }
+            
         </div>
     );
 }

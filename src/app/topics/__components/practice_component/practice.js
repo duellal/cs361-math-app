@@ -19,10 +19,11 @@ cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
 const divMarginsTw = `px-[50px] py-[20px]`
 
 // Headers
-const h2Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
+const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 
-export default function PracticeProblemsDiv() {
+export default function PracticeProblemsDiv(props) {
+    const { prblmArr, randomIdx, setRandomIdx } = props
     const router = useRouter()
 
     // States:
@@ -35,16 +36,9 @@ export default function PracticeProblemsDiv() {
 
     // Styling with Variables:
     const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
-
-
-    let answer = 33
-    let hint = {
-        33: `What is 20 + 10, and 0 + 3? Then, add those two sums together.`
-    }
-
+    
 
     const handleConfirm = () => {
-        console.log('Submit Answer?', answerInput)
         let answer = Number(answerInput)
 
         if (answer) {
@@ -84,7 +78,13 @@ export default function PracticeProblemsDiv() {
     }
 
     const handleSkip = () => {
-        console.log('Skip btn')
+        let nextIdx = Math.random() * (prblmArr.length - 1)
+        if(nextIdx === randomIdx){
+            setRandomIdx(null)
+        }
+        else{
+            setRandomIdx(nextIdx)
+        }
     }
 
 
@@ -129,12 +129,12 @@ export default function PracticeProblemsDiv() {
                                 </button>
                             </div>
 
-    const confirmH2 = <h2
-                        key={`confirmAnswer-h2`}
-                        className={h2Tw}
+    const confirmh3 = <h3
+                        key={`confirmAnswer-h3`}
+                        className={h3Tw}
                     >
                         Confirm Answer
-                    </h2>
+                    </h3>
 
 
     let confirmText =   <p
@@ -155,18 +155,18 @@ export default function PracticeProblemsDiv() {
                         </button>
                     </div>
     
-    const hintH2 =  <h2 
+    const hinth3 =  <h3 
                         key={`hint`}
-                        className={h2Tw}
+                        className={h3Tw}
                     >
                         Hint
-                    </h2>
+                    </h3>
 
     const hintText = <p
                     key={`hint-text`}
                     className={`text-dark-blue text-center text-[18px] px-[20px] font-[500]`}
                 >
-                    { hint[answer] }
+                    { prblmArr[randomIdx]?.hint }
                 </p>
 
     const videoCancelBtn = <button
@@ -177,12 +177,12 @@ export default function PracticeProblemsDiv() {
                         <XIcon size={22} weight="bold" />
                     </button>
 
-    const videoH2 = <h2 
-                        key={`tutorial-h2`}
-                        className={`${h2Tw} mb-[-10px]`}
+    const videoh3 = <h3 
+                        key={`tutorial-h3`}
+                        className={`${h3Tw} mb-[-10px]`}
                     >
                             Tutorial
-                        </h2>
+                        </h3>
 
     const videoVideo = <video
                             key={`tutorial-video`}
@@ -200,11 +200,11 @@ export default function PracticeProblemsDiv() {
         <div
             className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
         >
-            {/* h2, hint button + tutorial button */}
+            {/* h3, hint button + tutorial button */}
             <div className={`w-full flex items-end justify-between`}>
-                <h2 className={`border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
+                <h3 className={`border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
                     Directions
-                </h2>
+                </h3>
 
                 <div className={`w-[50%] flex justify-end self-center`}>
                     <PrblmBtn 
@@ -233,7 +233,7 @@ export default function PracticeProblemsDiv() {
 
             {/* Problem */}
             <SimpleProblem
-                numArr={[20, '+', 13, '=', null]}
+                numArr={prblmArr[randomIdx]?.problem}
                 setAnswer={setAnswer}
             />
 
@@ -285,7 +285,7 @@ export default function PracticeProblemsDiv() {
                         <ContentDiv
                             div_key={`hint-div`}
                             div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap`}
-                            order={[hintCancelBtn, hintH2, hintText]}
+                            order={[hintCancelBtn, hinth3, hintText]}
                         />
                     </div>
             }
@@ -296,7 +296,7 @@ export default function PracticeProblemsDiv() {
                         <ContentDiv
                             div_key={`tutorial-div`}
                             div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between`}
-                            order={[videoH2, videoCancelBtn, videoVideo]}
+                            order={[videoh3, videoCancelBtn, videoVideo]}
                         />
                     </div>
             }
@@ -307,7 +307,7 @@ export default function PracticeProblemsDiv() {
                         <ContentDiv
                             div_key={`tutorial-div`}
                             div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px]`}
-                            order={[confirmH2, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
+                            order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
                         />
                     </div>
             }
