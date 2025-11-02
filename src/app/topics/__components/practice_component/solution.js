@@ -15,7 +15,7 @@ const divMarginsTw = `px-[50px] py-[20px]`
 
 export function SolutionPage(props) {
     // Variables:
-    const { prblmArr, randomIdx, setRandomIdx, setSolutionDiv, u_answer } = props
+    const { prblmArr, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, u_answer } = props
 
     let c_answer = prblmArr[randomIdx]?.answer
     let solution_btns_arr = []
@@ -54,13 +54,32 @@ export function SolutionPage(props) {
 
     
     const handleNext = () => {
-        let nextIdx = Math.random() * (prblmArr[randomIdx]?.length - 1)
+        let idx = randomIdx + 1
 
-        if (nextIdx === randomIdx) {
+        if (solvedArr.length === prblmArr.length) {
             setRandomIdx(null)
+            setSolutionDiv(null)
+            return
+        }
+        else if (idx >= prblmArr.length) {
+            idx = 0
+        }
+
+        if (!solvedArr.includes(idx)) {
+            setRandomIdx(idx)
         }
         else {
-            setRandomIdx(nextIdx)
+            while (solvedArr.includes(idx)) {
+                idx += 1
+
+                if(idx >= prblmArr.length) {
+                    idx = 0
+                }
+
+                if (!solvedArr.includes(idx)) {
+                    setRandomIdx(idx)
+                }
+            }
         }
 
         setSolutionDiv(null)

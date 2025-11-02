@@ -16,8 +16,10 @@ export default function PracticeAddition() {
     const [answerInput, setAnswer] = useState(null)
     const [randomIdx, setRandomIdx] = useState(0)
     const [solutionDiv, setSolutionDiv] = useState(null)
-    
+    const [solvedArr, setSolvedArr] = useState([])
 
+
+    console.log(solvedArr)
     return (
         <div
             className="w-full mt-[32px] flex flex-wrap content-start justify-center"
@@ -43,10 +45,12 @@ export default function PracticeAddition() {
                         setAnswer={setAnswer}
                         setRandomIdx={setRandomIdx}
                         setSolutionDiv={setSolutionDiv}
+                        setSolvedArr={setSolvedArr}
+                        solvedArr={solvedArr}
                         u_answer={answerInput}
                     />
                 :
-                    easyProblems?.length > 0 && typeof(randomIdx) === 'number' ?
+                    easyProblems?.length !== solvedArr?.length && typeof(randomIdx) === 'number' ?
                         <PracticeProblems
                             answerInput={answerInput}
                             prblmArr={easyProblems}
@@ -54,6 +58,8 @@ export default function PracticeAddition() {
                             setAnswer={setAnswer}
                             setRandomIdx={setRandomIdx}
                             setSolutionDiv={setSolutionDiv}
+                            setSolvedArr={setSolvedArr}
+                            solvedArr={solvedArr}
                         />
                     :
                         <EmptyPracticeProblems />

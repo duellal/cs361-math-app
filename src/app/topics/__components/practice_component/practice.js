@@ -6,7 +6,6 @@ import { SimpleProblem } from "./problem";
 import { useState } from "react";
 import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
-import { SolutionPage } from "./solution";
 
 
 // Buttons
@@ -24,7 +23,7 @@ const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 
 export default function PracticeProblemsDiv(props) {
-    const { answerInput, prblmArr, randomIdx, setAnswer, setRandomIdx, setSolutionDiv } = props
+    const { answerInput, prblmArr, randomIdx, setAnswer, setRandomIdx, setSolutionDiv, setSolvedArr, solvedArr } = props
     const router = useRouter()
 
     // States:
@@ -76,16 +75,39 @@ export default function PracticeProblemsDiv(props) {
     }
 
     const handleSkip = () => {
-        let nextIdx = Math.random() * (prblmArr.length - 1)
-        if(nextIdx === randomIdx){
+        let idx = randomIdx + 1
+
+        if (solvedArr.length === prblmArr.length) {
             setRandomIdx(null)
+            return
         }
-        else{
-            setRandomIdx(nextIdx)
+        else if (idx >= prblmArr.length) {
+            idx = 0
+        }
+
+        if (!solvedArr.includes(idx)) {
+            setRandomIdx(idx)
+        }
+        else {
+            while (solvedArr.includes(idx)) {
+                idx += 1
+
+                if (idx >= prblmArr.length) {
+                    idx = 0
+                }
+
+                if (!solvedArr.includes(idx)) {
+                    setRandomIdx(idx)
+                }
+            }
         }
     }
 
     const handleSubmitBtn = () => {
+        if(answerInput === prblmArr[randomIdx].answer){
+            setSolvedArr([...solvedArr, randomIdx])
+        }
+
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)
@@ -258,7 +280,7 @@ export default function PracticeProblemsDiv(props) {
                                 let value = evt.target.value
 
                                 if (value.length > 0) {
-                                    if(value.match(/[a-zA-Z]/)){
+                                    if(!value.match(/[0-9]/)){
                                         setInputErr(true)
                                         setSubmitDisable(true)
                                     }

@@ -33,6 +33,28 @@ const easyProblems = [
                             </li>
                         </ol>
                      </div>
+    },
+    {
+        problem: [4, '+', 8, '=', null],
+        answer: 12,
+        hint: `What is 8 + 2? Now add 2 more.`,
+        solution: <div className="w-[90%] mb-[20px]">
+            <h5 className="flex justify-self-start mb-[10px] text-[20px] font-bold"> Steps: </h5>
+
+            <ol className="list-decimal w-[90% justify-center flex flex-wrap mx-[40px]">
+                <li className="pl-[10px] mb-[20px] w-full">
+                    <p className="mb-[10px]">Add 8 + 2:</p>
+                    <div className="w-full text-center">
+                        <p> 8 + 2 = 10 </p>
+                    </div>
+                </li>
+
+                <li className="pl-[10px] mb-[20px] w-full">
+                    <p className="mb-[10px]"> Then, add the difference of 2 and 4 which is 2 to 10:</p>
+                    <p className="text-center"> 10 + 2 = 12 </p>
+                </li>
+            </ol>
+        </div>
     }
 ]
 
