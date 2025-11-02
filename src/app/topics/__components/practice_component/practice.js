@@ -11,7 +11,7 @@ import { SolutionPage } from "./solution";
 
 // Buttons
 const mainBtnTw = `rounded-lg h-[45px]`
-const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
+const bottomBtnsTw = `${mainBtnTw} w-[132px] text-center p-3 cursor-pointer`
 const confirmAnswerBtnTw = `${bottomBtnsTw} w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
 const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
 cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
@@ -145,6 +145,7 @@ export default function PracticeProblemsDiv(props) {
 
     let confirmText =   <p
                             className="w-full text-dark-blue text-center mt-[30px] mb-[20px]"
+                            key={`confirm-p`}
                         >
                             Would you like to submit your answer?
                         </p>

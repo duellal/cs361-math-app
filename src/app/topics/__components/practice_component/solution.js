@@ -1,18 +1,23 @@
 'use client'
 
 import ContentDiv from "@/app/__components/contentDiv"
-import { EyeClosedIcon, EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
+import PrblmBtn from "@/app/__components/PracticePrblmBtn"
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
 import { useState } from "react"
 
+
 // Styling:
+// Buttons
+const mainBtnTw = `rounded-lg h-[45px]`
+const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
 // Divs
 const divMarginsTw = `px-[50px] py-[20px]`
 
 export function SolutionPage(props) {
     // Variables:
-    const { prblmObj, u_answer } = props
+    const { prblmArr, randomIdx, setRandomIdx, setSolutionDiv, u_answer } = props
 
-    let c_answer = prblmObj.answer
+    let c_answer = prblmArr[randomIdx]?.answer
     let solution_btns_arr = []
     let solution_color
     let solution_title
@@ -35,13 +40,35 @@ export function SolutionPage(props) {
 
     const solution_header = <h3 
                                 className={`w-fit text-[35px] font-bold mb-[10px] border-b-4 border-${solution_color}`}
+                                key={`h3-title`}
                             >
                                 { solution_title }
                             </h3>
 
-    const showEyeText = <p className="w-fit text-nowrap">
+    const showEyeText = <p 
+                            className="w-fit text-nowrap"
+                            key={`tool-tip-p`}
+                        >
                             {`${showAnswer ? 'Hide' : 'Show'} Explanation`}
                         </p>
+
+    
+    const handleNext = () => {
+        let nextIdx = Math.random() * (prblmArr[randomIdx]?.length - 1)
+
+        if (nextIdx === randomIdx) {
+            setRandomIdx(null)
+        }
+        else {
+            setRandomIdx(nextIdx)
+        }
+
+        setSolutionDiv(null)
+    }
+
+    const handleTryAgain = () => {
+        setSolutionDiv(false)
+    }
 
     return (
         <div
@@ -94,8 +121,27 @@ export function SolutionPage(props) {
 
                 {/* Explanation */}
                 <div className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}>
-                    {prblmObj.solution}
+                    {prblmArr[randomIdx]?.solution}
                 </div>
+            </div>
+
+            {/* Buttons */}
+            <div
+                className="w-[90%] flex justify-center" 
+            >
+                {
+                    solution_btns_arr.map((btn_txt, idx) => {
+                        let click = btn_txt.includes('Try') ? handleTryAgain : handleNext
+
+                        return (
+                            <PrblmBtn
+                                key={`${idx + 1}-btn`}
+                                text={btn_txt}
+                                tw={`mx-[30px] mt-[32px] min-w-fit ${bottomBtnsTw}`}
+                                handleClick={click}
+                            />)
+                    })
+                }
             </div>
         </div>
     )

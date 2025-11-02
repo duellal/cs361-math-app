@@ -6,7 +6,7 @@ export function SimpleProblem(props){
     return (
         <div className="w-full text-center text-[67px] text-black flex place-items-center justify-center my-[40px]">
             {
-                numArr.map((elem, idx) => {
+                numArr?.map((elem, idx) => {
                     if(elem){
                         return(
                             <div

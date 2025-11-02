@@ -15,7 +15,8 @@ export default function PracticeAddition() {
     // States:
     const [answerInput, setAnswer] = useState(null)
     const [randomIdx, setRandomIdx] = useState(0)
-    const [solutionDiv, setSolutionDiv] = useState(0)
+    const [solutionDiv, setSolutionDiv] = useState(null)
+    
 
     return (
         <div
@@ -35,8 +36,17 @@ export default function PracticeAddition() {
             </div>
             
             {
-                !solutionDiv ?
-                    easyProblems?.length > 0 && randomIdx !== null ?
+                solutionDiv ?
+                    <SolutionPage
+                        prblmArr={easyProblems}
+                        randomIdx={randomIdx}
+                        setAnswer={setAnswer}
+                        setRandomIdx={setRandomIdx}
+                        setSolutionDiv={setSolutionDiv}
+                        u_answer={answerInput}
+                    />
+                :
+                    easyProblems?.length > 0 && typeof(randomIdx) === 'number' ?
                         <PracticeProblems
                             answerInput={answerInput}
                             prblmArr={easyProblems}
@@ -47,11 +57,6 @@ export default function PracticeAddition() {
                         />
                     :
                         <EmptyPracticeProblems />
-                :
-                <SolutionPage
-                    prblmObj={easyProblems[randomIdx]}
-                    u_answer={answerInput}
-                />
             }
             
         </div>
