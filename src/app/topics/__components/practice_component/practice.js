@@ -31,6 +31,7 @@ export default function PracticeProblemsDiv(props) {
     const [blurBg, setBlurBg] = useState(false)
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
+    const [inputErr, setInputErr] = useState(null)
     const [submitDisable, setSubmitDisable] = useState(true)
     const [videoPopup, setVideoPopup] = useState(false)
 
@@ -44,9 +45,6 @@ export default function PracticeProblemsDiv(props) {
         if (answer) {
             setConfirmAnswerPopup(true)
             setAnswer(answer)
-        }
-        else {
-            console.log('Handle Error here')
         }
 
         setBlurBg(true)
@@ -251,23 +249,42 @@ export default function PracticeProblemsDiv(props) {
                         Answer:
                     </p>
 
-                    <input
-                        type="text"
-                        placeholder="Type Answer Here"
-                        className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
-                        onChange={(evt => {
-                            let value = evt.target.value
+                    <div className={`w-full`}>
+                        <input
+                            type="text"
+                            placeholder="Type Answer Here"
+                            className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
+                            onChange={(evt => {
+                                let value = evt.target.value
 
-                            if(value.length > 0){
-                                setSubmitDisable(false)
-                            }
-                            else{
-                                setSubmitDisable(true)
-                            }
+                                if (value.length > 0) {
+                                    if(value.match(/[a-zA-Z]/)){
+                                        setInputErr(true)
+                                        setSubmitDisable(true)
+                                    }
+                                    else{
+                                        setInputErr(false)
+                                        setSubmitDisable(false)
+                                    }
+                                }
+                                else {
+                                    setSubmitDisable(true)
+                                    setInputErr(false)
+                                }
 
-                            setAnswer(value)
-                        })}
-                    />
+                                setAnswer(value)
+                            })}
+                        />
+
+                        {
+                            inputErr ? 
+                                <p className="text-red font-bold mt-[10px] text-center [text-shadow:0px_0px_10px_white]">
+                                    Input must be a number
+                                </p>
+                            : null
+                        }
+                    </div>
+                    
                 </div>
 
                 <div className="">
