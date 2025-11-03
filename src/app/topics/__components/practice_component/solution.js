@@ -4,18 +4,26 @@ import ContentDiv from "@/app/__components/contentDiv"
 import PrblmBtn from "@/app/__components/PracticePrblmBtn"
 import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
 import { useState } from "react"
-
+import TutorialComponent from "../tutorial/tutorial"
+import tutorialStepsArr from "../tutorial/tutorialArrays"
+import { btnArr } from "../tutorial/tutorialArrays"
 
 // Styling:
 // Buttons
-const mainBtnTw = `rounded-lg h-[45px]`
-const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
+const mainBtnTw = `rounded-lg h-[45px] border-3 border-dark-blue text-dark-blue p-2`
+const bottomBtnsTw = `${mainBtnTw} text-center cursor-pointer`
+const confirmAnswerBtnTw = `${bottomBtnsTw} w-[132px] p-3 bg-white w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
+const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
+cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
 // Divs
 const divMarginsTw = `px-[50px] py-[20px]`
+// Headers
+const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
+
 
 export function SolutionPage(props) {
     // Variables:
-    const { prblmArr, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, u_answer } = props
+    const { answerInput, blurBg, handleConfirm, handleConfirmClose, setBlurBg, setAnswer, confirmAnswerPopup, setConfirmAnswerPopup, numStep, prblmArr, setNumStep, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, setSolvedArr, tutorialDisable, setTutorialDisable, submitDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv, u_answer } = props
 
     let c_answer = prblmArr[randomIdx]?.answer
     let solution_btns_arr = []
@@ -90,75 +98,134 @@ export function SolutionPage(props) {
     }
 
     return (
-        <div
-            className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
-        >
-            <ContentDiv
-                div_tw={`w-[520px] border-[6px] border-${solution_color} rounded-3xl flex justify-center bg-dark-blue py-[5px] h-[80px]`}
-                order={[solution_header]}
-            />
-
-            <h4 className={`w-full text-center text-[24px] font-bold mt-[20px]`}>
-                Answer Explanation
-            </h4>
-            <p className={`w-full text-center text-[18px] mb-[20px]`}>
-                (This is only <strong><i>one</i></strong> way to solve the problem)
-            </p>
-
-            {/* Solution Div */}
+        <div className="w-full flex justify-center">
             <div
-                className={`w-[90%] border-6 border-dark-blue h-auto bg-dark-blue/30`}
+                className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
             >
-                {/* Eye Icon + Tool Tip */}
-                <div className={`text-dark-blue w-full flex justify-end pr-[15px] pt-[5px] relative`}>
-                    {
-                        showTip ?
-                            <div className="w-fit flex flex-wrap justify-center">
-                                <ContentDiv
-                                    div_tw={`border-2 rounded-xl border-white absolute top-[-60px] bg-dark-blue text-white w-fit`}
-                                    order={[showEyeText]}
-                                />
-                            </div>
-                        : null
-                    }
-                    <button
-                        className="cursor-pointer"
-                        onClick={() => setShowAnswer(!showAnswer)}
-                        onMouseEnter={() => setShowTip(true)}
-                        onMouseLeave={() => setShowTip(false)}
-                    >
-                    {/* Add tooltip on hover to have text saying "Show solution" */}
+                <ContentDiv
+                    div_tw={`w-[520px] border-[6px] border-${solution_color} rounded-3xl flex justify-center bg-dark-blue py-[5px] h-[80px]`}
+                    order={[solution_header]}
+                />
+
+                <h4 className={`w-full text-center text-[24px] font-bold mt-[20px]`}>
+                    Answer Explanation
+                </h4>
+                <p className={`w-full text-center text-[18px] mb-[20px]`}>
+                    (This is only <strong><i>one</i></strong> way to solve the problem)
+                </p>
+
+                {/* Solution Div */}
+                <div
+                    className={`w-[90%] border-6 border-dark-blue h-auto bg-dark-blue/30`}
+                >
+                    {/* Eye Icon + Tool Tip */}
+                    <div className={`text-dark-blue w-full flex justify-end pr-[15px] pt-[5px] relative`}>
                         {
-                            showAnswer ? 
-                                <EyeSlashIcon size={32} weight="bold" className="text-dark-blue"/>
-                            :
-                                <EyeIcon size={32} weight="bold" className="text-dark-blue" />
+                            showTip ?
+                                <div className="w-fit flex flex-wrap justify-center">
+                                    <ContentDiv
+                                        div_tw={`border-2 rounded-xl border-white absolute top-[-60px] bg-dark-blue text-white w-fit`}
+                                        order={[showEyeText]}
+                                    />
+                                </div>
+                            : null
+                        }
+                        <button
+                            className="cursor-pointer"
+                            onClick={() => setShowAnswer(!showAnswer)}
+                            onMouseEnter={() => setShowTip(true)}
+                            onMouseLeave={() => setShowTip(false)}
+                        >
+                        {/* Add tooltip on hover to have text saying "Show solution" */}
+                            {
+                                showAnswer ? 
+                                    <EyeSlashIcon size={32} weight="bold" className="text-dark-blue"/>
+                                :
+                                    <EyeIcon size={32} weight="bold" className="text-dark-blue" />
 
-                        }                        
-                    </button>
+                            }                        
+                        </button>
+                    </div>
+
+                    {/* Explanation */}
+                    <div className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}>
+                        {prblmArr[randomIdx]?.solution}
+                    </div>
                 </div>
 
-                {/* Explanation */}
-                <div className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}>
-                    {prblmArr[randomIdx]?.solution}
-                </div>
-            </div>
+                {/* Buttons */}
+                <div
+                    className="w-[90%] flex justify-center" 
+                >
+                    {
+                        solution_btns_arr.map((btn_txt, idx) => {
+                            let click = btn_txt.includes('Try') ? handleTryAgain : handleNext
 
-            {/* Buttons */}
-            <div
-                className="w-[90%] flex justify-center" 
-            >
+                            return (
+                                <PrblmBtn
+                                    key={`${idx + 1}-btn`}
+                                    text={btn_txt}
+                                    tw={`mx-[30px] mt-[32px] min-w-fit ${bottomBtnsTw} w-[132px] p-3 bg-white`}
+                                    handleClick={click}
+                                />)
+                        })
+                    }
+                </div>
+
                 {
-                    solution_btns_arr.map((btn_txt, idx) => {
-                        let click = btn_txt.includes('Try') ? handleTryAgain : handleNext
+                    !tutorialDisable &&
+                    tutorialStepsArr.map((step, step_idx) => {
+                        const { text, mainDivTw } = step
 
                         return (
-                            <PrblmBtn
-                                key={`${idx + 1}-btn`}
-                                text={btn_txt}
-                                tw={`mx-[30px] mt-[32px] min-w-fit ${bottomBtnsTw}`}
-                                handleClick={click}
-                            />)
+                            numStep === step_idx && <TutorialComponent
+                                key={`tutorial-step-${step_idx + 1}`}
+                                arrowBeforeTw={`before:content-[''] before:absolute
+                                        before:left-[18.5%] before:bottom-[-40px]
+                                        before:border-l-[20px] before:border-l-dark-blue
+                                        before:border-r-[20px] before:border-r-transparent
+                                        before:border-t-[20px] before:border-t-dark-blue
+                                        before:border-b-[20px] before:border-b-transparent`
+                                }
+                                arrowAfterTw={`after:content-[''] after:absolute
+                                        after:left-[20%] after:bottom-[-28px]
+                                        after:border-l-[14px] after:border-l-white
+                                        after:border-r-[14px] after:border-r-transparent
+                                        after:border-t-[14px] after:border-t-white
+                                        after:border-b-[14px] after:border-b-transparent`
+                                }
+                                btnArr={btnArr}
+                                btnsDivTw={`w-full flex justify-evenly my-[8px]`}
+                                btnsTw={`${bottomBtnsTw} h-auto w-[110px] border-2 border-dark-blue bg-light-blue my-2`}
+                                bubbleDivTw={`relative left-[23%] top-[-135px] 
+                                        min-size-fit bg-white 
+                                        border-4 border-dark-blue rounded-[30px] px-3`
+                                }
+                                handleConfirm={handleConfirm}
+                                handleConfirmClose={handleConfirmClose}
+                                mainDivTw={`${mainDivTw} pointer-events-auto`}
+                                numStep={step_idx + 1}
+                                setAnswer={setAnswer}
+                                setNumStep={setNumStep}
+                                setSolutionDiv={setSolutionDiv}
+                                setSubmitDisable={setSubmitDisable}
+                                setTutorialDisable={setTutorialDisable}
+                                skipText={'Skip Tutorial'}
+                                skipTw={`text-center text-black  border-b-2 border-light-blue cursor-pointer border-0`}
+                                skipHandleClick={props => {
+                                    const { evt, setTutorialDisable } = props
+                                    evt.preventDefault()
+                                    setTutorialDisable(true)
+                                }}
+                                text={text}
+                                textTw={`w-[80%] justify-self-center text-center text-dark-blue`}
+                                totalSteps={tutorialStepsArr.length}
+                                tutorialEndDiv={tutorialEndDiv}
+                                setTutorialEndDiv={setTutorialEndDiv}
+                                showAnswer={showAnswer} 
+                                setShowAnswer={setShowAnswer}
+                            />
+                        )
                     })
                 }
             </div>

@@ -4,18 +4,27 @@ import PrblmBtn from "@/app/__components/PracticePrblmBtn";
 
 
 export default function TutorialComponent(props) {
-    const { arrowBeforeTw, arrowAfterTw, btnsDivTw, btnsTw, btnArr, bubbleDivTw, mainDivTw, numStep, setNumStep, setTutorialDisable, text, textTw, totalSteps } = props
+    const { arrowBeforeTw, arrowAfterTw, btnsDivTw, btnsTw, btnArr, bubbleDivTw, handleConfirm, handleConfirmClose, mainDivTw, numStep, setAnswer, setNumStep, setSolutionDiv, setSubmitDisable, setTutorialDisable, skipHandleClick, skipText, skipTw, text, textTw, totalSteps, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer } = props
     return (
         <div
-            className={`${mainDivTw} border`}
+            className={`${mainDivTw}`}
         >
             <div
                 className={`${bubbleDivTw} ${arrowBeforeTw} ${arrowAfterTw}`}
             >
+                {/* Skip tutorial + Tutorial # of Steps out of total Steps */}
                 <div
-                    className="w-full text-end text-[12px]"
+                    className="flex justify-between items-center w-full text-end text-[12px] pt-3 pb-2 px-3"
                 >
-                    {numStep} / {totalSteps}
+                    <PrblmBtn
+                        text={skipText}
+                        tw={skipTw}
+                        handleClick={evt => skipHandleClick({evt, setTutorialDisable})}
+                    />
+
+                    <span>
+                        {numStep} / {totalSteps}
+                    </span>
                 </div>
                 
                 <div
@@ -30,14 +39,19 @@ export default function TutorialComponent(props) {
                             btnArr && btnArr.map((btn_obj, btn_idx) => {
                                 const { text, handleClick } = btn_obj
 
-                                return(
-                                    <PrblmBtn
-                                        key={`btn-${btn_idx}`}
-                                        text={text}
-                                        tw={`${btnsTw}`}
-                                        handleClick={evt => handleClick({evt, numStep, setNumStep, setTutorialDisable})}
-                                    />
-                                )
+                                if(numStep === 1 && btn_idx === 0){
+                                    return
+                                }
+                                else{
+                                    return (
+                                        <PrblmBtn
+                                            key={`btn-${btn_idx}`}
+                                            text={text}
+                                            tw={`${btnsTw}`}
+                                            handleClick={evt => handleClick({ evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSolutionDiv, setSubmitDisable, setNumStep, setTutorialDisable, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer })}
+                                        />
+                                    )
+                                }
                             })
                         }
                     </div>

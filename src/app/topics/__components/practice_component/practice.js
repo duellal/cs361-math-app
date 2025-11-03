@@ -12,7 +12,7 @@ import TutorialComponent from "../tutorial/tutorial";
 
 // Styling:
 // Buttons
-const mainBtnTw = `rounded-lg h-[45px]`
+const mainBtnTw = `rounded-lg h-[45px] border-3 border-dark-blue text-dark-blue p-2`
 const bottomBtnsTw = `${mainBtnTw} text-center cursor-pointer`
 const confirmAnswerBtnTw = `${bottomBtnsTw} w-[132px] p-3 bg-white w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
 const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
@@ -27,38 +27,17 @@ import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
 
 
 export default function PracticeProblemsDiv(props) {
-    const { answerInput, prblmArr, randomIdx, setAnswer, setRandomIdx, setSolutionDiv, setSolvedArr, solvedArr } = props
+    const { answerInput, blurBg, handleConfirm, handleConfirmClose, setBlurBg, setAnswer, confirmAnswerPopup, setConfirmAnswerPopup, numStep, prblmArr, setNumStep, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, setSolvedArr, tutorialDisable, setTutorialDisable, submitDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv } = props
     const router = useRouter()
 
     // States:
-    const [blurBg, setBlurBg] = useState(false)
-    const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
-    const [numStep, setNumStep] = useState(0)
-    const [submitDisable, setSubmitDisable] = useState(true)
-    const [tutorialDisable, setTutorialDisable] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
 
     // Styling with Variables:
     const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
     
-
-    const handleConfirm = () => {
-        let answer = Number(answerInput)
-
-        if (answer) {
-            setConfirmAnswerPopup(true)
-            setAnswer(answer)
-        }
-
-        setBlurBg(true)
-    }
-
-    const handleConfirmClose = (evt) => {
-        setConfirmAnswerPopup(false)
-        setBlurBg(false)
-    }
 
     const handleHint = () => {
         setBlurBg(true)
@@ -230,180 +209,202 @@ export default function PracticeProblemsDiv(props) {
     
 
     return (
-        <div
-            className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
-        >
-            {/* h3, hint button + tutorial button */}
-            <div className={`w-full flex items-end justify-between`}>
-                <h3 className={`max-w-fit border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
-                    Directions
-                </h3>
-
-                <div className={`flex justify-end self-center`}>
-                    <PrblmBtn 
-                        text={'Need a Hint?'}
-                        handleClick={handleHint}
-                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white w-auto mx-[10px]`}
-                    />
-
-                
-                    <PrblmBtn
-                        text={'?'}
-                        handleClick={handleVideoBtn}
-                        tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white`}
-                    />
-                </div>
-            </div>
-            
-            {/* Instructions */}
+        <div className="w-full flex justify-center">
             <div
-                className={`w-full text-[24px] font-medium`}
+                className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
             >
-                <p>
-                    Input the best answer below.
-                </p>
-            </div>
+                {/* h3, hint button + tutorial button */}
+                <div className={`w-full flex items-end justify-between`}>
+                    <h3 className={`max-w-fit border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}>
+                        Directions
+                    </h3>
 
-            {/* Problem */}
-            <SimpleProblem
-                numArr={prblmArr[randomIdx]?.problem}
-                setAnswer={setAnswer}
-            />
-
-            {/* Answer Input + Submit/Skip Problem Btns */}
-            <div className={`w-full mb-[20px] flex justify-between`}>
-                <div className="w-[75%] h-[50%] flex justify-between">
-                    <p className={`font-bold text-[30px] mr-[15px] content-end`}>
-                        Answer:
-                    </p>
-
-                    <div className={`w-full`}>
-                        <input
-                            type="text"
-                            placeholder="Type Answer Here"
-                            className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
-                            onChange={(evt => {
-                                let value = evt.target.value
-
-                                if (value.length > 0) {
-                                    if(!value.match(/[0-9]/)){
-                                        setInputErr(true)
-                                        setSubmitDisable(true)
-                                    }
-                                    else{
-                                        setInputErr(false)
-                                        setSubmitDisable(false)
-                                    }
-                                }
-                                else {
-                                    setSubmitDisable(true)
-                                    setInputErr(false)
-                                }
-
-                                setAnswer(value)
-                            })}
+                    <div className={`flex justify-end self-center`}>
+                        <PrblmBtn 
+                            text={'Need a Hint?'}
+                            handleClick={handleHint}
+                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white w-auto mx-[10px]`}
                         />
 
-                        {
-                            inputErr ? 
-                                <p className="text-error-red font-bold mt-[10px] text-center [text-shadow:0px_0px_10px_white]">
-                                    Input must be a number
-                                </p>
-                            : null
-                        }
-                    </div>
                     
+                        <PrblmBtn
+                            text={'?'}
+                            handleClick={handleVideoBtn}
+                            tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white`}
+                        />
+                    </div>
+                </div>
+                
+                {/* Instructions */}
+                <div
+                    className={`w-full text-[24px] font-medium`}
+                >
+                    <p>
+                        Input the best answer below.
+                    </p>
                 </div>
 
-                <div className="">
-                    <PrblmBtn
-                        disabled={submitDisable}
-                        text={'Submit'}
-                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
-                        handleClick={handleConfirm}
-                    />
+                {/* Problem */}
+                <SimpleProblem
+                    numArr={prblmArr[randomIdx]?.problem}
+                    setAnswer={setAnswer}
+                />
 
-                    <PrblmBtn
-                        text={'Skip Problem'}
-                        tw={`${bottomBtnsTw} w-[132px] p-3 bg-white`}
-                        handleClick={handleSkip}
-                    />
-                </div>
-            </div>
+                {/* Answer Input + Submit/Skip Problem Btns */}
+                <div className={`w-full mb-[20px] flex justify-between`}>
+                    <div className="w-[75%] h-[50%] flex justify-between">
+                        <p className={`font-bold text-[30px] mr-[15px] content-end`}>
+                            Answer:
+                        </p>
 
-            {
-                hintPopup && 
-                    <div className={`${popupDivTw}`}>
-                        <ContentDiv
-                            div_key={`hint-div`}
-                            div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap rounded-[60px]`}
-                            order={[hintCancelBtn, hinth3, hintText]}
-                        />
-                    </div>
-            }
+                        <div className={`w-full`}>
+                            <input
+                                type="text"
+                                placeholder="Type Answer Here"
+                                className="w-full bg-white text-dark-blue font-medium rounded-lg border-3 border-light-blue p-[10px] h-fit focus:border-dark-blue"
+                                onChange={(evt => {
+                                    let value = evt.target.value
 
-            {
-                videoPopup &&
-                    <div className={`${popupDivTw}`}>
-                        <ContentDiv
-                            div_key={`tutorial-div`}
-                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between rounded-[60px]`}
-                            order={[videoh3, videoCancelBtn, videoVideo]}
-                        />
-                    </div>
-            }
+                                    if (value.length > 0) {
+                                        if(!value.match(/[0-9]/)){
+                                            setInputErr(true)
+                                            setSubmitDisable(true)
+                                        }
+                                        else{
+                                            setInputErr(false)
+                                            setSubmitDisable(false)
+                                        }
+                                    }
+                                    else {
+                                        setSubmitDisable(true)
+                                        setInputErr(false)
+                                    }
 
-            {
-                confirmAnswerPopup && 
-                    <div className={`${popupDivTw}`}>
-                        <ContentDiv
-                            div_key={`tutorial-div`}
-                            div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px] rounded-[60px]`}
-                            order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
-                        />
-                    </div>
-            }
-
-            {
-                !tutorialDisable && 
-                    tutorialStepsArr.map((step, step_idx) => {
-                        const { text, mainDivTw } = step
-
-                        return(
-                            numStep === step_idx && <TutorialComponent
-                                key={`tutorial-step-${step_idx + 1}`}
-                                arrowBeforeTw={`before:content-[''] before:absolute
-                                    before:left-[18.5%] before:bottom-[-32px]
-                                    before:border-l-[16px] before:border-l-dark-blue
-                                    before:border-r-[16px] before:border-r-transparent
-                                    before:border-t-[16px] before:border-t-dark-blue
-                                    before:border-b-[16px] before:border-b-transparent`
-                                }
-                                arrowAfterTw={`after:content-[''] after:absolute
-                                    after:left-[20%] after:bottom-[-20px]
-                                    after:border-l-[10px] after:border-l-white
-                                    after:border-r-[10px] after:border-r-transparent
-                                    after:border-t-[10px] after:border-t-white
-                                    after:border-b-[10px] after:border-b-transparent`
-                                }
-                                btnArr={btnArr}
-                                btnsDivTw={`w-full flex justify-evenly my-[8px]`}
-                                btnsTw={`${bottomBtnsTw} h-auto w-[110px] border-2 border-medium-blue bg-light-blue`}
-                                bubbleDivTw={`relative left-[23%] top-[-135px] 
-                                    min-size-fit bg-white 
-                                    border-4 border-dark-blue rounded-[30px] px-3 pt-2 pb-1`
-                                }
-                                mainDivTw={mainDivTw}
-                                numStep={step_idx + 1}  
-                                setNumStep={setNumStep}
-                                setTutorialDisable={setTutorialDisable}
-                                text={text}
-                                textTw={`w-[80%] justify-self-center text-center text-dark-blue`}
-                                totalSteps={tutorialStepsArr.length}
+                                    setAnswer(value)
+                                })}
+                                value={answerInput ? answerInput : ''}
                             />
-                        )
-                    })
-            }
+
+                            {
+                                inputErr ? 
+                                    <p className="text-error-red font-bold mt-[10px] text-center [text-shadow:0px_0px_10px_white]">
+                                        Input must be a number
+                                    </p>
+                                : null
+                            }
+                        </div>
+                        
+                    </div>
+
+                    <div className="">
+                        <PrblmBtn
+                            disabled={submitDisable}
+                            text={'Submit'}
+                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mb-[15px] disabled:bg-[#C4C5C8] disabled:cursor-default`}
+                            handleClick={handleConfirm}
+                        />
+
+                        <PrblmBtn
+                            text={'Skip Problem'}
+                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white`}
+                            handleClick={handleSkip}
+                        />
+                    </div>
+                </div>
+
+                {
+                    hintPopup && 
+                        <div className={`${popupDivTw}`}>
+                            <ContentDiv
+                                div_key={`hint-div`}
+                                div_tw={`absolute top-[20%] w-[460px] border-[12px] border-light-blue bg-white text-dark-blue flex content-evenly flex-wrap rounded-[60px]`}
+                                order={[hintCancelBtn, hinth3, hintText]}
+                            />
+                        </div>
+                }
+
+                {
+                    videoPopup &&
+                        <div className={`${popupDivTw}`}>
+                            <ContentDiv
+                                div_key={`tutorial-div`}
+                                div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[550px] content-end justify-between rounded-[60px]`}
+                                order={[videoh3, videoCancelBtn, videoVideo]}
+                            />
+                        </div>
+                }
+
+                {
+                    confirmAnswerPopup && 
+                        <div className={`${popupDivTw}`}>
+                            <ContentDiv
+                                div_key={`tutorial-div`}
+                                div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px] rounded-[60px]`}
+                                order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
+                            />
+                        </div>
+                }
+
+                {
+                    !tutorialDisable && 
+                        tutorialStepsArr.map((step, step_idx) => {
+                            const { text, mainDivTw } = step
+
+                            return(
+                                numStep === step_idx && <TutorialComponent
+                                    key={`tutorial-step-${step_idx + 1}`}
+                                    arrowBeforeTw={`before:content-[''] before:absolute
+                                        before:left-[18.5%] before:bottom-[-40px]
+                                        before:border-l-[20px] before:border-l-dark-blue
+                                        before:border-r-[20px] before:border-r-transparent
+                                        before:border-t-[20px] before:border-t-dark-blue
+                                        before:border-b-[20px] before:border-b-transparent`
+                                    }
+                                    arrowAfterTw={`after:content-[''] after:absolute
+                                        after:left-[20%] after:bottom-[-28px]
+                                        after:border-l-[14px] after:border-l-white
+                                        after:border-r-[14px] after:border-r-transparent
+                                        after:border-t-[14px] after:border-t-white
+                                        after:border-b-[14px] after:border-b-transparent`
+                                    }
+                                    btnArr={btnArr}
+                                    btnsDivTw={`w-full flex justify-evenly my-[8px]`}
+                                    btnsTw={`${bottomBtnsTw} h-auto w-[110px] border-2 border-dark-blue bg-light-blue my-2`}
+                                    bubbleDivTw={`relative left-[23%] top-[-135px] 
+                                        min-size-fit bg-white 
+                                        border-4 border-dark-blue rounded-[30px] px-3`
+                                    }
+                                    handleConfirm={handleConfirm}
+                                    handleConfirmClose={handleConfirmClose}
+                                    mainDivTw={`${mainDivTw} pointer-events-auto`}
+                                    numStep={step_idx + 1}  
+                                    setAnswer={setAnswer}
+                                    setNumStep={setNumStep}
+                                    setSolutionDiv={setSolutionDiv}
+                                    setSubmitDisable={setSubmitDisable}
+                                    setTutorialDisable={setTutorialDisable}
+                                    skipText={'Skip Tutorial'}
+                                    skipTw={`text-center text-black  border-b-2 border-light-blue cursor-pointer border-0`}
+                                    skipHandleClick={props => {
+                                        const { evt, setTutorialDisable } = props
+                                        evt.preventDefault()
+                                        setTutorialDisable(true)
+                                    }}
+                                    text={text}
+                                    textTw={`w-[80%] justify-self-center text-center text-dark-blue`}
+                                    totalSteps={tutorialStepsArr.length}
+                                    tutorialEndDiv={tutorialEndDiv}
+                                    setTutorialEndDiv={setTutorialEndDiv}
+                                />
+                            )
+                        })
+                }
+
+                {
+                    !tutorialDisable && tutorialEndDiv &&
+                        <></>
+                }
+            </div>
         </div>
     );
 }
