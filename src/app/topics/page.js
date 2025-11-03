@@ -12,12 +12,14 @@ const paths = [
     title: 'addition',
     symbol: <PlusIcon size={30} weight="bold" className="flex place-self-center text-light-blue"/>,
     easy_href: '/topics/addition/easy',
-    medium_href: '/topics/addition/medium',
-    hard_href: '/topics/addition/hard'
+    disabled: ['medium', 'hard'],
+    // medium_href: '/topics/addition/medium',
+    // hard_href: '/topics/addition/hard'
   },
   {
     title: 'subtraction',
     symbol: <MinusIcon size={30} weight="bold" className="flex place-self-center text-light-blue" />,
+    disabled: ['easy', 'medium', 'hard'],
     // easy_href: '/topics/subtraction/easy',
     // medium_href: '/topics/subtraction/medium',
     // hard_href: '/topics/subtraction/hard'
@@ -25,6 +27,7 @@ const paths = [
   {
     title: 'multiplication',
     symbol: <XIcon size={30} weight="bold" className="flex place-self-center text-light-blue" />,
+    disabled: ['easy', 'medium', 'hard'],
     // easy_href: '/topics/multiplication/easy',
     // medium_href: '/topics/multiplication/medium',
     // hard_href: '/topics/multiplication/hard'
@@ -32,6 +35,7 @@ const paths = [
   {
     title: 'division',
     symbol: <DivideIcon size={30} weight="bold" className="flex place-self-center text-light-blue" />,
+    disabled: ['easy', 'medium', 'hard'],
     // easy_href: '/topics/division/easy',
     // medium_href: '/topics/division/medium',
     // hard_href: '/topics/division/hard'
@@ -76,7 +80,8 @@ const PathComponent = () => {
               >
                 {
                   btn_txt.map((txt, idx) => {
-
+                    let disabled = path.disabled.includes(txt)
+                    
                     return (
                       <Button
                         key={`${idx + Math.random()}-${txt}-btn`}
@@ -95,6 +100,7 @@ const PathComponent = () => {
                         active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
                         active:translate-y-[2px]"
                         href={path[`${txt}_href`]}
+                        disabled={disabled}
                       >
                         { txt }  
                       </Button>

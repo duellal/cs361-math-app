@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import ContentDiv from "../__components/contentDiv";
-import { instructions } from "./instructions";
+import { instructionsArr } from "./instructionsArr";
 
 
 export default function Help() {
@@ -23,10 +23,9 @@ export default function Help() {
 
         <ContentDiv
           div_key={`${Math.random()}-instructions`}
-          text={instructions}
-          div_tw={'border-[12px] border-white bg-medium-blue w-[1000px] text-white p-[40px]'}
-          p_tw={`text-left text-[18px]`}
-          li_tw={``}
+          text={instructionsArr}
+          div_tw={'border-[12px] border-white bg-medium-blue w-[1000px] text-white p-[40px] rounded-[60px]'}
+          p_tw={`text-left text-[18px] text-white`}
           ul_tw={`mx-5 my-5`}
         />
       </div>
@@ -46,11 +45,10 @@ export default function Help() {
           link={{
             href: 'mailto:mathpath.help@ethereal.email',
             text: 'mathpath.help@ethereal.email',
-            tw: 'text-white hover:border-b-2 hover:border-white'
+            tw: 'text-dark-blue hover:border-b-2 hover:border-white'
           }}
-          div_tw={'border-[12px] border-white bg-medium-blue w-[560px] px-8'}
-          p_tw={`w-full text-center text-[18px]`}
-          li_tw={``}
+          div_tw={'border-[12px] border-white bg-medium-blue w-[560px] px-8 rounded-[30px]'}
+          p_tw={`w-full text-center text-[18px] text-white`}
           ul_tw={`mx-5 my-5`}
         />
       </div>

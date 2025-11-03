@@ -1,4 +1,4 @@
-export const instructions = [
+export const instructionsArr = [
     `To answer a question, hover your mouse over the answer input box at the bottom of the section and click. You can then type your answer.`,
     
     `If you need help answer the problem, there are two buttons at the top right - hand side next to the directions.There is a button on the right - hand side that says "Need a Hint?" that will give you a hint to help you solve the problem.The left - button will show you a video of how to solve a similar problem.`,

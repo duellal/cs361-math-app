@@ -40,7 +40,7 @@ export default function Home() {
               return router.push('/topics')
           }}
         >
-          <p className="w-full text-lg">
+          <p className="w-full text-lg text-dark-blue font-bold">
             Get Started For Free!
           </p>
         </button>
@@ -56,19 +56,19 @@ export default function Home() {
         </h1>
         
         <ContentDiv
-          div_tw={`border-[12px] border-white bg-medium-blue`}
+          div_tw={`border-[12px] border-white bg-medium-blue rounded-[60px]`}
           h2_tw={`text-white`}
           title={'Practice Your Problem Solving Skills!'}
           text={'MathPath is a fun, free way to practice your math skills. Regardless of your mathematical expertise, you will find something that can help you solidify your knowledge.'}
         />
 
         <ContentDiv
-          div_tw={`border-[12px] border-white bg-medium-blue w-[430px] h-[240px] px-0 py-0`}
+          div_tw={`border-[12px] border-white bg-medium-blue w-[430px] h-[240px] px-0 py-0 rounded-[60px]`}
           title={null}
           text={null}
           img_src={practice_example}
           img_alt={``}
-          img_tw={`rounded-[18%]`}
+          img_tw={`rounded-[50px]`}
         />
       </div>
     </div>
