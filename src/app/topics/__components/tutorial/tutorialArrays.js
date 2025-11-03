@@ -80,7 +80,7 @@ export const btnArr = [
     {
         text: 'Next',
         handleClick: function (props) {
-            const { evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSubmitDisable, setNumStep, setSolutionDiv, setTutorialDisable, setTutorialEndDiv, setShowAnswer } = props
+            const { evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSubmitDisable, setNumStep, setSolutionDiv, setBlurBg, setTutorialDisable, setTutorialEndDiv, setShowAnswer } = props
             evt.preventDefault()
             setNumStep(numStep)
 
@@ -104,6 +104,7 @@ export const btnArr = [
                 setAnswer('')
                 setSubmitDisable(true)
                 setTutorialDisable(true)
+                setNumStep(0)
             }
         }
     }

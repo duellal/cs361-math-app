@@ -16,6 +16,7 @@ import { bottomBtnsTw, cancelBtnTw, divMarginsTw, h3Tw } from "@/app/_styling/tw
 
 // Variables
 import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
+import CompletedTutorial from "../popups/completedTutorial";
 
 
 export default function PracticeProblemsDiv(props) {
@@ -51,7 +52,7 @@ export default function PracticeProblemsDiv(props) {
         setBlurBg(false)
     }
 
-    const handleSkip = () => {
+    const handleSkipPrblm = () => {
         let idx = randomIdx + 1
 
         if (solvedArr.length === prblmArr.length) {
@@ -80,6 +81,16 @@ export default function PracticeProblemsDiv(props) {
         }
     }
 
+    const handleTutorialAgainClick = () => {
+        setTutorialEndDiv(false)
+        setTutorialDisable(false)
+    }
+
+    const handlePracticeClick = () => {
+        setTutorialEndDiv(false)
+        setTutorialDisable(true)
+    }
+    
     const handleSubmitBtn = () => {
         if(answerInput === prblmArr[randomIdx].answer){
             setSolvedArr([...solvedArr, randomIdx])
@@ -243,7 +254,7 @@ export default function PracticeProblemsDiv(props) {
                         <PrblmBtn
                             text={'Skip Problem'}
                             tw={`${bottomBtnsTw} w-[132px] p-3 bg-white`}
-                            handleClick={handleSkip}
+                            handleClick={handleSkipPrblm}
                         />
                     </div>
                 </div>
@@ -286,7 +297,8 @@ export default function PracticeProblemsDiv(props) {
                             const { text, mainDivTw } = step
 
                             return(
-                                numStep === step_idx && <TutorialComponent
+                                numStep === step_idx && 
+                                <TutorialComponent
                                     key={`tutorial-step-${step_idx + 1}`}
                                     arrowBeforeTw={`before:content-[''] before:absolute
                                         before:left-[18.5%] before:bottom-[-40px]
@@ -314,6 +326,7 @@ export default function PracticeProblemsDiv(props) {
                                     mainDivTw={`${mainDivTw} pointer-events-auto`}
                                     numStep={step_idx + 1}  
                                     setAnswer={setAnswer}
+                                    setBlurBg={setBlurBg}
                                     setNumStep={setNumStep}
                                     setSolutionDiv={setSolutionDiv}
                                     setSubmitDisable={setSubmitDisable}
@@ -336,8 +349,13 @@ export default function PracticeProblemsDiv(props) {
                 }
 
                 {
-                    !tutorialDisable && tutorialEndDiv &&
-                        <></>
+                    tutorialDisable && tutorialEndDiv &&
+                        <CompletedTutorial
+                            popupDivTw={popupDivTw}
+                            setBlurBg={setBlurBg}
+                            handleTutorialAgainClick={handleTutorialAgainClick} 
+                            handlePracticeClick={handlePracticeClick}
+                        />
                 }
             </div>
         </div>

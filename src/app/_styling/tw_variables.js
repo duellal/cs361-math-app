@@ -10,6 +10,7 @@ const divMarginsTw = `px-[50px] py-[20px]`
 
 // Headers
 const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
+const h4Tw = `text-[28px] font-bold text-center mb-[10px] text-dark-blue w-full`
 
 
 export {
@@ -19,4 +20,5 @@ export {
     cancelBtnTw,
     divMarginsTw,
     h3Tw,
+    h4Tw
 }

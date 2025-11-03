@@ -4,7 +4,7 @@ import PrblmBtn from "@/app/__components/PracticePrblmBtn";
 
 
 export default function TutorialComponent(props) {
-    const { arrowBeforeTw, arrowAfterTw, btnsDivTw, btnsTw, btnArr, bubbleDivTw, handleConfirm, handleConfirmClose, mainDivTw, numStep, setAnswer, setNumStep, setSolutionDiv, setSubmitDisable, setTutorialDisable, skipHandleClick, skipText, skipTw, text, textTw, totalSteps, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer } = props
+    const { arrowBeforeTw, arrowAfterTw, btnsDivTw, btnsTw, btnArr, bubbleDivTw, handleConfirm, handleConfirmClose, mainDivTw, numStep, setAnswer, setNumStep, setSolutionDiv, setSubmitDisable, setTutorialDisable, skipHandleClick, skipText, skipTw, text, textTw, totalSteps, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer, setBlurBg } = props
     return (
         <div
             className={`${mainDivTw}`}
@@ -48,7 +48,7 @@ export default function TutorialComponent(props) {
                                             key={`btn-${btn_idx}`}
                                             text={text}
                                             tw={`${btnsTw}`}
-                                            handleClick={evt => handleClick({ evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSolutionDiv, setSubmitDisable, setNumStep, setTutorialDisable, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer })}
+                                            handleClick={evt => handleClick({ evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSolutionDiv, setSubmitDisable, setNumStep, setTutorialDisable, tutorialEndDiv, setTutorialEndDiv, showAnswer, setShowAnswer, setBlurBg, setTutorialDisable })}
                                         />
                                     )
                                 }
