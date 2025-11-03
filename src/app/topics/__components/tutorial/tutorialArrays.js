@@ -59,8 +59,6 @@ export const btnArr = [
         handleClick: function (props) {
             const { evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSubmitDisable, setNumStep, setSolutionDiv, setShowAnswer } = props
             
-            console.log('NumStep:', numStep)
-
             evt.preventDefault()
             setNumStep(numStep - 2)
             if(numStep - 1 === 4){
@@ -85,8 +83,6 @@ export const btnArr = [
             const { evt, handleConfirm, handleConfirmClose, numStep, setAnswer, setSubmitDisable, setNumStep, setSolutionDiv, setTutorialDisable, setTutorialEndDiv, setShowAnswer } = props
             evt.preventDefault()
             setNumStep(numStep)
-
-            console.log('Next numstep:', numStep)
 
             if (numStep === 4) {
                 setSubmitDisable(false)
