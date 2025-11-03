@@ -1,12 +1,16 @@
 'use client'
 
+// Node Modules
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import PracticeProblems from "../../__components/practice_component/practice";
 
-import { easyProblems } from "../additionPrblms";
+// Components
 import EmptyPracticeProblems from "../../__components/practice_component/EmptyPracticeState";
+import PracticeProblems from "../../__components/practice_component/practice";
 import { SolutionPage } from "../../__components/practice_component/solution";
+
+// Variables
+import { easyProblems } from "../additionPrblms";
 
 
 export default function PracticeAddition() {
@@ -18,6 +22,7 @@ export default function PracticeAddition() {
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
     const [numStep, setNumStep] = useState(0)
     const [randomIdx, setRandomIdx] = useState(0)
+    const [skipBtnDisabled, setSkipBtnDisabled] = useState(false)
     const [solutionDiv, setSolutionDiv] = useState(null)
     const [solvedArr, setSolvedArr] = useState([])
     const [submitDisable, setSubmitDisable] = useState(true)
@@ -38,6 +43,44 @@ export default function PracticeAddition() {
     const handleConfirmClose = () => {
         setConfirmAnswerPopup(false)
         setBlurBg(false)
+    }
+
+    const handleSkipPrblm = () => {
+        let prblmArr = easyProblems
+        let idx = randomIdx + 1
+
+        if (solvedArr.length === prblmArr.length) {
+            setRandomIdx(null)
+            return
+        }
+        else if (idx >= prblmArr.length) {
+            idx = 0
+        }
+
+        if (!solvedArr.includes(idx)) {
+            setRandomIdx(idx)
+        }
+        else {
+            while (solvedArr.includes(idx)) {
+                idx += 1
+
+                if (idx >= prblmArr.length) {
+                    idx = 0
+                }
+
+                if (!solvedArr.includes(idx)) {
+                    setRandomIdx(idx)
+                }
+            }
+        }
+
+        if (solvedArr.length + 1 === prblmArr.length) {
+            setSkipBtnDisabled(true)
+        }
+
+        setSolutionDiv(null)
+        setAnswer('')
+        setSubmitDisable(true)
     }
 
     return (
@@ -83,6 +126,9 @@ export default function PracticeAddition() {
                         setTutorialDisable={setTutorialDisable}
                         tutorialEndDiv={tutorialEndDiv}
                         setTutorialEndDiv={setTutorialEndDiv}
+                        skipBtnDisabled={skipBtnDisabled}
+                        setSkipBtnDisabled={setSkipBtnDisabled}
+                        handleNext={handleSkipPrblm}
                     />
                 :
                     easyProblems?.length !== solvedArr?.length && typeof(randomIdx) === 'number' ?
@@ -110,6 +156,9 @@ export default function PracticeAddition() {
                             setTutorialDisable={setTutorialDisable}
                             tutorialEndDiv={tutorialEndDiv}
                             setTutorialEndDiv={setTutorialEndDiv}
+                            skipBtnDisabled={skipBtnDisabled}
+                            setSkipBtnDisabled={setSkipBtnDisabled}
+                            handleSkipPrblm={handleSkipPrblm}
                         />
                     :
                         <EmptyPracticeProblems />

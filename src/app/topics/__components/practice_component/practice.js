@@ -1,14 +1,17 @@
 'use client'
 
-import PrblmBtn from "@/app/__components/PracticePrblmBtn";
+// Node Modules
 import { useRouter } from "next/navigation";
-import { SimpleProblem } from "./problem";
 import { useState } from "react";
-import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
 
 // Components
+import CompletedTutorial from "../popups/completedTutorial";
 import ConfirmAnswer from "../popups/confirmAnswer";
+import ContentDiv from "@/app/__components/contentDiv";
+import PrblmBtn from "@/app/__components/PracticePrblmBtn";
+import { SimpleProblem } from "./problem";
+import SkipTutorial from "../popups/skipTutorial";
 import TutorialComponent from "../tutorial/tutorial";
 
 // Styling:
@@ -16,12 +19,10 @@ import { bottomBtnsTw, cancelBtnTw, divMarginsTw, h3Tw } from "@/app/_styling/tw
 
 // Variables
 import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
-import CompletedTutorial from "../popups/completedTutorial";
-import SkipTutorial from "../popups/skipTutorial";
 
 
 export default function PracticeProblemsDiv(props) {
-    const { answerInput, blurBg, handleConfirm, handleConfirmClose, setBlurBg, setAnswer, confirmAnswerPopup, setConfirmAnswerPopup, numStep, prblmArr, setNumStep, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, setSolvedArr, tutorialDisable, setTutorialDisable, submitDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv } = props
+    const { answerInput, blurBg, handleConfirm, handleConfirmClose, setBlurBg, setAnswer, confirmAnswerPopup, setConfirmAnswerPopup, numStep, prblmArr, setNumStep, randomIdx, handleSkipPrblm, setSolutionDiv, skipBtnDisabled, solvedArr, setSolvedArr, tutorialDisable, setTutorialDisable, submitDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv } = props
     const router = useRouter()
 
     // States:
@@ -52,38 +53,6 @@ export default function PracticeProblemsDiv(props) {
     const handleVideoClose = (evt) => {
         setVideoPopup(false)
         setBlurBg(false)
-    }
-
-    const handleSkipPrblm = () => {
-        let idx = randomIdx + 1
-
-        if (solvedArr.length === prblmArr.length) {
-            setRandomIdx(null)
-            return
-        }
-        else if (idx >= prblmArr.length) {
-            idx = 0
-        }
-
-        if (!solvedArr.includes(idx)) {
-            setRandomIdx(idx)
-        }
-        else {
-            while (solvedArr.includes(idx)) {
-                idx += 1
-
-                if (idx >= prblmArr.length) {
-                    idx = 0
-                }
-
-                if (!solvedArr.includes(idx)) {
-                    setRandomIdx(idx)
-                }
-            }
-        }
-
-        setAnswer('')
-        setSubmitDisable(true)
     }
 
     const handleTutorialAgainClick = () => {
@@ -258,8 +227,9 @@ export default function PracticeProblemsDiv(props) {
 
                         <PrblmBtn
                             text={'Skip Problem'}
-                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white`}
+                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white disabled:bg-[#C4C5C8] disabled:cursor-default`}
                             handleClick={handleSkipPrblm}
+                            disabled={skipBtnDisabled}
                         />
                     </div>
                 </div>

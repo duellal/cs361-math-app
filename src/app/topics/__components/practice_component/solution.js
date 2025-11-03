@@ -1,24 +1,28 @@
 'use client'
 
+// Node Modules
+import { useState } from "react"
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
+
+// Components
 import ContentDiv from "@/app/__components/contentDiv"
 import PrblmBtn from "@/app/__components/PracticePrblmBtn"
-import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
-import { useState } from "react"
 import TutorialComponent from "../tutorial/tutorial"
-import tutorialStepsArr from "../tutorial/tutorialArrays"
-import { btnArr } from "../tutorial/tutorialArrays"
 
-// Styling:
+// Styling
 import { bottomBtnsTw, divMarginsTw } from "@/app/_styling/tw_variables";
+
+// Variables
+import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays"
 
 
 export function SolutionPage(props) {
     // Variables:
-    const { answerInput, blurBg, handleConfirm, handleConfirmClose, setBlurBg, setAnswer, confirmAnswerPopup, setConfirmAnswerPopup, numStep, prblmArr, setNumStep, randomIdx, setRandomIdx, setSolutionDiv, solvedArr, setSolvedArr, tutorialDisable, setTutorialDisable, submitDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv, u_answer } = props
+    const { handleConfirm, handleConfirmClose, handleNext, setAnswer, numStep, prblmArr, setNumStep, randomIdx, setSolutionDiv, tutorialDisable, setTutorialDisable, setSubmitDisable, tutorialEndDiv, setTutorialEndDiv, u_answer } = props
 
     let c_answer = prblmArr[randomIdx]?.answer
     let solution_btns_arr = []
-    let solution_color
+    let solution_border_color
     let solution_title
 
     // States:
@@ -27,18 +31,18 @@ export function SolutionPage(props) {
 
     if(c_answer === u_answer){
         solution_btns_arr = ['Next Problem']
-        solution_color = 'green'
+        solution_border_color = 'border-green'
         solution_title = 'Correct'
     }
     else{
         solution_btns_arr = ['Try Again', 'Next Problem']
-        solution_color = 'red'
+        solution_border_color = 'border-red'
         solution_title = `Sorry, that's not correct`
     }
 
 
     const solution_header = <h3 
-                                className={`w-fit text-[35px] font-bold mb-[10px] border-b-4 border-${solution_color}`}
+                                className={`w-fit text-[35px] font-bold mb-[10px] border-b-4 ${solution_border_color}`}
                                 key={`h3-title`}
                             >
                                 { solution_title }
@@ -51,39 +55,6 @@ export function SolutionPage(props) {
                             {`${showAnswer ? 'Hide' : 'Show'} Explanation`}
                         </p>
 
-    
-    const handleNext = () => {
-        let idx = randomIdx + 1
-
-        if (solvedArr.length === prblmArr.length) {
-            setRandomIdx(null)
-            setSolutionDiv(null)
-            return
-        }
-        else if (idx >= prblmArr.length) {
-            idx = 0
-        }
-
-        if (!solvedArr.includes(idx)) {
-            setRandomIdx(idx)
-        }
-        else {
-            while (solvedArr.includes(idx)) {
-                idx += 1
-
-                if(idx >= prblmArr.length) {
-                    idx = 0
-                }
-
-                if (!solvedArr.includes(idx)) {
-                    setRandomIdx(idx)
-                }
-            }
-        }
-
-        setSolutionDiv(null)
-    }
-
     const handleTryAgain = () => {
         setSolutionDiv(false)
     }
@@ -94,7 +65,7 @@ export function SolutionPage(props) {
                 className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
             >
                 <ContentDiv
-                    div_tw={`w-[520px] border-[6px] border-${solution_color} rounded-3xl flex justify-center bg-dark-blue py-[5px] h-[80px]`}
+                    div_tw={`w-[520px] border-[6px] ${solution_border_color} rounded-3xl flex justify-center bg-dark-blue py-[5px] h-[80px]`}
                     order={[solution_header]}
                 />
 
