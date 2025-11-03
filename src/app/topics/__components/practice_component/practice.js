@@ -8,19 +8,11 @@ import ContentDiv from "@/app/__components/contentDiv";
 import { XIcon } from "@phosphor-icons/react";
 
 // Components
+import ConfirmAnswer from "../popups/confirmAnswer";
 import TutorialComponent from "../tutorial/tutorial";
 
 // Styling:
-// Buttons
-const mainBtnTw = `rounded-lg h-[45px] border-3 border-dark-blue text-dark-blue p-2`
-const bottomBtnsTw = `${mainBtnTw} text-center cursor-pointer`
-const confirmAnswerBtnTw = `${bottomBtnsTw} w-[132px] p-3 bg-white w-[180px] border-dark-blue h-fit py-[5px] text-[14px] font-bold`
-const cancelBtnTw = `cursor-pointer absolute top-[20px] right-[30px]
-cursor-pointer absolute top-[20px] right-[30px] text-dark-blue`
-// Divs
-const divMarginsTw = `px-[50px] py-[20px]`
-// Headers
-const h3Tw = `text-[30px] font-bold text-center mb-[10px] text-dark-blue w-full`
+import { bottomBtnsTw, cancelBtnTw, divMarginsTw, h3Tw } from "@/app/_styling/tw_variables";
 
 // Variables
 import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
@@ -97,63 +89,7 @@ export default function PracticeProblemsDiv(props) {
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)
     }
-
-
-    let confirmAnswer = <div 
-                            className="w-full flex flex-wrap justify-center text-dark-blue text-center"
-                            key={`confirm-answer-box-div`}
-                        >
-                            <p className="w-full mb-[10px]">
-                                You answered:
-                            </p>
-                            <div className="w-fit px-[25px] py-[3px] border-2 border-dark-blue">
-                                { answerInput }
-                            </div>
-                        </div>
-
-    let confirmBtns =   <div 
-                            className="w-[95%] text-dark-blue flex justify-between"
-                            key={`confirm-btn-div`}
-                        >
-                            <PrblmBtn
-                                text={'Yes, submit my answer'}
-                                handleClick={handleSubmitBtn}
-                                tw={`${confirmAnswerBtnTw}`}
-                            />
-
-                            <PrblmBtn
-                                text={'No, I want to edit my answer'}
-                                handleClick={handleConfirmClose}
-                                tw={`${confirmAnswerBtnTw}`}
-                            />
-                        </div>
-
-    let confirmCancelBtn = <div
-                                key={`confirm-cancel-div`}
-                                className="w-full"
-                            >
-                                <button
-                                    onClick={handleConfirmClose}
-                                    className={`${cancelBtnTw}`}
-                                >
-                                    <XIcon size={22} weight="bold" />
-                                </button>
-                            </div>
-
-    const confirmh3 = <h3
-                        key={`confirmAnswer-h3`}
-                        className={h3Tw}
-                    >
-                        Confirm Answer
-                    </h3>
-
-
-    let confirmText =   <p
-                            className="w-full text-dark-blue text-center mt-[30px] mb-[20px]"
-                            key={`confirm-p`}
-                        >
-                            Would you like to submit your answer?
-                        </p>
+    
 
     const hintCancelBtn = <div 
                         key={`hint-cancel-div`}
@@ -336,13 +272,12 @@ export default function PracticeProblemsDiv(props) {
 
                 {
                     confirmAnswerPopup && 
-                        <div className={`${popupDivTw}`}>
-                            <ContentDiv
-                                div_key={`tutorial-div`}
-                                div_tw={`absolute top-[20%] flex flex-wrap border-[12px] border-light-blue bg-white w-[460px] rounded-[60px]`}
-                                order={[confirmh3, confirmCancelBtn, confirmAnswer, confirmText, confirmBtns]}
-                            />
-                        </div>
+                        <ConfirmAnswer
+                            answerInput={answerInput}
+                            handleConfirmClose={handleConfirmClose}
+                            handleSubmitBtn={handleSubmitBtn}
+                            popupDivTw={popupDivTw}
+                        />
                 }
 
                 {
