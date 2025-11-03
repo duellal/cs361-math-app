@@ -9,36 +9,39 @@ export default function SkipTutorial(props){
     const { popupDivTw, setAnswer, setSubmitDisable, setSkipTutorial, setTutorialDisable } = props
 
     let skipTutorialBtns =   <div
-                            className="w-[95%] text-dark-blue flex justify-between"
-                            key={`completed-tutorial-btn-div`}
-                        >
-                            <PrblmBtn
-                                text={'Yes, Skip Tutorial'}
-                                handleClick={() => {
-                                    setSkipTutorial(false)
-                                    setTutorialDisable(true)
-                                    setAnswer('')
-                                    setSubmitDisable(true)
-                                }}
-                                tw={`${confirmAnswerBtnTw}`}
-                            />
+                                className="w-[95%] text-dark-blue flex justify-between"
+                                key={`completed-tutorial-btn-div`}
+                            >
+                                <PrblmBtn
+                                    text={'Yes, Skip Tutorial'}
+                                    handleClick={() => {
+                                        setSkipTutorial(false)
+                                        setTutorialDisable(true)
+                                        setAnswer('')
+                                        setSubmitDisable(true)
+                                    }}
+                                    tw={`${confirmAnswerBtnTw}`}
+                                    cssClass={'prblm-btns'}
+                                    
+                                />
 
-                            <PrblmBtn
-                                text={'No, Continue Tutorial'}
-                                handleClick={() => {
-                                    setSkipTutorial(false)
-                                    setTutorialDisable(false)
-                                }}
-                                tw={`${confirmAnswerBtnTw}`}
-                            />
+                                <PrblmBtn
+                                    text={'No, Continue Tutorial'}
+                                    handleClick={() => {
+                                        setSkipTutorial(false)
+                                        setTutorialDisable(false)
+                                    }}
+                                    tw={`${confirmAnswerBtnTw}`}
+                                    cssClass={'prblm-btns'}
+                                />
                         </div>
 
-    const skipTutorialH3 = <h3
-                                    key={`skipTutorialAnswer-h3`}
-                                    className={`m-0 ${h3Tw}`}
-                                >
-                                    Congradulations!
-                                </h3>
+    const skipTutorialH3 =  <h3
+                                key={`skipTutorialAnswer-h3`}
+                                className={`m-0 ${h3Tw}`}
+                            >
+                                Congradulations!
+                            </h3>
 
     const skipTutorialP1 =  <p
                                 className="w-full text-dark-blue text-center mt-[30px] mb-[20px]"

@@ -1,9 +1,9 @@
 
 export default function PrblmBtn(props) {
-    const { disabled, handleClick, text, tw } = props
+    const { cssClass, disabled, handleClick, text, tw } = props
     return (
         <button
-            className={`text-dark-blue flex place-items-center justify-center ${tw}`}
+            className={`${cssClass} text-dark-blue flex place-items-center justify-center ${tw}`}
             onClick={handleClick}
             disabled={disabled}
         >

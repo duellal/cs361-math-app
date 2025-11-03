@@ -81,6 +81,9 @@ export default function PracticeProblemsDiv(props) {
                 }
             }
         }
+
+        setAnswer('')
+        setSubmitDisable(true)
     }
 
     const handleTutorialAgainClick = () => {
