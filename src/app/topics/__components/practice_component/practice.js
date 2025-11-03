@@ -17,6 +17,7 @@ import { bottomBtnsTw, cancelBtnTw, divMarginsTw, h3Tw } from "@/app/_styling/tw
 // Variables
 import tutorialStepsArr, { btnArr } from "../tutorial/tutorialArrays";
 import CompletedTutorial from "../popups/completedTutorial";
+import SkipTutorial from "../popups/skipTutorial";
 
 
 export default function PracticeProblemsDiv(props) {
@@ -26,6 +27,7 @@ export default function PracticeProblemsDiv(props) {
     // States:
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
+    const [skipTutorialDiv, setSkipTutorial] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
 
     // Styling with Variables:
@@ -333,9 +335,9 @@ export default function PracticeProblemsDiv(props) {
                                     setTutorialDisable={setTutorialDisable}
                                     skipText={'Skip Tutorial'}
                                     skipTw={`text-center text-black  border-b-2 border-light-blue cursor-pointer border-0`}
-                                    skipHandleClick={props => {
-                                        const { evt, setTutorialDisable } = props
-                                        evt.preventDefault()
+                                    skipHandleClick={() => {
+                                        setSkipTutorial(true)
+                                        setBlurBg(true)
                                         setTutorialDisable(true)
                                     }}
                                     text={text}
@@ -352,9 +354,19 @@ export default function PracticeProblemsDiv(props) {
                     tutorialDisable && tutorialEndDiv &&
                         <CompletedTutorial
                             popupDivTw={popupDivTw}
-                            setBlurBg={setBlurBg}
                             handleTutorialAgainClick={handleTutorialAgainClick} 
                             handlePracticeClick={handlePracticeClick}
+                        />
+                }
+
+                {
+                    skipTutorialDiv &&
+                        <SkipTutorial
+                            popupDivTw={popupDivTw}
+                            setAnswer={setAnswer}
+                            setSubmitDisable={setSubmitDisable}
+                            setSkipTutorial={setSkipTutorial}
+                            setTutorialDisable={setTutorialDisable}
                         />
                 }
             </div>

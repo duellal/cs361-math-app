@@ -19,7 +19,7 @@ export default function TutorialComponent(props) {
                     <PrblmBtn
                         text={skipText}
                         tw={skipTw}
-                        handleClick={evt => skipHandleClick({evt, setTutorialDisable})}
+                        handleClick={skipHandleClick}
                     />
 
                     <span>
