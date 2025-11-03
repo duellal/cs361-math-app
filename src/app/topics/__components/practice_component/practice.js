@@ -230,7 +230,7 @@ export default function PracticeProblemsDiv(props) {
                         <PrblmBtn
                             text={'?'}
                             handleClick={handleVideoBtn}
-                            tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white`}
+                            tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white border-3 border-dark-blue`}
                         />
                     </div>
                 </div>
