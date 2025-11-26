@@ -1,4 +1,3 @@
-
 export default function PrblmBtn(props) {
     const { cssClass, disabled, handleClick, text, tw } = props
     return (
@@ -7,7 +6,7 @@ export default function PrblmBtn(props) {
             onClick={handleClick}
             disabled={disabled}
         >
-            { text }
+            {text}
         </button>
-    );
+    )
 }

@@ -1,58 +1,55 @@
 @layer theme, base, mui, components, utilities;
 @import 'tailwindcss';
 
-
 /* Custom Variable Colors */
 @theme {
-    --color-white: #F5F7FA;
-    --color-background-blue: #0087F3;
-    --color-dark-blue: #0A3D62;
-    --color-light-blue: #0ABDE3;
-    --color-medium-blue: #1A84D0;
-    --color-grey: #809AAE;
-    --color-red: #B52121;
-    --color-error-red: #6B0000;
-    --color-green: #31DB3C;
+    --color-white: #f5f7fa;
+    --color-background-blue: #0087f3;
+    --color-dark-blue: #0a3d62;
+    --color-light-blue: #0abde3;
+    --color-medium-blue: #1a84d0;
+    --color-grey: #809aae;
+    --color-red: #b52121;
+    --color-error-red: #6b0000;
+    --color-green: #31db3c;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
-
-
 
 /* CSS for the App */
 body {
-  background: var(--color-dark-blue);
-  color: var(--color-white); 
-  font-family: Arial, Helvetica, sans-serif;
-  background-image: url("../../public/images/background/blue-numbers-prism-background.jpg");
-  background-repeat: repeat;
-  background-size: 100vw;
-  background-position-y: 100px;
-  font-family: "Noto Sans", Arial, sans-serif;
-  min-height: 100vh;
+    background: var(--color-dark-blue);
+    color: var(--color-white);
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../../public/images/background/blue-numbers-prism-background.jpg');
+    background-repeat: repeat;
+    background-size: 100vw;
+    background-position-y: 100px;
+    font-family: 'Noto Sans', Arial, sans-serif;
+    min-height: 100vh;
 }
 
-main{
-  min-height: calc(80vh);
+main {
+    min-height: calc(80vh);
 }
 
 #banner-img {
-  width: 100%;
-  height: 295px;
+    width: 100%;
+    height: 295px;
 }
 
-h1{
-  justify-content: center;
-  text-align: center;
-  font-size: 65px;
-  font-weight: bold; 
+h1 {
+    justify-content: center;
+    text-align: center;
+    font-size: 65px;
+    font-weight: bold;
 }
 
-.prblm-btns{
-  height: 60px;
+.prblm-btns {
+    height: 60px;
 }

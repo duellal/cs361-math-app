@@ -1,42 +1,52 @@
 {
-  "name": "duellal-math-app",
-  "author": "Alex Duell",
-  "version": "0.1.0",
-  "description": "Math learning and practice app created for CS 361 - Software Engineering I",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/duellal/cs361-math-app.git"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/duellal/cs361-math-app/issues"
-  },
-  "homepage": "https://github.com/duellal/cs361-math-app#readme",
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.3.4",
-    "@mui/material-nextjs": "^7.3.3",
-    "@phosphor-icons/react": "^2.1.10",
-    "next": "15.5.4",
-    "phosphor-icons": "^1.4.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "redux": "^5.0.1"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.4",
-    "nodemon": "^3.1.10",
-    "tailwindcss": "^4"
-  }
+    "name": "duellal-math-app",
+    "author": "Alex Duell",
+    "version": "0.1.0",
+    "description": "Math learning and practice app created for CS 361 - Software Engineering I",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/duellal/cs361-math-app.git"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/duellal/cs361-math-app/issues"
+    },
+    "homepage": "https://github.com/duellal/cs361-math-app#readme",
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build --turbopack",
+        "lint:check": "npx prettier --check .",
+        "lint:fix": "npx prettier --write .",
+        "start": "next start",
+        "lint": "eslint",
+        "prepare": "husky install"
+    },
+    "dependencies": {
+        "@emotion/cache": "^11.14.0",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/material": "^7.3.4",
+        "@mui/material-nextjs": "^7.3.3",
+        "@phosphor-icons/react": "^2.1.10",
+        "next": "15.5.4",
+        "phosphor-icons": "^1.4.2",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "redux": "^5.0.1"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "@tailwindcss/postcss": "^4",
+        "eslint": "^9",
+        "eslint-config-next": "15.5.4",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.7",
+        "nodemon": "^3.1.10",
+        "prettier": "3.6.2",
+        "tailwindcss": "^4"
+    },
+    "lint-staged": {
+        "*.js": "eslint --cache --fix",
+        "*.{js,css,md}": "prettier --write"
+    }
 }
