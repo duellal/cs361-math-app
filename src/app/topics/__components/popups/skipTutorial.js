@@ -40,14 +40,14 @@ export default function SkipTutorial(props){
                                 key={`skipTutorialAnswer-h3`}
                                 className={`m-0 ${h3Tw}`}
                             >
-                                Congradulations!
+                                Skip Tutorial
                             </h3>
 
     const skipTutorialP1 =  <p
                                 className="w-full text-dark-blue text-center mt-[30px] mb-[20px]"
                                 key={`skip-p1`}
                             >
-                                You won’t be able to replay the tutorial, but you can review the instructions anytime on the Help page.
+                                If you missed anything, you can review the instructions anytime on the Help page.
                             </p>
 
     const skipTutorialP2 =  <p

@@ -187,7 +187,7 @@ export default function PracticeProblemsDiv(props) {
                                     let value = evt.target.value
 
                                     if (value.length > 0) {
-                                        if(!value.match(/[0-9]/)){
+                                        if (!/^[0-9.+\-*/^()]+$/.test(value)){
                                             setInputErr(true)
                                             setSubmitDisable(true)
                                         }
@@ -203,6 +203,7 @@ export default function PracticeProblemsDiv(props) {
 
                                     setAnswer(value)
                                 })}
+                                
                                 value={answerInput ? answerInput : ''}
                             />
 
