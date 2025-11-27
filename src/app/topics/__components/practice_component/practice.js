@@ -24,6 +24,7 @@ import {
 
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
+import HintText from './hint'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -117,12 +118,7 @@ export default function PracticeProblemsDiv(props) {
     )
 
     const hintText = (
-        <p
-            key={`hint-text`}
-            className={`text-dark-blue text-center text-[18px] px-[20px] font-[500]`}
-        >
-            {prblmArr[randomIdx]?.hint}
-        </p>
+        <HintText key={`hint-text`} problem={prblmArr[randomIdx]} />
     )
 
     const videoCancelBtn = (

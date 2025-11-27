@@ -35,7 +35,7 @@ export function SolutionPage(props) {
         u_answer,
     } = props
 
-    let c_answer = prblmArr[randomIdx]?.answer
+    let c_answer = prblmArr[randomIdx]?.solution
     let solution_btns_arr = []
     let solution_border_color
     let solution_title
