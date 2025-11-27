@@ -1,7 +1,7 @@
 'use client'
 
 // Node Modules
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Components
@@ -10,7 +10,7 @@ import PracticeProblems from '../../__components/practice_component/practice'
 import { SolutionPage } from '../../__components/practice_component/solution'
 
 // Variables
-import { easyProblems } from '../additionPrblms'
+import easy_problems from './easyAdditionPrblms'
 
 export default function PracticeAddition() {
     const router = useRouter()
@@ -19,6 +19,7 @@ export default function PracticeAddition() {
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
+    const [easyProblems, setEasyProblems] = useState([])
     const [numStep, setNumStep] = useState(0)
     const [randomIdx, setRandomIdx] = useState(0)
     const [skipBtnDisabled, setSkipBtnDisabled] = useState(false)
@@ -27,6 +28,16 @@ export default function PracticeAddition() {
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
+
+    useEffect(() => {
+        const load_easy_problems = async () => {
+            setEasyProblems(await easy_problems({}))
+        }
+
+        if (easyProblems.length === 0) {
+            load_easy_problems()
+        }
+    }, [easyProblems.length])
 
     const handleConfirm = () => {
         let answer = Number(answerInput)

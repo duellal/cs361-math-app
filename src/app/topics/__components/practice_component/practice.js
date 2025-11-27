@@ -10,7 +10,7 @@ import CompletedTutorial from '../popups/completedTutorial'
 import ConfirmAnswer from '../popups/confirmAnswer'
 import ContentDiv from '@/app/__components/contentDiv'
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
-import { SimpleProblem } from './problem'
+import { EasyHorizAddProblem } from './problem'
 import SkipTutorial from '../popups/skipTutorial'
 import TutorialComponent from '../tutorial/tutorial'
 
@@ -188,8 +188,8 @@ export default function PracticeProblemsDiv(props) {
                 </div>
 
                 {/* Problem */}
-                <SimpleProblem
-                    numArr={prblmArr[randomIdx]?.problem}
+                <EasyHorizAddProblem
+                    numArr={prblmArr[randomIdx]?.operands}
                     setAnswer={setAnswer}
                 />
 
