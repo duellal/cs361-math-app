@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { ArrowRightIcon, EqualsIcon } from '@phosphor-icons/react'
 
 const easy_problems = async (props) => {
     const { limit, offset } = props

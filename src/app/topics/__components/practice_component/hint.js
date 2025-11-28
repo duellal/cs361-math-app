@@ -1,5 +1,4 @@
 export default function HintText({ problem }) {
-    console.log('Problem Array:', problem)
     const arr_len = problem.operands.length
     const first_phrase = 'What is '
     const second_phrase = '? Then, add the sums together.'

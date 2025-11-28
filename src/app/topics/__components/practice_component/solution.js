@@ -6,6 +6,7 @@ import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
 
 // Components
 import ContentDiv from '@/app/__components/contentDiv'
+import Explanation from './Explanation'
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
 import TutorialComponent from '../tutorial/tutorial'
 
@@ -135,11 +136,14 @@ export function SolutionPage(props) {
                         </button>
                     </div>
 
-                    {/* Explanation */}
                     <div
                         className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}
                     >
-                        {prblmArr[randomIdx]?.solution}
+                        {/* Explanation */}
+                        <Explanation
+                            key="explanation"
+                            problem={prblmArr[randomIdx]}
+                        />
                     </div>
                 </div>
 
