@@ -2,18 +2,185 @@ import { ArrowRightIcon, EqualsIcon } from '@phosphor-icons/react'
 
 export default function AdditionSolution({ operands, solution }) {
     const decomposed_operands = operands.map((num) => decomposeNum(num))
+    const flat_decomposed = decomposed_operands.flat()
     console.log('Decomposed?', decomposed_operands.flat())
     const total = decomposed_operands.flat().reduce((a, b) => a + b, 0)
     console.log('Total:', total)
 
+    const place_values = {
+        1: 'ones',
+        2: 'tens',
+        3: 'hundreds',
+        4: 'thousands',
+        5: 'ten thousands',
+        6: 'hundred thousands',
+    }
+
+    const digit_place_value = {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+    }
+
+    flat_decomposed.forEach((num) => {
+        let num_len = parseInt(String(num).length)
+        digit_place_value[num_len] = [...digit_place_value[num_len], num]
+    })
+
     return (
-        <p
-            className={`text-dark-blue text-center text-[18px] px-[20px] font-[500]`}
-        >
-            <ol>
-                <li>some text here</li>
-            </ol>
-        </p>
+        <ol className="list-decimal w-[90%] justify-center flex flex-wrap mx-[40px]">
+            {/* Decompose Number */}
+            <li className="pl-[10px] mb-[20px] w-full">
+                <p className="mb-[10px]">
+                    Break each number into place values:
+                </p>
+
+                <div
+                    className={`flex flex-wrap border-3 border-dashed border-black w-[80%] m`}
+                >
+                    {Object.values(place_values).map((place, idx) => {
+                        if (digit_place_value[idx + 1].length > 0) {
+                            return (
+                                <>
+                                    <div
+                                        className="flex w-full my-1"
+                                        key={`${0}-place-value`}
+                                    >
+                                        <p
+                                            className="flex justify-end capitalize w-[50%] text-center"
+                                            key={`${0}-place-name`}
+                                        >
+                                            {place}:
+                                        </p>
+                                        <p
+                                            className="flex pl-[10px] w-[50%] text-center"
+                                            key={`${0}-place-num`}
+                                        >
+                                            {digit_place_value[idx + 1].length >
+                                            0
+                                                ? digit_place_value[
+                                                      idx + 1
+                                                  ].join(', ')
+                                                : 0}
+                                        </p>
+                                    </div>
+                                </>
+                            )
+                        }
+                    })}
+                </div>
+            </li>
+
+            {/* Add All Place Values */}
+            <li className="pl-[10px] mb-[20px] w-full">
+                <p className="mb-[10px]">Add all place-value parts together:</p>
+
+                {(() => {
+                    const pairs = []
+
+                    // Build pairwise decompositions (14 → [10,4], 18 → [10,8])
+                    for (let i = 0; i < operands.length - 1; i++) {
+                        const left = operands[i]
+                        const right = operands[i + 1]
+
+                        const leftParts = decomposeNum(left)
+                        const rightParts = decomposeNum(right)
+
+                        // Match based on largest-to-smallest place, filling missing places with 0
+                        const maxLen = Math.max(
+                            leftParts.length,
+                            rightParts.length,
+                        )
+                        const normalizedLeft = Array(maxLen)
+                            .fill(0)
+                            .map(
+                                (_, i) =>
+                                    leftParts[leftParts.length - maxLen + i] ||
+                                    0,
+                            )
+                        const normalizedRight = Array(maxLen)
+                            .fill(0)
+                            .map(
+                                (_, i) =>
+                                    rightParts[
+                                        rightParts.length - maxLen + i
+                                    ] || 0,
+                            )
+
+                        pairs.push({
+                            left,
+                            right,
+                            leftParts: normalizedLeft,
+                            rightParts: normalizedRight,
+                        })
+                    }
+
+                    return pairs.map((pair, idx) => {
+                        const placeValueAdds = pair.leftParts.map((lp, i) => ({
+                            a: lp,
+                            b: pair.rightParts[i],
+                            sum: lp + pair.rightParts[i],
+                        }))
+
+                        const digitAdds = digitPartners(pair.left, pair.right)
+
+                        return (
+                            <div
+                                key={idx}
+                                className="w-full text-center mb-[15px]"
+                            >
+                                {/* Main place-value addition */}
+                                <p>
+                                    {pair.left} + {pair.right} ={' '}
+                                    {placeValueAdds
+                                        .map((pv) => pv.sum)
+                                        .reduce((a, b) => a + b, 0)}
+                                </p>
+
+                                {/* Sub line: Place-value breakdown */}
+                                <p className="text-gray-600 text-sm">
+                                    (
+                                    {placeValueAdds
+                                        .map(
+                                            (p) => `${p.a} + ${p.b} = ${p.sum}`,
+                                        )
+                                        .join(', ')}
+                                    )
+                                </p>
+
+                                {/* OR section */}
+                                <p className="mt-[10px]">or</p>
+
+                                {/* Digit-wise breakdown visual */}
+                                <div className="w-full flex flex-col items-center">
+                                    {digitAdds.map((d, i) => (
+                                        <div
+                                            key={i}
+                                            className="flex justify-center items-center mb-[5px]"
+                                        >
+                                            <p>
+                                                {d.a} + {d.b} = {d.sum}
+                                            </p>
+                                            <span className="mx-[5px]">→</span>
+                                            <p>{d.sum * d.place}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )
+                    })
+                })()}
+            </li>
+
+            {/* <li className="pl-[10px] mb-[20px] w-full">
+                <p className='mb-[10px]'>
+                    Add all place-value parts together:
+                </p>
+            </li> */}
+        </ol>
     )
 
     // console.log('Problem:', problem)

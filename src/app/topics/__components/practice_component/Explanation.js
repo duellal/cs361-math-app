@@ -9,16 +9,18 @@ import AdditionSolution from './AdditionSolution'
 export default function Explanation({ problem }) {
     const { operation, operands, solution } = problem
 
-    const operationSwitch = () => {
+    const operationSwitch = (operation) => {
         switch (operation) {
             case 'add':
-                ;<AdditionSolution
-                    key={'add-explain'}
-                    operands={operands}
-                    solution={solution}
-                />
+                return (
+                    <AdditionSolution
+                        key={'add-explain'}
+                        operands={operands}
+                        solution={solution}
+                    />
+                )
             default:
-                ;<p>No explanation available.</p>
+                return <p>No explanation available.</p>
         }
     }
 
@@ -29,7 +31,7 @@ export default function Explanation({ problem }) {
                 Steps:{' '}
             </h5>
 
-            {operationSwitch()}
+            {operationSwitch(operation)}
         </div>
     )
 }
