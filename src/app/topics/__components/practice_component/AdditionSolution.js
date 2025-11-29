@@ -86,18 +86,26 @@ export default function AdditionSolution({ operands, solution }) {
                                 <div
                                     className={`flex flex-wrap border-3 border-dashed border-black w-[80%] py-[10px]`}
                                 >
-                                    {digitAdds.map((d, i) => {
-                                        if (i === 0 && pairs.length > 1) {
+                                    {digitAdds.map((digit, d_idx) => {
+                                        if (
+                                            d_idx !== digitAdds.length - 1 &&
+                                            pairs.length > 1
+                                        ) {
                                             return (
                                                 <div
-                                                    key={i}
+                                                    key={d_idx}
                                                     className="w-full flex flex-wrap"
                                                 >
                                                     <div className="w-full flex justify-center items-center">
                                                         <p>
-                                                            {d.a * d.place} +{' '}
-                                                            {d.b * d.place} ={' '}
-                                                            {d.sum * d.place}
+                                                            {digit.a *
+                                                                digit.place}{' '}
+                                                            +{' '}
+                                                            {digit.b *
+                                                                digit.place}{' '}
+                                                            ={' '}
+                                                            {digit.sum *
+                                                                digit.place}
                                                         </p>
                                                     </div>
                                                     <p className="w-full mt-[10px] mb-[10px]">
@@ -108,14 +116,17 @@ export default function AdditionSolution({ operands, solution }) {
                                         }
                                         return (
                                             <div
-                                                key={i}
+                                                key={d_idx}
                                                 className="w-full flex justify-center items-center mb-[5px]"
                                             >
                                                 <div className="w-full flex justify-center items-center">
                                                     <p>
-                                                        {d.a * d.place} +{' '}
-                                                        {d.b * d.place} ={' '}
-                                                        {d.sum * d.place}
+                                                        {digit.a * digit.place}{' '}
+                                                        +{' '}
+                                                        {digit.b * digit.place}{' '}
+                                                        ={' '}
+                                                        {digit.sum *
+                                                            digit.place}
                                                     </p>
                                                 </div>
                                             </div>
