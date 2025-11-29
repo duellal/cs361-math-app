@@ -85,7 +85,7 @@ export function SolutionPage(props) {
                 />
 
                 <h4
-                    className={`w-full text-center text-[24px] font-bold mt-[20px]`}
+                    className={`w-full text-center text-[26px] font-bold mt-[20px]`}
                 >
                     Answer Explanation
                 </h4>

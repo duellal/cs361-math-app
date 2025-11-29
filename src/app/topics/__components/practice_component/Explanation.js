@@ -25,11 +25,20 @@ export default function Explanation({ problem }) {
     }
 
     return (
-        <div className="w-[90%] mb-[20px]">
-            <h5 className="flex justify-self-start mb-[10px] text-[20px] font-bold">
-                {' '}
+        <div className="w-[90%] mb-[20px] mt-[10px]">
+            <h5 className={`w-full text-[24px] font-bold`}>Problem:</h5>
+            <p className="w-full text-[22px] w-[90%] mx-[40px] mt-2 mb-[20px]">
+                {operands.map((num, n_idx) => {
+                    if (n_idx !== operands.length - 1) {
+                        return num + ' + '
+                    } else {
+                        return num
+                    }
+                })}
+            </p>
+            <h6 className="flex justify-self-start mb-[10px] text-[24px] font-bold">
                 Steps:{' '}
-            </h5>
+            </h6>
 
             {operationSwitch(operation)}
         </div>
