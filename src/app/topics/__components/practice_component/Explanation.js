@@ -1,4 +1,5 @@
-import AdditionSolution from './AdditionSolution'
+import addCommas from '../../_helper_funcs/numString'
+import AdditionSolution from './operationSolutions/AdditionSolution'
 
 // In future, add:
 // <SubtractionExplanation />
@@ -27,12 +28,12 @@ export default function Explanation({ problem }) {
     return (
         <div className="w-[90%] mb-[20px] mt-[10px]">
             <h5 className={`w-full text-[24px] font-bold`}>Problem:</h5>
-            <p className="w-full text-[22px] w-[90%] mx-[40px] mt-2 mb-[20px]">
+            <p className="w-full px-[40px] text-[22px] w-[90%] mt-2 mb-[20px]">
                 {operands.map((num, n_idx) => {
                     if (n_idx !== operands.length - 1) {
-                        return num + ' + '
+                        return addCommas(num) + ' + '
                     } else {
-                        return num
+                        return addCommas(num)
                     }
                 })}
             </p>

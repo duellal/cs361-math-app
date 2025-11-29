@@ -1,3 +1,4 @@
+import addCommas from '@/app/topics/_helper_funcs/numString'
 import { ArrowRightIcon } from '@phosphor-icons/react'
 
 export default function AdditionSolution({ operands, solution }) {
@@ -26,12 +27,12 @@ export default function AdditionSolution({ operands, solution }) {
                 </p>
 
                 <div
-                    className={`flex flex-wrap justify-self-center border-3 border-dashed border-black w-[80%] py-[10px]`}
+                    className={`flex flex-wrap justify-self-center border-3 border-dashed border-black w-[80%] p-[20px]`}
                 >
                     <table className="w-full border-collapse">
                         <tbody>
                             {Object.keys(digit_place_value).map((place) => {
-                                const nums = digit_place_value[place]
+                                const nums = addCommas(digit_place_value[place])
                                 const num_list =
                                     nums.length > 1
                                         ? nums.join(', ')
@@ -59,7 +60,7 @@ export default function AdditionSolution({ operands, solution }) {
                 <p className="mb-[10px]">Add all place-value parts together:</p>
 
                 <div
-                    className={`flex flex-wrap justify-self-center border-3 border-dashed border-black w-[80%] py-[10px]`}
+                    className={`flex flex-wrap justify-self-center border-3 border-dashed border-black w-[80%] p-[20px]`}
                 >
                     {Object.keys(digit_place_value).map((place, p_idx) => {
                         const nums = digit_place_value[place]
@@ -71,7 +72,8 @@ export default function AdditionSolution({ operands, solution }) {
                                 className="w-full text-center my-[5px]"
                             >
                                 <p>
-                                    {nums.join(' + ')} = {sum}
+                                    {addCommas(nums).join(' + ')} ={' '}
+                                    {addCommas(sum)}
                                 </p>
 
                                 {p_idx !==
@@ -90,7 +92,7 @@ export default function AdditionSolution({ operands, solution }) {
                 </p>
 
                 <div
-                    className={`flex flex-wrap justify-center justify-self-center text-center border-3 border-dashed border-black w-[80%] py-[10px]`}
+                    className={`flex flex-wrap justify-center justify-self-center text-center border-3 border-dashed border-black w-[80%] p-[20px]`}
                 >
                     {Object.keys(digit_place_value)
                         // Highest to lowest place value
@@ -107,13 +109,15 @@ export default function AdditionSolution({ operands, solution }) {
                                         key={`${place}-${sum}`}
                                         className="mr-[5px]"
                                     >
-                                        {sum + ' + '}
+                                        {addCommas(sum) + ' + '}
                                     </p>
                                 )
                             }
                             return (
                                 <p key={`${place}-${sum}`} className="mr-[5px]">
-                                    {sum + ' = ' + solution}
+                                    {addCommas(sum) +
+                                        ' = ' +
+                                        addCommas(solution)}
                                 </p>
                             )
                         })}
