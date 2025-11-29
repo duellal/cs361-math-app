@@ -153,7 +153,7 @@ export default function PracticeProblemsDiv(props) {
     return (
         <div className="w-full flex justify-center">
             <div
-                className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
+                className={`w-[65%] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
             >
                 {/* h3, hint button + tutorial button */}
                 <div className={`w-full flex items-end justify-between`}>
@@ -232,7 +232,7 @@ export default function PracticeProblemsDiv(props) {
                         </div>
                     </div>
 
-                    <div className="">
+                    <div>
                         <PrblmBtn
                             disabled={submitDisable}
                             text={'Submit'}

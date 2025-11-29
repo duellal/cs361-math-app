@@ -19,7 +19,7 @@ export default function PracticeAddition() {
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
-    const [easyProblems, setEasyProblems] = useState([])
+    const [easyProblems, setEasyProblems] = useState(null)
     const [numStep, setNumStep] = useState(0)
     const [randomIdx, setRandomIdx] = useState(0)
     const [skipBtnDisabled, setSkipBtnDisabled] = useState(false)
@@ -34,10 +34,10 @@ export default function PracticeAddition() {
             setEasyProblems(await easy_problems({}))
         }
 
-        if (easyProblems.length === 0) {
+        if (!easyProblems) {
             load_easy_problems()
         }
-    }, [easyProblems.length])
+    }, [easyProblems])
 
     const handleConfirm = () => {
         let answer = Number(answerInput)
@@ -104,7 +104,7 @@ export default function PracticeAddition() {
 
             {solutionDiv ? (
                 <SolutionPage
-                    prblmArr={easyProblems}
+                    prblmArr={easyProblems ?? []}
                     randomIdx={randomIdx}
                     setAnswer={setAnswer}
                     setRandomIdx={setRandomIdx}
@@ -131,11 +131,12 @@ export default function PracticeAddition() {
                     setSkipBtnDisabled={setSkipBtnDisabled}
                     handleNext={handleSkipPrblm}
                 />
-            ) : easyProblems?.length !== solvedArr?.length &&
+            ) : easyProblems &&
+              easyProblems.length !== solvedArr?.length &&
               typeof randomIdx === 'number' ? (
                 <PracticeProblems
                     answerInput={answerInput}
-                    prblmArr={easyProblems}
+                    prblmArr={easyProblems ?? []}
                     randomIdx={randomIdx}
                     setAnswer={setAnswer}
                     setRandomIdx={setRandomIdx}
@@ -162,7 +163,7 @@ export default function PracticeAddition() {
                     handleSkipPrblm={handleSkipPrblm}
                 />
             ) : (
-                <EmptyPracticeProblems />
+                <EmptyPracticeProblems prblmArr={easyProblems} />
             )}
         </div>
     )

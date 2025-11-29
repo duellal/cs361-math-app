@@ -77,7 +77,7 @@ export function SolutionPage(props) {
     return (
         <div className="w-full flex justify-center">
             <div
-                className={`w-[810px] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
+                className={`w-[65%] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw}`}
             >
                 <ContentDiv
                     div_tw={`w-[520px] border-[6px] ${solution_border_color} rounded-3xl flex justify-center bg-dark-blue py-[5px] h-[80px]`}
