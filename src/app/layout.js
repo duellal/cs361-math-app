@@ -1,3 +1,5 @@
+'use client'
+
 // General Imports
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 
@@ -9,6 +11,8 @@ import Footer from './__components/Footer'
 import './globals.css'
 import { Noto_Sans } from 'next/font/google'
 import { CssBaseline } from '@mui/material'
+import { useContext, useState } from 'react'
+import UserContext from './user/userContext'
 
 const notoSans = Noto_Sans({
     subsets: ['latin'], // choose subsets you need
@@ -22,12 +26,15 @@ const mui_options = {
     key: 'css',
 }
 
-export const metadata = {
+const metadata = {
     title: 'Math Practice App',
     description: 'Math app where anyone can practice their math skills!',
 }
 
 export default function RootLayout({ children }) {
+    let [user, setUser] = useState(useContext(UserContext))
+    console.log('App user?', user)
+
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
@@ -109,13 +116,15 @@ export default function RootLayout({ children }) {
             </head>
 
             <body>
-                <AppRouterCacheProvider options={mui_options}>
-                    <CssBaseline>
-                        <Navigation />
-                        <main>{children}</main>
-                        <Footer />
-                    </CssBaseline>
-                </AppRouterCacheProvider>
+                <UserContext value={{ user, setUser }}>
+                    <AppRouterCacheProvider options={mui_options}>
+                        <CssBaseline>
+                            <Navigation />
+                            <main>{children}</main>
+                            <Footer />
+                        </CssBaseline>
+                    </AppRouterCacheProvider>
+                </UserContext>
             </body>
         </html>
     )

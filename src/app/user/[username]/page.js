@@ -1,0 +1,11 @@
+'use client'
+
+import PageUnderConstruction from '@/app/__components/PageConstruction'
+import { useContext } from 'react'
+import UserContext from '../userContext'
+
+export default function SignUp() {
+    const { user } = useContext(UserContext)
+    console.log('USER in Profile?', user)
+    return <PageUnderConstruction />
+}

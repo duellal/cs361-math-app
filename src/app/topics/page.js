@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 // Icon Imports:
 import { DivideIcon, MinusIcon, PlusIcon, XIcon } from '@phosphor-icons/react'
 import { Button } from '@mui/material'
+import Link from 'next/link'
 
 const paths = [
     {
@@ -100,27 +101,30 @@ const PathComponent = () => {
                                 let disabled = path.disabled.includes(txt)
 
                                 return (
-                                    <Button
+                                    <Link
                                         key={`${idx + Math.random()}-${txt}-btn`}
-                                        disableRipple
-                                        disableTouchRipple
-                                        disableFocusRipple
-                                        variant="contained"
-                                        className="m-[30px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[150px] text-[20px] font-extrabold capitalize
-                        
-                        outline-3 outline-dark-blue 
-                        shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
-                        transition-all ease-in-out
-
-                        hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
-
-                        active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
-                        active:translate-y-[2px]"
-                                        href={path[`${txt}_href`]}
-                                        disabled={disabled}
+                                        href={`${path[`${txt}_href`]}`}
                                     >
-                                        {txt}
-                                    </Button>
+                                        <Button
+                                            disableRipple
+                                            disableTouchRipple
+                                            disableFocusRipple
+                                            variant="contained"
+                                            className="m-[30px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[150px] text-[20px] font-extrabold capitalize
+                        
+                                            outline-3 outline-dark-blue 
+                                            shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+                                            transition-all ease-in-out
+
+                                            hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+
+                                            active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
+                                            active:translate-y-[2px]"
+                                            disabled={disabled}
+                                        >
+                                            {txt}
+                                        </Button>
+                                    </Link>
                                 )
                             })}
                         </div>
