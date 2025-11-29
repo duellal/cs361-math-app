@@ -185,6 +185,7 @@ export default function PracticeProblemsDiv(props) {
 
                 {/* Problem */}
                 <EasyHorizAddProblem
+                    key={`${Math.floor(Math.random() * randomIdx)}`}
                     numArr={prblmArr[randomIdx]?.operands}
                     setAnswer={setAnswer}
                 />
