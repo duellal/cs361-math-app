@@ -8,7 +8,7 @@ export function EasyHorizAddProblem(props) {
 
     return (
         <div
-            className="w-full flex flex-wrap text-center text-[50px] text-black flex place-items-center justify-center my-[40px]"
+            className="w-full flex flex-wrap text-center text-[50px] text-black place-items-center justify-center my-[40px]"
             key={`${Math.floor(Math.random() * numArr.length)}`}
         >
             {numArr?.map((num, idx) => {
@@ -26,9 +26,13 @@ export function EasyHorizAddProblem(props) {
                         return (
                             <div
                                 key={`${Math.floor(Math.random() * idx)}-${num}`}
+                                className="flex place-items-center justify-center"
                             >
                                 <div className="mx-[10px]">{`+ ${num} = `}</div>
-                                <div className="size-[50px] border-4 border-black mx-[10px]" />
+                                <div
+                                    key={`${Math.floor(Math.random() * idx)}-blank`}
+                                    className="size-[50px] border-4 border-black mx-[10px]"
+                                />
                             </div>
                         )
                     }
