@@ -2,7 +2,7 @@
 
 import ContentDiv from '@/app/__components/contentDiv'
 import Link from 'next/link'
-import get_user from '../_getDataFuncs/getUser'
+import get_user from '../../_apiFuncs/user/getUser'
 import { useContext, useState } from 'react'
 import { redirect } from 'next/navigation'
 import UserContext from '../userContext'

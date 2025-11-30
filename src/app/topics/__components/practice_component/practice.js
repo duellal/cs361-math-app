@@ -2,7 +2,7 @@
 
 // Node Modules
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { XIcon } from '@phosphor-icons/react'
 
 // Components
@@ -25,6 +25,8 @@ import {
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
 import HintText from './hint'
+import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
+import UserContext from '@/app/user/userContext'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -59,6 +61,7 @@ export default function PracticeProblemsDiv(props) {
     const [inputErr, setInputErr] = useState(null)
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
+    const { user, setUser } = useContext(UserContext)
 
     // Styling with Variables:
     const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
@@ -93,7 +96,20 @@ export default function PracticeProblemsDiv(props) {
         setTutorialDisable(true)
     }
 
-    const handleSubmitBtn = () => {
+    const handleSubmitBtn = async () => {
+        let answer = answerInput
+
+        if (user) {
+            let { problem_id } = prblmArr[randomIdx]
+            let user_id = user['_id']
+
+            let submitAnswer = await submit_answer({
+                answer,
+                problem_id,
+                user_id,
+            })
+        }
+
         if (answerInput === prblmArr[randomIdx].answer) {
             setSolvedArr([...solvedArr, randomIdx])
         }
