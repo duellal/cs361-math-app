@@ -17,8 +17,8 @@ const formBtn =
 
 export default function Login() {
     const { user, setUser } = useContext(UserContext)
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const loginH1 = (
         <h1

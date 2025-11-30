@@ -34,7 +34,7 @@ const login_pages = [
 const user_pages = [
     {
         name: 'profile',
-        href: `/user/`,
+        href: `/user`,
     },
     {
         name: 'log out',
@@ -97,7 +97,7 @@ export default function Navigation() {
                                       disableTouchRipple
                                       disableFocusRipple
                                       variant="contained"
-                                      className="m-[10px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[96px] font-extrabold
+                                      className="m-[10px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[100px] font-extrabold
                         
                                             outline-3 outline-dark-blue 
                                             shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
@@ -122,7 +122,7 @@ export default function Navigation() {
                                       disableTouchRipple
                                       disableFocusRipple
                                       variant="contained"
-                                      className="m-[10px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[96px] font-extrabold
+                                      className="m-[10px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[100px] font-extrabold
                         
                                             outline-3 outline-dark-blue 
                                             shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const get_user = async (user) => {
     try {
-        let res = await axios.get('http://localhost:9000/user', {
+        let res = await axios.get('http://localhost:9001/user', {
             headers: {
                 'Content-Type': 'application/json',
             },
