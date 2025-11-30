@@ -10,7 +10,8 @@ import UserContext from '../userContext'
 const formFieldset = 'w-[70%] mb-5 border-3 border-medium-blue rounded-xl p-3'
 const formLegend = 'text-dark-blue p-2 font-bold'
 const formInput = 'w-full text-dark-blue text-center'
-const formLinksDiv = 'flex flex-wrap justify-between text-sm text-gray-500 mb-6'
+const formLinksDiv =
+    'w-full flex flex-wrap justify-between text-sm text-gray-500 mb-6'
 const formLinkBtn = 'w-full text-center font-bold hover:underline'
 const formBtn =
     'w-[70%] bg-dark-blue text-[18px] text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition'
@@ -54,6 +55,7 @@ export default function Login() {
             <input
                 type="password"
                 name="password"
+                required
                 value={password}
                 onChange={(evt) => {
                     evt.preventDefault()
