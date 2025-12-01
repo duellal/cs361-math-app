@@ -16,7 +16,7 @@ export function EasyHorizAddProblem(props) {
                     if (idx > 0 && idx !== numArr.length - 1) {
                         return (
                             <div
-                                key={`${Math.floor(Math.random() * idx)}-${num}`}
+                                key={`${Math.floor(Math.random() * Math.random() * idx)}-${num}-middle-num`}
                                 className="mx-[10px]"
                             >
                                 {`+ ${num}`}
@@ -25,12 +25,12 @@ export function EasyHorizAddProblem(props) {
                     } else if (idx === numArr.length - 1) {
                         return (
                             <div
-                                key={`${Math.floor(Math.random() * idx)}-${num}`}
+                                key={`${Math.floor(Math.random() * Math.random() * idx)}-${num}-last-num`}
                                 className="flex place-items-center justify-center"
                             >
                                 <div className="mx-[10px]">{`+ ${num} = `}</div>
                                 <div
-                                    key={`${Math.floor(Math.random() * idx)}-blank`}
+                                    key={`${Math.floor(Math.random() * Math.random() * idx)}-blank`}
                                     className="size-[50px] border-4 border-black mx-[10px]"
                                 />
                             </div>
@@ -38,7 +38,7 @@ export function EasyHorizAddProblem(props) {
                     }
                     return (
                         <div
-                            key={`${Math.floor(Math.random() * idx)}-${num}`}
+                            key={`${Math.floor(Math.random() * idx)}-${num}-first-num`}
                             className="mx-[10px]"
                         >
                             {`${num}`}
