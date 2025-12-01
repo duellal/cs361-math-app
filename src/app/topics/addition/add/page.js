@@ -2,7 +2,6 @@
 
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 // Styling:
 // Buttons
@@ -16,9 +15,7 @@ const divMarginsTw = `px-[50px] py-[20px]`
 const h3Tw = `text-[50px] font-bold text-center mt-[20px] mb-[40px] text-dark-blue text-white`
 const pTw = `w-full self-center text-white text-center text-[20px] font-bold`
 
-export default function EmptyPracticeProblems({ prblmArr }) {
-    let pathname = usePathname().split('/')
-
+export default function AddAdditionProblems({ prblmArr }) {
     if (!prblmArr) {
         return (
             <div className="w-full flex justify-center">
@@ -27,7 +24,7 @@ export default function EmptyPracticeProblems({ prblmArr }) {
                 >
                     <h3 className={h3Tw}>Problems Not Available</h3>
 
-                    <div className="h-fit flex flex-wrap gap-y-8">
+                    {/* <div className="h-fit flex flex-wrap gap-y-8">
                         <p className={pTw}>
                             {`We haven't been able to load your problems yet.`}
                         </p>
@@ -50,7 +47,7 @@ export default function EmptyPracticeProblems({ prblmArr }) {
                                 tw={`${bottomBtnsTw} border-3 border-dark-blue w-fit font-bold p-3 bg-white`}
                             />
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )
@@ -75,7 +72,7 @@ export default function EmptyPracticeProblems({ prblmArr }) {
                     <div
                         className={`w-full my-[10px] flex justify-center mb-[40px]`}
                     >
-                        <Link href={`/${pathname[1]}/${pathname[2]}/add`}>
+                        <Link href="/topics">
                             <PrblmBtn
                                 text={'Generate More Problems'}
                                 tw={`${bottomBtnsTw} border-3 border-dark-blue w-fit font-bold p-3 bg-white`}
