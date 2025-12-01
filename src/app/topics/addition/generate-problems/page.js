@@ -18,7 +18,7 @@ const pTw = `w-full self-center text-white text-center text-[20px] font-bold`
 
 // Form
 const formFieldset =
-    'w-[65%] min-w-[440px] mb-5 border-3 border-light-blue rounded-xl p-3 text-center'
+    'w-[65%] min-w-[440px] mb-5 border-light-blue rounded-xl p-3 text-center'
 const formLegend = 'text-dark-blue p-2 font-bold text-xl'
 const formInput = 'border p-3 mb-2 w-[65%] text-white text-center'
 const formBtn =
@@ -75,7 +75,7 @@ export default function GenerateAddtionProblems() {
                     {/* Number of Problems */}
                     <fieldset
                         key={'fieldset-num-of-probs'}
-                        className={formFieldset}
+                        className={`border-3 ${formFieldset}`}
                     >
                         <legend className={formLegend}>
                             How many more problems would you like?
@@ -100,7 +100,7 @@ export default function GenerateAddtionProblems() {
                     {/* Number of Operands */}
                     <fieldset
                         key={'fieldset-num-of-operands'}
-                        className={formFieldset}
+                        className={`border-3 ${formFieldset}`}
                     >
                         <legend className={formLegend}>
                             How many numbers in a problem?
@@ -130,7 +130,7 @@ export default function GenerateAddtionProblems() {
                     {/* Problem Format */}
                     <fieldset
                         key={'fieldset-format'}
-                        className={`${formFieldset} ${format === 'decimal' ? 'flex flex-wrap justify-center' : ''}`}
+                        className={`${formFieldset} border-3 ${format === 'decimal' ? 'flex flex-wrap justify-center' : ''}`}
                     >
                         <legend className={formLegend}>
                             What type of number? <br /> (Integer, Decimal, or
@@ -177,10 +177,11 @@ export default function GenerateAddtionProblems() {
                             })}
                         </select>
 
+                        {/* Place Value if Decimal is selected */}
                         {format === 'decimal' ? (
                             <fieldset
                                 key={'fieldset-type-decimal'}
-                                className={`mt-4 ${formFieldset}`}
+                                className={`mt-4 border-2 ${formFieldset}`}
                             >
                                 <legend className={`w-[65%] ${formLegend}`}>
                                     What place value should the numbers go to?
