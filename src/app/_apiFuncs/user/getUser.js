@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const get_user = async (user) => {
     try {
-        let res = await axios.get(`${process.env.USER_URL}/user`, {
+        let res = await axios.get(`${process.env.NEXT_PUBLIC_USER_URL}/user`, {
             headers: {
                 'Content-Type': 'application/json',
             },

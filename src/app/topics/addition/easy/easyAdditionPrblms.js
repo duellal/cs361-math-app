@@ -6,18 +6,21 @@ const easy_problems = async (props) => {
     let operation = 'add'
 
     try {
-        let res = await axios.get('${process.env.MATH_DB_API_URL}/add', {
-            headers: {
-                'Content-Type': 'application/json',
+        let res = await axios.get(
+            `${process.env.NEXT_PUBLIC_MATH_DB_API_URL}/add`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    limit,
+                    offset,
+                    difficulty,
+                    operation,
+                    user_id,
+                },
             },
-            params: {
-                limit,
-                offset,
-                difficulty,
-                operation,
-                user_id,
-            },
-        })
+        )
 
         return res.data
     } catch {

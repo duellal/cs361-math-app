@@ -2,11 +2,15 @@ import axios from 'axios'
 
 const start_timer = async (user_id) => {
     try {
-        let res = await axios.post(`${process.env.TIMER_URL}/start`, user_id, {
-            headers: {
-                'Content-Type': 'application/json',
+        let res = await axios.post(
+            `${process.env.NEXT_PUBLIC_TIMER_URL}/start`,
+            user_id,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             },
-        })
+        )
 
         return res
     } catch (err) {

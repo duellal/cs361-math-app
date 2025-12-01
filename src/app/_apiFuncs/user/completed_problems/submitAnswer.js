@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 const submit_answer = async (data) => {
-    console.log('Submit Answer DATA:', data)
     try {
         let res = await axios.post(
-            `${process.env.MATH_DB_API_URL}/user/completed_problem`,
+            `${process.env.NEXT_PUBLIC_MATH_DB_API_URL}/user/completed_problem`,
             data,
             {
                 headers: {

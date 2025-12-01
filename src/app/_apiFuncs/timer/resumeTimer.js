@@ -3,7 +3,7 @@ import axios from 'axios'
 const resume_timer = async (timer_id) => {
     try {
         let res = await axios.post(
-            `${process.env.TIMER_URL}/resume`,
+            `${process.env.NEXT_PUBLIC_TIMER_URL}/resume`,
             timer_id,
             {
                 headers: {
