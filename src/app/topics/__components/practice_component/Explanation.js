@@ -29,7 +29,7 @@ export default function Explanation({ problem }) {
         <div className="w-[90%] mb-[20px] mt-[10px]">
             <h5 className={`w-full text-[24px] font-bold`}>Problem:</h5>
             <p className="w-full px-[40px] text-[22px] w-[90%] mt-2 mb-[20px]">
-                {operands.map((num, n_idx) => {
+                {operands?.map((num, n_idx) => {
                     if (n_idx !== operands.length - 1) {
                         return addCommas(num) + ' + '
                     } else {
@@ -41,7 +41,7 @@ export default function Explanation({ problem }) {
                 Steps:{' '}
             </h6>
 
-            {operationSwitch(operation)}
+            {operation ? operationSwitch(operation) : null}
         </div>
     )
 }

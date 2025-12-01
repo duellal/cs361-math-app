@@ -27,6 +27,7 @@ import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
 import HintText from './hint'
 import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
 import UserContext from '@/app/_context/userContext'
+import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -45,8 +46,6 @@ export default function PracticeProblemsDiv(props) {
         handleSkipPrblm,
         setSolutionDiv,
         skipBtnDisabled,
-        solvedArr,
-        setSolvedArr,
         tutorialDisable,
         setTutorialDisable,
         submitDisable,
@@ -72,6 +71,9 @@ export default function PracticeProblemsDiv(props) {
     const [videoPopup, setVideoPopup] = useState(false)
 
     const { user, setUser } = useContext(UserContext)
+    const { solvedProblems, setSolvedProblems } = useContext(
+        SolvedProblemsContext,
+    )
 
     // Styling with Variables:
     const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
@@ -121,9 +123,9 @@ export default function PracticeProblemsDiv(props) {
     }
 
     const handleSubmitBtn = async () => {
-        let answer = answerInput
+        let answer = Number(answerInput)
 
-        if (user) {
+        if (Object.keys(user).length > 0) {
             let { problem_id } = prblmArr[randomIdx]
             let user_id = user['_id']
 
@@ -136,11 +138,16 @@ export default function PracticeProblemsDiv(props) {
             console.log('Submit answer:', submitAnswer)
         }
 
-        if (answerInput === prblmArr[randomIdx].answer) {
-            setSolvedArr([...solvedArr, randomIdx])
+        if (answerInput === prblmArr[randomIdx].solution) {
+            setSolvedProblems({
+                ...solvedProblems,
+                addition: [...solvedProblems.addition, prblmArr[randomIdx]],
+            })
         }
 
-        console.log('Solved arr:', solvedArr)
+        console.log('\nHANDLE SUBMIT BTN\n\n')
+        console.log('problem array:\n', prblmArr)
+        console.log('\n\nSolved arr:\n', solvedProblems.addition)
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)
