@@ -13,13 +13,17 @@ import { SolutionPage } from '../../__components/practice_component/solution'
 import easy_problems from './easyAdditionPrblms'
 import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
 import UserContext from '@/app/_context/userContext'
+import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
+import TimerContext from '@/app/_context/timerContext'
 
 export default function PracticeAddition() {
     // Context:
     const { solvedProblems, setSolvedProblems } = useContext(
         SolvedProblemsContext,
     )
-    const { user, setUser } = useContext(UserContext)
+    const { timer, setTimer } = useContext(TimerContext)
+    const timer_id = timer?.timer_id
+    const { user } = useContext(UserContext)
     const user_id = user?.['_id']
 
     // let solvedArr = solvedProblems.addition
@@ -38,7 +42,7 @@ export default function PracticeAddition() {
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
 
-    console.log('Solved Arr:', solvedProblems)
+    // console.log('Solved Arr:', solvedProblems)
 
     useEffect(() => {
         const load_easy_problems = async () => {
@@ -58,6 +62,7 @@ export default function PracticeAddition() {
         let answer = Number(answerInput)
 
         if (answer) {
+            stop_timer({ timer_id })
             setConfirmAnswerPopup(true)
             setAnswer(answer)
         }
