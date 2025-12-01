@@ -37,9 +37,12 @@ export default function RootLayout({ children }) {
     let [solvedProblems, setSolvedProblems] = useState(
         useContext(SolvedProblemsContext),
     )
-    console.log('\nROOT LAYOUT\n')
-    console.log('APP USER:\n', user)
-    console.log('SOLVED PROBLEMS:\n', solvedProblems)
+    console.log(
+        '\nROOT LAYOUT\n\nAPP USER:\n',
+        user,
+        '\n\nSOLVED PROBLEMS:\n',
+        solvedProblems,
+    )
 
     return (
         <html lang="en" suppressHydrationWarning>

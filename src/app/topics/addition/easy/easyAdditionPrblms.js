@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const easy_problems = async (props) => {
-    const { limit, offset } = props
+    const { limit, offset, user_id } = props
     let difficulty = 'easy'
     let operation = 'add'
 
@@ -15,6 +15,7 @@ const easy_problems = async (props) => {
                 offset,
                 difficulty,
                 operation,
+                user_id,
             },
         })
 

@@ -1,7 +1,7 @@
 'use client'
 
 // Node Modules
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Components
@@ -11,8 +11,19 @@ import { SolutionPage } from '../../__components/practice_component/solution'
 
 // Variables
 import easy_problems from './easyAdditionPrblms'
+import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
+import UserContext from '@/app/_context/userContext'
 
 export default function PracticeAddition() {
+    // Context:
+    const { solvedProblems, setSolvedProblems } = useContext(
+        SolvedProblemsContext,
+    )
+    const { user, setUser } = useContext(UserContext)
+    const user_id = user?.['_id']
+
+    // let solvedArr = solvedProblems.addition
+
     // States:
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
@@ -27,17 +38,21 @@ export default function PracticeAddition() {
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
 
-    console.log('Solved Arr:', solvedArr)
+    console.log('Solved Arr:', solvedProblems)
 
     useEffect(() => {
         const load_easy_problems = async () => {
             setEasyProblems(await easy_problems({}))
+            // setSolvedProblems({
+            //     addition:
+            //         await easyProblems({ user_id })
+            // })
         }
 
         if (!easyProblems) {
             load_easy_problems()
         }
-    }, [easyProblems])
+    }, [easyProblems, setSolvedProblems, user_id])
 
     const handleConfirm = () => {
         let answer = Number(answerInput)
