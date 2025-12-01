@@ -1,7 +1,6 @@
 'use client'
 
 // Node Modules
-import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 import { XIcon } from '@phosphor-icons/react'
 
@@ -12,6 +11,7 @@ import ContentDiv from '@/app/__components/contentDiv'
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
 import { EasyHorizAddProblem } from './problem'
 import SkipTutorial from '../popups/skipTutorial'
+import TimerDisplay from './TimerDisplay'
 import TutorialComponent from '../tutorial/tutorial'
 
 // Styling:
@@ -59,6 +59,7 @@ export default function PracticeProblemsDiv(props) {
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
+    const [timerText, setTimerText] = useState('start timer')
     const [videoPopup, setVideoPopup] = useState(false)
     const { user, setUser } = useContext(UserContext)
 
@@ -173,32 +174,43 @@ export default function PracticeProblemsDiv(props) {
             <div
                 className={`w-[65%]  min-h-[calc(100dvh-610px)]  flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
             >
-                {/* h3, hint button + tutorial button */}
-                <div className={`w-full flex items-end justify-between`}>
-                    <h3
-                        className={`max-w-fit border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}
-                    >
-                        Directions
-                    </h3>
-
-                    <div className={`flex justify-end self-center`}>
-                        <PrblmBtn
-                            text={'Need a Hint?'}
-                            handleClick={handleHint}
-                            tw={`${bottomBtnsTw} w-[132px] p-3 bg-white w-auto mx-[10px]`}
-                        />
-
-                        <PrblmBtn
-                            text={'?'}
-                            handleClick={handleVideoBtn}
-                            tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center self-center cursor-pointer bg-white border-3 border-dark-blue`}
-                        />
+                {/* h3, hint button, timer, + tutorial button */}
+                <div className={`w-full flex items-center justify-between`}>
+                    <div className="w-full min-h-[105px]">
+                        <h3
+                            className={`max-w-fit border-b-2 border-light-blue text-[35px] font-bold mb-[10px]`}
+                        >
+                            Directions
+                        </h3>
+                        {/* Instructions */}
+                        <p className="max-w-fit text-[24px] font-medium">
+                            Input the best answer below.
+                        </p>
                     </div>
-                </div>
 
-                {/* Instructions */}
-                <div className={`w-full text-[24px] font-medium`}>
-                    <p>Input the best answer below.</p>
+                    <div className="min-h-[105px] flex flex-wrap items-between">
+                        <div className={`w-full flex justify-center`}>
+                            <PrblmBtn
+                                text={timerText}
+                                tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mx-[10px] capitalize`}
+                            />
+
+                            <TimerDisplay start={false} />
+                        </div>
+                        <div className={`w-full flex justify-center`}>
+                            <PrblmBtn
+                                text={'Need a Hint?'}
+                                handleClick={handleHint}
+                                tw={`${bottomBtnsTw} w-[132px] p-3 bg-white w-auto mx-[10px]`}
+                            />
+
+                            <PrblmBtn
+                                text={'?'}
+                                handleClick={handleVideoBtn}
+                                tw={`size-[40px] text-medium-blue text-[30px] font-black rounded-full place-content-center cursor-pointer bg-white border-3 border-dark-blue`}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Problem */}
