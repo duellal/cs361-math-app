@@ -53,17 +53,24 @@ export default function PracticeProblemsDiv(props) {
         setSubmitDisable,
         tutorialEndDiv,
         setTutorialEndDiv,
+        seconds,
+        setSeconds,
+        stopTimer,
+        setStopTimer,
+        timerText,
+        setTimerText,
+        startTimer,
+        setStartTimer,
+        pauseTimer,
+        setPauseTimer,
     } = props
 
     // States:
     const [hintPopup, setHintPopup] = useState(false)
     const [inputErr, setInputErr] = useState(null)
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
-    const [timerText, setTimerText] = useState('start timer')
-    const [startTimer, setStartTimer] = useState(false)
-    const [stopTimer, setStopTimer] = useState(false)
-    const [pauseTimer, setPauseTimer] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
+
     const { user, setUser } = useContext(UserContext)
 
     // Styling with Variables:
@@ -137,6 +144,8 @@ export default function PracticeProblemsDiv(props) {
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)
+        setStopTimer(true)
+        setSeconds(0)
     }
 
     const hintCancelBtn = (
@@ -217,6 +226,8 @@ export default function PracticeProblemsDiv(props) {
                                 pause={pauseTimer}
                                 start={startTimer}
                                 stop={stopTimer}
+                                seconds={seconds}
+                                setSeconds={setSeconds}
                             />
                         </div>
                         <div className={`w-full flex justify-center`}>

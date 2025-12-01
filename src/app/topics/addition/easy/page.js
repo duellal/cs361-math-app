@@ -41,6 +41,11 @@ export default function PracticeAddition() {
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
+    const [seconds, setSeconds] = useState(0)
+    const [stopTimer, setStopTimer] = useState(false)
+    const [timerText, setTimerText] = useState('start timer')
+    const [startTimer, setStartTimer] = useState(false)
+    const [pauseTimer, setPauseTimer] = useState(false)
 
     // console.log('Solved Arr:', solvedProblems)
 
@@ -63,6 +68,8 @@ export default function PracticeAddition() {
 
         if (answer) {
             stop_timer({ timer_id })
+            setTimer({})
+            setSeconds(0)
             setConfirmAnswerPopup(true)
             setAnswer(answer)
         }
@@ -109,6 +116,12 @@ export default function PracticeAddition() {
         setSolutionDiv(null)
         setAnswer('')
         setSubmitDisable(true)
+        setTimer({})
+        setSeconds(0)
+        setTimerText('start timer')
+        setStartTimer(false)
+        setPauseTimer(false)
+        setStopTimer(false)
     }
 
     return (
@@ -150,6 +163,7 @@ export default function PracticeAddition() {
                     skipBtnDisabled={skipBtnDisabled}
                     setSkipBtnDisabled={setSkipBtnDisabled}
                     handleNext={handleSkipPrblm}
+                    setStopTimer={setStopTimer}
                 />
             ) : easyProblems &&
               easyProblems.length !== solvedArr?.length &&
@@ -181,6 +195,16 @@ export default function PracticeAddition() {
                     skipBtnDisabled={skipBtnDisabled}
                     setSkipBtnDisabled={setSkipBtnDisabled}
                     handleSkipPrblm={handleSkipPrblm}
+                    seconds={seconds}
+                    setSeconds={setSeconds}
+                    stopTimer={stopTimer}
+                    setStopTimer={setStopTimer}
+                    timerText={timerText}
+                    setTimerText={setTimerText}
+                    startTimer={startTimer}
+                    setStartTimer={setStartTimer}
+                    pauseTimer={pauseTimer}
+                    setPauseTimer={setPauseTimer}
                 />
             ) : (
                 <EmptyPracticeProblems prblmArr={easyProblems} />

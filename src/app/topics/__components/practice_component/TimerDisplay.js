@@ -12,9 +12,9 @@ export default function TimerDisplay({
     start = false,
     pause = false,
     stop = false,
+    seconds,
+    setSeconds,
 }) {
-    const [seconds, setSeconds] = useState(0)
-
     const pollingRef = useRef(null)
 
     const { timer, setTimer } = useContext(TimerContext)
@@ -37,7 +37,7 @@ export default function TimerDisplay({
         try {
             const res = await get_timer(timer_id)
             safeSetTimer(res.data)
-            setSeconds(Math.floor(res?.data?.total_time_ms / 1000))
+            setSeconds(Math.floor(res?.data?.total_time_ms ?? 0 / 1000))
         } catch (err) {
             console.error('Failed to fetch timer:', err)
         }

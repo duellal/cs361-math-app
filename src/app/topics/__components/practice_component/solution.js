@@ -33,6 +33,7 @@ export function SolutionPage(props) {
         setSubmitDisable,
         tutorialEndDiv,
         setTutorialEndDiv,
+        setStopTimer,
         u_answer,
     } = props
 
@@ -72,6 +73,7 @@ export function SolutionPage(props) {
 
     const handleTryAgain = () => {
         setSolutionDiv(false)
+        setStopTimer(false)
     }
 
     return (
