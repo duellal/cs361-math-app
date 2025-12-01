@@ -188,7 +188,7 @@ export default function PracticeProblemsDiv(props) {
                         </p>
                     </div>
 
-                    <div className="min-h-[105px] flex flex-wrap items-between">
+                    <div className="min-h-[105px] gap-[12px] flex flex-wrap items-between">
                         <div className={`w-full flex justify-center`}>
                             <PrblmBtn
                                 text={timerText}
@@ -223,9 +223,7 @@ export default function PracticeProblemsDiv(props) {
                 {/* Answer Input + Submit/Skip Problem Btns */}
                 <div className={`w-full mb-[20px] flex justify-between`}>
                     <div className="w-[75%] h-[50%] flex justify-between">
-                        <p
-                            className={`font-bold text-[30px] mr-[15px] content-end`}
-                        >
+                        <p className={`font-bold text-[30px] mr-[15px]`}>
                             Answer:
                         </p>
 
