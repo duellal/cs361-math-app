@@ -145,9 +145,6 @@ export default function PracticeProblemsDiv(props) {
             })
         }
 
-        console.log('\nHANDLE SUBMIT BTN\n\n')
-        console.log('problem array:\n', prblmArr)
-        console.log('\n\nSolved arr:\n', solvedProblems.addition)
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)

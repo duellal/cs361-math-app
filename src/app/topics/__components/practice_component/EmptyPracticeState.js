@@ -12,29 +12,38 @@ const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-po
 const divMarginsTw = `px-[50px] py-[20px]`
 
 // Text
-const h3Tw = `text-[50px] font-bold text-center my-[20px] text-dark-blue w-full text-white`
-const pTw = `w-full text-white text-center text-[20px] font-bold`
+const h3Tw = `text-[50px] font-bold text-center my-[20px] text-dark-blue text-white`
+const pTw = `w-full self-center text-white text-center text-[20px] font-bold`
 
 export default function EmptyPracticeProblems({ prblmArr }) {
     if (!prblmArr) {
         return (
             <div className="w-full flex justify-center">
                 <div
-                    className={`w-[65%] min-h-[calc(100dvh-610px)] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} h-[400px]`}
+                    className={`w-[65%] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} h-[400px]`}
                 >
-                    <h3 className={`${h3Tw}`}>Loading...</h3>
-                    <p className={`${pTw}`}>
-                        Please be patient while we load the practice problems.
-                    </p>
-                    <p className={`${pTw}`}>
-                        To try other types of operations, click the button
-                        below.
-                    </p>
+                    <h3 className={h3Tw}>Problems Not Available</h3>
 
-                    <div className={`w-full my-[20px] flex justify-center`}>
+                    <div className="h-fit flex flex-wrap gap-y-8">
+                        <p className={pTw}>
+                            {`We haven't been able to load your problems yet.`}
+                        </p>
+
+                        <p
+                            className={`${pTw} align-start self-start mt-[-28px]`}
+                        >
+                            {`This can happen if the topic is new or the set is still being generated.`}
+                        </p>
+
+                        <p className={pTw}>
+                            You can try a different topic anytime using the
+                            button below.
+                        </p>
+                    </div>
+                    <div className="w-full my-[20px] flex justify-center">
                         <Link href="/topics">
                             <PrblmBtn
-                                text={'Select a New Topic'}
+                                text="Select a New Topic"
                                 tw={`${bottomBtnsTw} border-3 border-dark-blue w-fit font-bold p-3 bg-white`}
                             />
                         </Link>

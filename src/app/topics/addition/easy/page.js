@@ -2,7 +2,6 @@
 
 // Node Modules
 import { useContext, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 // Components
 import EmptyPracticeProblems from '../../__components/practice_component/EmptyPracticeState'
@@ -44,9 +43,6 @@ export default function PracticeAddition() {
     const [startTimer, setStartTimer] = useState(false)
     const [pauseTimer, setPauseTimer] = useState(false)
 
-    console.log('Solved Arr:', solvedProblems.addition)
-    console.log('Problem Arr:', easyProblems)
-
     useEffect(() => {
         const load_easy_problems = async () => {
             setEasyProblems(await easy_problems({}))
@@ -55,7 +51,12 @@ export default function PracticeAddition() {
         if (!easyProblems) {
             load_easy_problems()
         }
-    }, [easyProblems, setSolvedProblems, user_id])
+        if (solvedProblems?.addition?.length === easyProblems?.length) {
+            setEasyProblems([])
+            setRandomIdx(null)
+            setSolutionDiv(false)
+        }
+    }, [easyProblems, solvedProblems])
 
     const handleConfirm = () => {
         let answer = Number(answerInput)
@@ -84,6 +85,7 @@ export default function PracticeAddition() {
         let idx = randomIdx + 1
 
         if (solvedProblems.addition.length === prblmArr.length) {
+            setEasyProblems([])
             setRandomIdx(null)
             setSolutionDiv(false)
             return
@@ -135,9 +137,9 @@ export default function PracticeAddition() {
                 </h2>
             </div>
 
-            {solutionDiv ? (
+            {easyProblems && solutionDiv ? (
                 <SolutionPage
-                    prblmArr={easyProblems ?? []}
+                    prblmArr={easyProblems}
                     randomIdx={randomIdx}
                     setAnswer={setAnswer}
                     setRandomIdx={setRandomIdx}
@@ -166,11 +168,12 @@ export default function PracticeAddition() {
                     setStopTimer={setStopTimer}
                 />
             ) : easyProblems &&
-              easyProblems.length !== solvedProblems?.length &&
+              solvedProblems &&
+              easyProblems.length !== solvedProblems.length &&
               typeof randomIdx === 'number' ? (
                 <PracticeProblems
                     answerInput={answerInput}
-                    prblmArr={easyProblems ?? []}
+                    prblmArr={easyProblems}
                     randomIdx={randomIdx}
                     setAnswer={setAnswer}
                     setRandomIdx={setRandomIdx}
