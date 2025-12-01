@@ -13,8 +13,6 @@ import { SolutionPage } from '../../__components/practice_component/solution'
 import easy_problems from './easyAdditionPrblms'
 
 export default function PracticeAddition() {
-    const router = useRouter()
-
     // States:
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
@@ -28,6 +26,8 @@ export default function PracticeAddition() {
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
+
+    console.log('Solved Arr:', solvedArr)
 
     useEffect(() => {
         const load_easy_problems = async () => {

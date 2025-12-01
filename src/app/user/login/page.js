@@ -5,7 +5,7 @@ import Link from 'next/link'
 import get_user from '../../_apiFuncs/user/getUser'
 import { useContext, useState } from 'react'
 import { redirect } from 'next/navigation'
-import UserContext from '../userContext'
+import UserContext from '../../_context/userContext'
 
 const formFieldset = 'w-[70%] mb-5 border-3 border-medium-blue rounded-xl p-3'
 const formLegend = 'text-dark-blue p-2 font-bold'

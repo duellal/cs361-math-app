@@ -26,7 +26,7 @@ import {
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
 import HintText from './hint'
 import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
-import UserContext from '@/app/user/userContext'
+import UserContext from '@/app/_context/userContext'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -108,12 +108,15 @@ export default function PracticeProblemsDiv(props) {
                 problem_id,
                 user_id,
             })
+
+            console.log('Submit answer:', submitAnswer)
         }
 
         if (answerInput === prblmArr[randomIdx].answer) {
             setSolvedArr([...solvedArr, randomIdx])
         }
 
+        console.log('Solved arr:', solvedArr)
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)

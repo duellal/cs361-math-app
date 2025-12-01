@@ -12,7 +12,8 @@ import './globals.css'
 import { Noto_Sans } from 'next/font/google'
 import { CssBaseline } from '@mui/material'
 import { useContext, useState } from 'react'
-import UserContext from './user/userContext'
+import UserContext from './_context/userContext'
+import SolvedProblemsContext from './_context/solvedProblemsContext'
 
 const notoSans = Noto_Sans({
     subsets: ['latin'], // choose subsets you need
@@ -33,7 +34,12 @@ const metadata = {
 
 export default function RootLayout({ children }) {
     let [user, setUser] = useState(useContext(UserContext))
-    console.log('App user?', user)
+    let [solvedProblems, setSolvedProblems] = useState(
+        useContext(SolvedProblemsContext),
+    )
+    console.log('\nROOT LAYOUT\n')
+    console.log('APP USER:\n', user)
+    console.log('SOLVED PROBLEMS:\n', solvedProblems)
 
     return (
         <html lang="en" suppressHydrationWarning>

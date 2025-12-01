@@ -3,7 +3,7 @@ import logo from '../../../public/images/math-path-logo.jpg'
 import Link from 'next/link'
 import { Button } from '@mui/material'
 import { useContext } from 'react'
-import UserContext from '../user/userContext'
+import UserContext from '../_context/userContext'
 
 const nav_pages = [
     {
