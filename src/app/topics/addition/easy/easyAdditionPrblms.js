@@ -6,7 +6,7 @@ const easy_problems = async (props) => {
     let operation = 'add'
 
     try {
-        let res = await axios.get('http://localhost:8001/api/add', {
+        let res = await axios.get('${process.env.MATH_DB_API_URL}/add', {
             headers: {
                 'Content-Type': 'application/json',
             },

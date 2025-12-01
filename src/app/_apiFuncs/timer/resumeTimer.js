@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const submit_answer = async (data) => {
-    console.log('Submit Answer DATA:', data)
+const resume_timer = async (timer_id) => {
     try {
         let res = await axios.post(
-            `${process.env.MATH_DB_API_URL}/user/completed_problem`,
-            data,
+            `${process.env.TIMER_URL}/resume`,
+            timer_id,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -15,9 +14,9 @@ const submit_answer = async (data) => {
 
         return res
     } catch (err) {
-        console.log('User Completed Problem - ERR:', err)
+        console.log('Resume Timer - ERR:\n', err)
         return err
     }
 }
 
-export default submit_answer
+export default resume_timer

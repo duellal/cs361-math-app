@@ -1,19 +1,18 @@
 import axios from 'axios'
 
-const get_user = async (user) => {
+const stop_timer = async (timer_id) => {
     try {
-        let res = await axios.get(`${process.env.USER_URL}/user`, {
+        let res = await axios.post(`${process.env.TIMER_URL}/stop`, timer_id, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            params: { ...user },
         })
 
         return res
     } catch (err) {
-        console.log('Get User - ERR:', err)
+        console.log('Stop Timer - ERR:\n', err)
         return err
     }
 }
 
-export default get_user
+export default stop_timer

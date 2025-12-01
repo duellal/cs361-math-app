@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const create_user = async (user) => {
     try {
-        let res = await axios.post('http://localhost:9001/user', user, {
+        let res = await axios.post(`${process.env.USER_URL}/user`, user, {
             headers: {
                 'Content-Type': 'application/json',
             },
