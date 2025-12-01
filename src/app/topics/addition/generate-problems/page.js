@@ -1,20 +1,14 @@
 'use client'
 
-import PrblmBtn from '@/app/__components/PracticePrblmBtn'
+import generate_problem_set from '@/app/_apiFuncs/problems/addition/addProblemSet'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import easy_problems from '../easy/easyAdditionPrblms'
+import UserContext from '@/app/_context/userContext'
 
 // Styling:
-// Buttons
-const mainBtnTw = `rounded-lg h-[45px]`
-const bottomBtnsTw = `${mainBtnTw} w-[132px] w-min-fit text-center p-3 cursor-pointer`
-
 // Divs
 const divMarginsTw = `px-[50px] py-[20px]`
-
-// Text
-const h3Tw = `text-[50px] font-bold text-center mt-[20px] mb-[40px] text-dark-blue text-white`
-const pTw = `w-full self-center text-white text-center text-[20px] font-bold`
 
 // Form
 const formFieldset =
@@ -35,10 +29,38 @@ export default function GenerateAddtionProblems() {
         'hundred thousandths (0.00001)',
     ]
 
-    const [numOfProbs, setNumOfProbs] = useState('')
-    const [numOfOperands, setNumofOperands] = useState('')
+    const { user } = useContext(UserContext)
+
+    const [error, setError] = useState(false)
+    const [prblm_count, setNumOfProbs] = useState('')
+    const [num_per_prblm, setNumofOperands] = useState('')
     const [format, setFormat] = useState('')
-    const [roundTo, setRoundTo] = useState('')
+    const [round_to, setRoundTo] = useState('')
+
+    const handleGenerateProblems = async (evt) => {
+        console.log('Handle Generate Problems?')
+        evt.preventDefault()
+
+        let generateSet = await generate_problem_set({
+            prblm_count,
+            num_per_prblm,
+            format,
+            round_to,
+            range: [0, 100],
+            difficulty: 'easy',
+        })
+
+        console.log('Generated set:', generateSet)
+
+        if (generateSet?.status === 200) {
+            await easy_problems({ user_id: user ? user['_id'] : null })
+            setError(false)
+
+            return <Link href={'/topics/addition/easy'} className={`w-[55%]`} />
+        }
+
+        setError(true)
+    }
 
     return (
         <div className="w-full my-[32px] flex flex-wrap content-start justify-center">
@@ -68,6 +90,7 @@ export default function GenerateAddtionProblems() {
                         </p>
                     </div>
                 </div>
+
                 {/* Form */}
                 <form
                     className={`p-2 text-dark-blue min-w-[80%] flex flex-wrap justify-center`}
@@ -84,7 +107,7 @@ export default function GenerateAddtionProblems() {
                         <input
                             type="number"
                             name="num_of_probs"
-                            value={numOfProbs}
+                            value={prblm_count}
                             max={99}
                             min={1}
                             required
@@ -92,7 +115,7 @@ export default function GenerateAddtionProblems() {
                             className={formInput}
                             onChange={(evt) => {
                                 evt.preventDefault()
-                                setNumOfProbs(evt.target.value)
+                                setNumOfProbs(Number(evt.target.value))
                             }}
                         />
                     </fieldset>
@@ -114,7 +137,7 @@ export default function GenerateAddtionProblems() {
                         <input
                             type="number"
                             name="num_of_probs"
-                            value={numOfOperands}
+                            value={num_per_prblm}
                             max={10}
                             min={2}
                             required
@@ -122,7 +145,7 @@ export default function GenerateAddtionProblems() {
                             className={formInput}
                             onChange={(evt) => {
                                 evt.preventDefault()
-                                setNumofOperands(evt.target.value)
+                                setNumofOperands(Number(evt.target.value))
                             }}
                         />
                     </fieldset>
@@ -193,9 +216,9 @@ export default function GenerateAddtionProblems() {
                                     required
                                     onChange={(evt) => {
                                         evt.preventDefault()
-                                        setRoundTo(evt.target.value)
+                                        setRoundTo(Number(evt.target.value))
                                     }}
-                                    value={roundTo}
+                                    value={round_to}
                                 >
                                     {roundToArr.map((round, idx) => {
                                         if (idx === 0) {
@@ -211,7 +234,7 @@ export default function GenerateAddtionProblems() {
                                         return (
                                             <option
                                                 key={`${idx}-round`}
-                                                value={round}
+                                                value={idx}
                                             >
                                                 {round}
                                             </option>
@@ -222,10 +245,22 @@ export default function GenerateAddtionProblems() {
                         ) : null}
                     </fieldset>
 
+                    {/* Error */}
+                    {error ? (
+                        <div className="w-full flex flex-wrap mt-[10px] mb-[30px] text-error-red">
+                            <p className="w-full text-center">
+                                Oh no! There was an error with your request.
+                            </p>
+                            <p className="w-full text-center">
+                                Refresh the page and try again.
+                            </p>
+                        </div>
+                    ) : null}
+                    {/* Submit Button */}
                     <button
                         key={'submit-btn'}
                         className={formBtn}
-                        type="submit"
+                        onClick={handleGenerateProblems}
                     >
                         Generate Problems
                     </button>
