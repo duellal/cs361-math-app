@@ -6,11 +6,16 @@ export default function TimerDisplay({ start = true }) {
 
     useEffect(() => {
         if (start) {
+            // Resume or start timer
             intervalRef.current = setInterval(() => {
                 setTime((prev) => prev + 1)
             }, 1000)
+        } else {
+            // Pause
+            clearInterval(intervalRef.current)
         }
 
+        // Cleanup
         return () => clearInterval(intervalRef.current)
     }, [start])
 

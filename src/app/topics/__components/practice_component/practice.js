@@ -60,6 +60,7 @@ export default function PracticeProblemsDiv(props) {
     const [inputErr, setInputErr] = useState(null)
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
     const [timerText, setTimerText] = useState('start timer')
+    const [timerStart, setTimerStart] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
     const { user, setUser } = useContext(UserContext)
 
@@ -74,6 +75,11 @@ export default function PracticeProblemsDiv(props) {
     const handleHintClose = (evt) => {
         setHintPopup(false)
         setBlurBg(false)
+    }
+
+    const handleTimerBtn = (evt) => {
+        setTimerStart(!timerStart)
+        setTimerText(timerStart ? 'pause timer' : 'start timer')
     }
 
     const handleVideoBtn = () => {
@@ -192,10 +198,11 @@ export default function PracticeProblemsDiv(props) {
                         <div className={`w-full flex justify-center`}>
                             <PrblmBtn
                                 text={timerText}
+                                handleClick={handleTimerBtn}
                                 tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mx-[10px] capitalize`}
                             />
 
-                            <TimerDisplay start={false} />
+                            <TimerDisplay start={timerStart} />
                         </div>
                         <div className={`w-full flex justify-center`}>
                             <PrblmBtn
