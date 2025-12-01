@@ -14,6 +14,7 @@ import { CssBaseline } from '@mui/material'
 import { useContext, useState } from 'react'
 import UserContext from './_context/userContext'
 import SolvedProblemsContext from './_context/solvedProblemsContext'
+import TimerContext from './_context/timerContext'
 
 const notoSans = Noto_Sans({
     subsets: ['latin'], // choose subsets you need
@@ -37,9 +38,13 @@ export default function RootLayout({ children }) {
     let [solvedProblems, setSolvedProblems] = useState(
         useContext(SolvedProblemsContext),
     )
+    let [timer, setTimer] = useState(useContext(TimerContext))
+
     console.log(
         '\nROOT LAYOUT\n\nAPP USER:\n',
         user,
+        '\n\nTIMER:\n',
+        timer,
         '\n\nSOLVED PROBLEMS:\n',
         solvedProblems,
     )
@@ -126,13 +131,19 @@ export default function RootLayout({ children }) {
 
             <body>
                 <UserContext value={{ user, setUser }}>
-                    <AppRouterCacheProvider options={mui_options}>
-                        <CssBaseline>
-                            <Navigation />
-                            <main>{children}</main>
-                            <Footer />
-                        </CssBaseline>
-                    </AppRouterCacheProvider>
+                    <SolvedProblemsContext
+                        value={{ solvedProblems, setSolvedProblems }}
+                    >
+                        <TimerContext value={{ timer, setTimer }}>
+                            <AppRouterCacheProvider options={mui_options}>
+                                <CssBaseline>
+                                    <Navigation />
+                                    <main>{children}</main>
+                                    <Footer />
+                                </CssBaseline>
+                            </AppRouterCacheProvider>
+                        </TimerContext>
+                    </SolvedProblemsContext>
                 </UserContext>
             </body>
         </html>

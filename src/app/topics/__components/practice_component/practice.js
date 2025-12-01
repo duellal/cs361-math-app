@@ -60,7 +60,9 @@ export default function PracticeProblemsDiv(props) {
     const [inputErr, setInputErr] = useState(null)
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
     const [timerText, setTimerText] = useState('start timer')
-    const [timerStart, setTimerStart] = useState(false)
+    const [startTimer, setStartTimer] = useState(false)
+    const [stopTimer, setStopTimer] = useState(false)
+    const [pauseTimer, setPauseTimer] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
     const { user, setUser } = useContext(UserContext)
 
@@ -78,8 +80,17 @@ export default function PracticeProblemsDiv(props) {
     }
 
     const handleTimerBtn = (evt) => {
-        setTimerStart(!timerStart)
-        setTimerText(timerStart ? 'pause timer' : 'start timer')
+        evt.preventDefault()
+
+        if (timerText.includes('pause')) {
+            setTimerText('start timer')
+            setStartTimer(false)
+            setPauseTimer(true)
+        } else {
+            setTimerText('pause timer')
+            setStartTimer(true)
+            setPauseTimer(false)
+        }
     }
 
     const handleVideoBtn = () => {
@@ -202,7 +213,11 @@ export default function PracticeProblemsDiv(props) {
                                 tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mx-[10px] capitalize`}
                             />
 
-                            <TimerDisplay start={timerStart} />
+                            <TimerDisplay
+                                pause={pauseTimer}
+                                start={startTimer}
+                                stop={stopTimer}
+                            />
                         </div>
                         <div className={`w-full flex justify-center`}>
                             <PrblmBtn
