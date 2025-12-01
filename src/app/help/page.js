@@ -10,7 +10,7 @@ export default function Help() {
     return (
         <div className="w-full mt-[32px]">
             <div className={`w-full place-items-center mb-[150px]`}>
-                <h1 className="w-[900px] mb-[50px]">
+                <h1 className="w-[900px] leading-20 mb-[50px]">
                     Instructions for Practicing Problems
                 </h1>
 
