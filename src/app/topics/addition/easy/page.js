@@ -208,7 +208,13 @@ export default function PracticeAddition() {
                     setPauseTimer={setPauseTimer}
                 />
             ) : (
-                <EmptyPracticeProblems prblmArr={easyProblems} />
+                <EmptyPracticeProblems
+                    prblmArr={
+                        easyProblems?.length === 0
+                            ? solvedProblems
+                            : easyProblems
+                    }
+                />
             )}
         </div>
     )
