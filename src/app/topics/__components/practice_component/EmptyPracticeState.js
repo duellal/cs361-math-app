@@ -75,7 +75,9 @@ export default function EmptyPracticeProblems({ prblmArr }) {
                     <div
                         className={`w-full my-[10px] flex justify-center mb-[40px]`}
                     >
-                        <Link href={`/${pathname[1]}/${pathname[2]}/add`}>
+                        <Link
+                            href={`/${pathname[1]}/${pathname[2]}/generate-problems`}
+                        >
                             <PrblmBtn
                                 text={'Generate More Problems'}
                                 tw={`${bottomBtnsTw} border-3 border-dark-blue w-fit font-bold p-3 bg-white`}
