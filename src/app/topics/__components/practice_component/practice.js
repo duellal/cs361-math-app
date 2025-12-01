@@ -54,7 +54,6 @@ export default function PracticeProblemsDiv(props) {
         tutorialEndDiv,
         setTutorialEndDiv,
     } = props
-    const router = useRouter()
 
     // States:
     const [hintPopup, setHintPopup] = useState(false)
@@ -172,7 +171,7 @@ export default function PracticeProblemsDiv(props) {
     return (
         <div className="w-full flex justify-center">
             <div
-                className={`w-[65%] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
+                className={`w-[65%]  min-h-[calc(100dvh-610px)]  flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} ${!tutorialDisable ? 'pointer-events-none' : null}`}
             >
                 {/* h3, hint button + tutorial button */}
                 <div className={`w-full flex items-end justify-between`}>

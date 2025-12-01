@@ -8,7 +8,7 @@ export function EasyHorizAddProblem(props) {
 
     return (
         <div
-            className="w-full flex flex-wrap text-center text-[50px] text-black place-items-center justify-center my-[40px]"
+            className="w-full min-h-[200px] flex flex-wrap text-center text-[50px] text-black place-items-center justify-center my-[40px]"
             key={`${Math.floor(Math.random() * numArr.length)}`}
         >
             {numArr?.map((num, idx) => {

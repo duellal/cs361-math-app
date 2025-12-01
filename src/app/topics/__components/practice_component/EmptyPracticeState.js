@@ -20,7 +20,7 @@ export default function EmptyPracticeProblems({ prblmArr }) {
         return (
             <div className="w-full flex justify-center">
                 <div
-                    className={`w-[65%] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} h-[400px]`}
+                    className={`w-[65%] min-h-[calc(100dvh-610px)] flex flex-wrap rounded-[60px] border-[12px] border-white bg-medium-blue justify-center ${divMarginsTw} h-[400px]`}
                 >
                     <h3 className={`${h3Tw}`}>Loading...</h3>
                     <p className={`${pTw}`}>
