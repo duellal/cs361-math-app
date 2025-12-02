@@ -11,10 +11,12 @@ import Footer from './__components/Footer'
 import './globals.css'
 import { Noto_Sans } from 'next/font/google'
 import { CssBaseline } from '@mui/material'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import UserContext from './_context/userContext'
 import SolvedProblemsContext from './_context/solvedProblemsContext'
 import TimerContext from './_context/timerContext'
+import EasyAdditionProblemsContext from './_context/easyAdditionProblemsContext'
+import easy_problems from './topics/addition/easy/easyAdditionPrblms'
 
 const notoSans = Noto_Sans({
     subsets: ['latin'], // choose subsets you need
@@ -38,16 +40,66 @@ export default function RootLayout({ children }) {
     let [solvedProblems, setSolvedProblems] = useState(
         useContext(SolvedProblemsContext),
     )
+    let [easyAdditionProblems, setEasyAdditionProblems] = useState(
+        useContext(EasyAdditionProblemsContext),
+    )
     let [timer, setTimer] = useState(useContext(TimerContext))
 
-    console.log(
-        '\nROOT LAYOUT\n\nAPP USER:\n',
-        user,
-        '\n\nTIMER:\n',
-        timer,
-        '\n\nSOLVED PROBLEMS:\n',
-        solvedProblems,
+    const filterSolvedEasyAddition = useCallback(() => {
+        setEasyAdditionProblems((prev) =>
+            prev.filter(
+                (prob) =>
+                    !solvedProblems.addition.some(
+                        (elem) => elem.problem_id === prob.problem_id,
+                    ),
+            ),
+        )
+    }, [solvedProblems])
+
+    const userValue = useMemo(() => ({ user, setUser }), [user])
+
+    const solvedValue = useMemo(
+        () => ({ solvedProblems, setSolvedProblems }),
+        [solvedProblems],
     )
+
+    const easyAdditionValue = useMemo(
+        () => ({
+            easyAdditionProblems,
+            setEasyAdditionProblems,
+            filterSolvedEasyAddition,
+        }),
+        [easyAdditionProblems, filterSolvedEasyAddition],
+    )
+
+    const timerValue = useMemo(() => ({ timer, setTimer }), [timer])
+
+    console.log('LAYOUT:')
+    console.log('EASY PROBLEMS:', easyAdditionProblems)
+    console.log('SOLUTION', solvedProblems.addition)
+
+    // load problems once
+    useEffect(() => {
+        const load = async () => {
+            const probs = await easy_problems({})
+            setEasyAdditionProblems(probs)
+        }
+
+        load()
+    }, [])
+
+    useEffect(() => {
+        console.log(
+            '\nROOT LAYOUT\n\nAPP USER:\n',
+            user,
+            '\n\nTIMER:\n',
+            timer,
+            '\n\nSOLVED PROBLEMS:\n',
+            solvedProblems,
+            '\n\nCURRENT EASY ADD PROBLEMS:\n',
+            easyAdditionProblems,
+        )
+    }, [easyAdditionProblems, solvedProblems, timer, user])
 
     return (
         <html lang="en" suppressHydrationWarning>
@@ -130,20 +182,21 @@ export default function RootLayout({ children }) {
             </head>
 
             <body>
-                <UserContext value={{ user, setUser }}>
-                    <SolvedProblemsContext
-                        value={{ solvedProblems, setSolvedProblems }}
-                    >
-                        <TimerContext value={{ timer, setTimer }}>
-                            <AppRouterCacheProvider options={mui_options}>
-                                <CssBaseline>
-                                    <Navigation />
-                                    <main>{children}</main>
-                                    <Footer />
-                                </CssBaseline>
-                            </AppRouterCacheProvider>
-                        </TimerContext>
-                    </SolvedProblemsContext>
+                <UserContext value={userValue}>
+                    <EasyAdditionProblemsContext value={easyAdditionValue}>
+                        <SolvedProblemsContext value={solvedValue}>
+                            <TimerContext value={timerValue}>
+                                <AppRouterCacheProvider options={mui_options}>
+                                    <CssBaseline>
+                                        <Navigation />
+
+                                        <main>{children}</main>
+                                        <Footer />
+                                    </CssBaseline>
+                                </AppRouterCacheProvider>
+                            </TimerContext>
+                        </SolvedProblemsContext>
+                    </EasyAdditionProblemsContext>
                 </UserContext>
             </body>
         </html>
