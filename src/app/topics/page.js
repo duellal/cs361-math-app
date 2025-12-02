@@ -1,7 +1,6 @@
 'use client'
 
 // General Imports
-import { useRouter } from 'next/navigation'
 
 // Icon Imports:
 import { DivideIcon, MinusIcon, PlusIcon, XIcon } from '@phosphor-icons/react'
@@ -99,18 +98,28 @@ const PathComponent = () => {
                         >
                             {btn_txt.map((txt, idx) => {
                                 let disabled = path.disabled.includes(txt)
+                                console.log(`${txt} Disabled?`, disabled)
 
                                 return (
                                     <Link
                                         key={`${idx + Math.random()}-${txt}-btn`}
-                                        href={`${path[`${txt}_href`]}`}
+                                        href={
+                                            !disabled
+                                                ? `${path[`${txt}_href`]}`
+                                                : ``
+                                        }
+                                        disabled={disabled}
+                                        style={{
+                                            cursor: `${disabled ? 'not-allowed' : 'pointer'}`,
+                                        }}
+                                        className="m-[30px]"
                                     >
                                         <Button
                                             disableRipple
                                             disableTouchRipple
                                             disableFocusRipple
                                             variant="contained"
-                                            className="m-[30px] border-white border-3 rounded-none bg-dark-blue text-light-blue w-[150px] text-[20px] font-extrabold capitalize
+                                            className={`border-white border-3 rounded-none bg-dark-blue text-light-blue w-[150px] text-[20px] font-extrabold capitalize
                         
                                             outline-3 outline-dark-blue 
                                             shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
@@ -119,8 +128,7 @@ const PathComponent = () => {
                                             hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
 
                                             active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
-                                            active:translate-y-[2px]"
-                                            disabled={disabled}
+                                            active:translate-y-[2px]`}
                                         >
                                             {txt}
                                         </Button>
@@ -136,8 +144,6 @@ const PathComponent = () => {
 }
 
 export default function Topics() {
-    const router = useRouter()
-
     return (
         <div className="w-full mt-[32px] flex flex-wrap place-content-center">
             <h1 className="w-full text-[65px] text-white font-bold text-center mb-[50px]">
