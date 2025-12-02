@@ -59,7 +59,7 @@ export default function GenerateAddtionProblems() {
 
     const handleGenerateProblems = async (evt) => {
         evt.preventDefault()
-        let range = [0, 100 / num_per_prblm]
+        let range = [0, 50 / num_per_prblm]
 
         if (format === 'decimal') {
             range = [0, 10 / num_per_prblm]
