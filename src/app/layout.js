@@ -2,21 +2,25 @@
 
 // General Imports
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 // Components
 import Navigation from './__components/Navigation'
 import Footer from './__components/Footer'
 
-// Styling
-import './globals.css'
-import { Noto_Sans } from 'next/font/google'
-import { CssBaseline } from '@mui/material'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+// Context
 import UserContext from './_context/userContext'
 import SolvedProblemsContext from './_context/solvedProblemsContext'
 import TimerContext from './_context/timerContext'
 import EasyAdditionProblemsContext from './_context/easyAdditionProblemsContext'
+
+// Functions
 import easy_problems from './topics/addition/easy/easyAdditionPrblms'
+
+// Styling
+import './globals.css'
+import { Noto_Sans } from 'next/font/google'
+import { CssBaseline } from '@mui/material'
 
 const notoSans = Noto_Sans({
     subsets: ['latin'], // choose subsets you need
@@ -74,10 +78,6 @@ export default function RootLayout({ children }) {
 
     const timerValue = useMemo(() => ({ timer, setTimer }), [timer])
 
-    console.log('LAYOUT:')
-    console.log('EASY PROBLEMS:', easyAdditionProblems)
-    console.log('SOLUTION', solvedProblems.addition)
-
     // load problems once
     useEffect(() => {
         const load = async () => {
@@ -87,19 +87,6 @@ export default function RootLayout({ children }) {
 
         load()
     }, [])
-
-    useEffect(() => {
-        console.log(
-            '\nROOT LAYOUT\n\nAPP USER:\n',
-            user,
-            '\n\nTIMER:\n',
-            timer,
-            '\n\nSOLVED PROBLEMS:\n',
-            solvedProblems,
-            '\n\nCURRENT EASY ADD PROBLEMS:\n',
-            easyAdditionProblems,
-        )
-    }, [easyAdditionProblems, solvedProblems, timer, user])
 
     return (
         <html lang="en" suppressHydrationWarning>
