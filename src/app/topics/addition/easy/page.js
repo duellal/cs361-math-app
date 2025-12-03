@@ -8,28 +8,31 @@ import EmptyPracticeProblems from '../../__components/practice_component/EmptyPr
 import PracticeProblems from '../../__components/practice_component/practice'
 import { SolutionPage } from '../../__components/practice_component/solution'
 
-// Variables
-import easy_problems from './easyAdditionPrblms'
+// Context
 import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
 import UserContext from '@/app/_context/userContext'
-import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
 import TimerContext from '@/app/_context/timerContext'
+import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsContext'
+
+// HTTP Calls
+import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
 
 export default function PracticeAddition() {
     // Context:
+    const { easyAdditionProblems, filterSolvedEasyAddition } = useContext(
+        EasyAdditionProblemsContext,
+    )
     const { solvedProblems, setSolvedProblems } = useContext(
         SolvedProblemsContext,
     )
+
     const { timer, setTimer } = useContext(TimerContext)
     const timer_id = timer?.timer_id
-    const { user } = useContext(UserContext)
-    const user_id = user?.['_id']
 
     // States:
     const [answerInput, setAnswer] = useState(null)
     const [blurBg, setBlurBg] = useState(false)
     const [confirmAnswerPopup, setConfirmAnswerPopup] = useState(false)
-    const [easyProblems, setEasyProblems] = useState(null)
     const [numStep, setNumStep] = useState(0)
     const [randomIdx, setRandomIdx] = useState(0)
     const [skipBtnDisabled, setSkipBtnDisabled] = useState(false)
@@ -44,19 +47,12 @@ export default function PracticeAddition() {
     const [pauseTimer, setPauseTimer] = useState(false)
 
     useEffect(() => {
-        const load_easy_problems = async () => {
-            setEasyProblems(await easy_problems({}))
-        }
+        filterSolvedEasyAddition()
 
-        if (!easyProblems) {
-            load_easy_problems()
+        if (easyAdditionProblems.length === 1) {
+            setSkipBtnDisabled(true)
         }
-        if (solvedProblems?.addition?.length === easyProblems?.length) {
-            setEasyProblems([])
-            setRandomIdx(null)
-            setSolutionDiv(false)
-        }
-    }, [easyProblems, solvedProblems])
+    }, [easyAdditionProblems.length, filterSolvedEasyAddition])
 
     const handleConfirm = () => {
         let answer = Number(answerInput)
@@ -80,39 +76,7 @@ export default function PracticeAddition() {
         setBlurBg(false)
     }
 
-    const handleSkipPrblm = () => {
-        let prblmArr = easyProblems
-        let idx = randomIdx + 1
-
-        if (solvedProblems.addition.length === prblmArr.length) {
-            setEasyProblems([])
-            setRandomIdx(null)
-            setSolutionDiv(false)
-            return
-        } else if (idx >= prblmArr.length) {
-            idx = 0
-        }
-
-        if (!solvedProblems.addition.includes(idx)) {
-            setRandomIdx(idx)
-        } else {
-            while (solvedProblems.addition.includes(idx)) {
-                idx += 1
-
-                if (idx >= prblmArr.length) {
-                    idx = 0
-                }
-
-                if (!solvedProblems.addition.includes(idx)) {
-                    setRandomIdx(idx)
-                }
-            }
-        }
-
-        if (solvedProblems.addition.length + 1 === prblmArr.length) {
-            setSkipBtnDisabled(true)
-        }
-
+    const handleSkipPrblm = async () => {
         if (Object.keys(timer) > 0) {
             setTimer({})
             setSeconds(0)
@@ -121,6 +85,54 @@ export default function PracticeAddition() {
             setPauseTimer(false)
             setStopTimer(false)
         }
+
+        if (
+            answerInput &&
+            answerInput === easyAdditionProblems[randomIdx].solution
+        ) {
+            setSolvedProblems({
+                ...solvedProblems,
+                addition: [
+                    ...solvedProblems.addition,
+                    easyAdditionProblems[randomIdx],
+                ],
+            })
+        }
+
+        let idx = randomIdx + 1
+
+        if (idx >= easyAdditionProblems.length) {
+            idx = 0
+        }
+
+        if (
+            !solvedProblems.addition.some(
+                (prob) => prob.problem_id === easyAdditionProblems[idx],
+            )
+        ) {
+            setRandomIdx(idx)
+        } else {
+            while (
+                solvedProblems.addition.some(
+                    (prob) => prob.problem_id === easyAdditionProblems[idx],
+                )
+            ) {
+                idx += 1
+
+                if (idx >= easyAdditionProblems.length) {
+                    idx = 0
+                }
+
+                if (
+                    !solvedProblems.addition.some(
+                        (prob) => prob.problem_id === easyAdditionProblems[idx],
+                    )
+                ) {
+                    setRandomIdx(idx)
+                }
+            }
+        }
+
         setSolutionDiv(null)
         setAnswer('')
         setSubmitDisable(true)
@@ -137,43 +149,29 @@ export default function PracticeAddition() {
                 </h2>
             </div>
 
-            {easyProblems && solutionDiv ? (
+            {solutionDiv ? (
                 <SolutionPage
-                    prblmArr={easyProblems}
-                    randomIdx={randomIdx}
                     setAnswer={setAnswer}
-                    setRandomIdx={setRandomIdx}
                     setSolutionDiv={setSolutionDiv}
-                    setSolvedArr={setSolvedProblems}
-                    solvedArr={solvedProblems.addition}
-                    confirmAnswerPopup={confirmAnswerPopup}
-                    setConfirmAnswerPopup={setConfirmAnswerPopup}
                     numStep={numStep}
                     setNumStep={setNumStep}
-                    solutionDiv={solutionDiv}
                     u_answer={answerInput}
-                    blurBg={blurBg}
-                    setBlurBg={setBlurBg}
+                    c_answer={easyAdditionProblems[randomIdx]?.solution}
+                    problem={easyAdditionProblems[randomIdx]}
                     handleConfirm={handleConfirm}
                     handleConfirmClose={handleConfirmClose}
-                    submitDisable={submitDisable}
                     setSubmitDisable={setSubmitDisable}
                     tutorialDisable={tutorialDisable}
                     setTutorialDisable={setTutorialDisable}
                     tutorialEndDiv={tutorialEndDiv}
                     setTutorialEndDiv={setTutorialEndDiv}
-                    skipBtnDisabled={skipBtnDisabled}
-                    setSkipBtnDisabled={setSkipBtnDisabled}
                     handleNext={handleSkipPrblm}
                     setStopTimer={setStopTimer}
                 />
-            ) : easyProblems &&
-              solvedProblems &&
-              easyProblems.length !== solvedProblems.length &&
+            ) : easyAdditionProblems?.length > 0 &&
               typeof randomIdx === 'number' ? (
                 <PracticeProblems
                     answerInput={answerInput}
-                    prblmArr={easyProblems}
                     randomIdx={randomIdx}
                     setAnswer={setAnswer}
                     setRandomIdx={setRandomIdx}
@@ -210,9 +208,9 @@ export default function PracticeAddition() {
             ) : (
                 <EmptyPracticeProblems
                     prblmArr={
-                        easyProblems?.length === 0
+                        easyAdditionProblems?.length === 0
                             ? solvedProblems
-                            : easyProblems
+                            : easyAdditionProblems
                     }
                 />
             )}
