@@ -8,11 +8,19 @@ import { XIcon } from '@phosphor-icons/react'
 import CompletedTutorial from '../popups/completedTutorial'
 import ConfirmAnswer from '../popups/confirmAnswer'
 import ContentDiv from '@/app/__components/contentDiv'
-import PrblmBtn from '@/app/__components/PracticePrblmBtn'
 import { EasyHorizAddProblem } from './problem'
+import HintText from './hint'
+import PrblmBtn from '@/app/__components/PracticePrblmBtn'
 import SkipTutorial from '../popups/skipTutorial'
 import TimerDisplay from './TimerDisplay'
 import TutorialComponent from '../tutorial/tutorial'
+
+// Context:
+import UserContext from '@/app/_context/userContext'
+import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsContext'
+
+// HTTP Call Functions:
+import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
 
 // Styling:
 import {
@@ -24,10 +32,6 @@ import {
 
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
-import HintText from './hint'
-import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
-import UserContext from '@/app/_context/userContext'
-import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -40,7 +44,6 @@ export default function PracticeProblemsDiv(props) {
         confirmAnswerPopup,
         setConfirmAnswerPopup,
         numStep,
-        prblmArr,
         setNumStep,
         randomIdx,
         handleSkipPrblm,
@@ -70,11 +73,10 @@ export default function PracticeProblemsDiv(props) {
     const [skipTutorialDiv, setSkipTutorial] = useState(false)
     const [videoPopup, setVideoPopup] = useState(false)
 
-    const { user, setUser } = useContext(UserContext)
-    const { solvedProblems, setSolvedProblems } = useContext(
-        SolvedProblemsContext,
-    )
+    const { user } = useContext(UserContext)
+    const { easyAdditionProblems } = useContext(EasyAdditionProblemsContext)
 
+    const problem = easyAdditionProblems[randomIdx]
     // Styling with Variables:
     const popupDivTw = `w-full h-[calc(100vh-145px)] ${blurBg ? `backdrop-blur-xs` : null} absolute top-[100px] place-items-center place-content-center`
 
@@ -126,7 +128,7 @@ export default function PracticeProblemsDiv(props) {
         let answer = Number(answerInput)
 
         if (Object.keys(user).length > 0) {
-            let { problem_id } = prblmArr[randomIdx]
+            let { problem_id } = problem
             let user_id = user['_id']
 
             let submitAnswer = await submit_answer({
@@ -135,14 +137,9 @@ export default function PracticeProblemsDiv(props) {
                 user_id,
             })
 
-            console.log('Submit answer:', submitAnswer)
-        }
-
-        if (answerInput === prblmArr[randomIdx].solution) {
-            setSolvedProblems({
-                ...solvedProblems,
-                addition: [...solvedProblems.addition, prblmArr[randomIdx]],
-            })
+            if (submitAnswer?.status !== 200) {
+                throw new Error(submitAnswer)
+            }
         }
 
         setBlurBg(false)
@@ -166,9 +163,7 @@ export default function PracticeProblemsDiv(props) {
         </h3>
     )
 
-    const hintText = (
-        <HintText key={`hint-text`} problem={prblmArr[randomIdx]} />
-    )
+    const hintText = <HintText key={`hint-text`} problem={problem} />
 
     const videoCancelBtn = (
         <button
@@ -253,7 +248,7 @@ export default function PracticeProblemsDiv(props) {
                 {/* Problem */}
                 <EasyHorizAddProblem
                     key={`${Math.floor(Math.random() * randomIdx)}`}
-                    numArr={prblmArr[randomIdx]?.operands}
+                    numArr={problem?.operands}
                     setAnswer={setAnswer}
                 />
 
