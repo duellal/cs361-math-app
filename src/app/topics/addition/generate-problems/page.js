@@ -1,11 +1,16 @@
 'use client'
 
+// General Imports
 import generate_problem_set from '@/app/_apiFuncs/problems/addition/addProblemSet'
-import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
-import easy_problems from '../easy/easyAdditionPrblms'
-import UserContext from '@/app/_context/userContext'
 import { useRouter } from 'next/navigation'
+
+// Context
+import UserContext from '@/app/_context/userContext'
+import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsContext'
+
+// Functions
+import easy_problems from '../easy/easyAdditionPrblms'
 
 // Styling:
 // Divs
@@ -33,6 +38,7 @@ export default function GenerateAddtionProblems() {
     ]
 
     const { user } = useContext(UserContext)
+    const { setEasyAdditionProblems } = useContext(EasyAdditionProblemsContext)
 
     const [error, setError] = useState(false)
     const [disableSubmit, setDisableSubmit] = useState(true)
@@ -75,7 +81,10 @@ export default function GenerateAddtionProblems() {
         })
 
         if (generateSet?.status === 200) {
-            await easy_problems({ user_id: user ? user['_id'] : null })
+            let probs = await easy_problems({
+                user_id: user ? user['_id'] : null,
+            })
+            setEasyAdditionProblems(probs)
 
             setError(false)
             setDisableSubmit(true)
