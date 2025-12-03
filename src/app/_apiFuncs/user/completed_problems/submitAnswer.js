@@ -12,6 +12,7 @@ const submit_answer = async (data) => {
             },
         )
 
+        console.log('SUBMIT ANSWER\n', res.data)
         return res
     } catch (err) {
         console.log('User Completed Problem - ERR:', err)

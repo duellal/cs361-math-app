@@ -12,6 +12,7 @@ const pause_timer = async (timer_id) => {
             },
         )
 
+        console.log('PAUSE TIMER\n', res.data)
         return res
     } catch (err) {
         console.log('Pause Timer - ERR:\n', err)

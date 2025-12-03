@@ -12,6 +12,7 @@ const create_user = async (user) => {
             },
         )
 
+        console.log('CREATE USER\n', res.data)
         return res
     } catch (err) {
         console.log('Create User - ERR:', err)

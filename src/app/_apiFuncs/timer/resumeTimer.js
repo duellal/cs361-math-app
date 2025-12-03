@@ -12,6 +12,7 @@ const resume_timer = async (timer_id) => {
             },
         )
 
+        console.log('RESUME TIMER\n', res.data)
         return res
     } catch (err) {
         console.log('Resume Timer - ERR:\n', err)

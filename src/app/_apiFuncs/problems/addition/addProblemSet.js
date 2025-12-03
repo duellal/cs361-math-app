@@ -12,6 +12,7 @@ const generate_problem_set = async (data) => {
             },
         )
 
+        console.log('GENERATE PROBLEM SET\n', res.data)
         return res
     } catch (err) {
         console.log('Generate Addition Problem Set - ERR:', err)

@@ -9,6 +9,7 @@ const get_user = async (user) => {
             params: { ...user },
         })
 
+        console.log('GET USER\n', res.data)
         return res
     } catch (err) {
         console.log('Get User - ERR:', err)

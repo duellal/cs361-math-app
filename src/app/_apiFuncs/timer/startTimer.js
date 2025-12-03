@@ -12,7 +12,7 @@ const start_timer = async (user_id) => {
             },
         )
 
-        console.log('AXIOS RES:', res)
+        console.log('START TIMER\n', res.data)
         return res
     } catch (err) {
         console.log('Start Timer - ERR:\n', err)

@@ -10,7 +10,7 @@ const get_timer = async (timer_id) => {
                 },
             },
         )
-
+        console.log('GET TIMER\n', res.data)
         return res
     } catch (err) {
         console.log('Get Timer - ERR:\n', err)
