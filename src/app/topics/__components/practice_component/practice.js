@@ -143,12 +143,14 @@ export default function PracticeProblemsDiv(props) {
             }
         }
 
-        await pause_timer({ timer_id: timer.timer_id })
-        setTimer({
-            ...timer,
-            pause: true,
-            start: false,
-        })
+        if (timer.timer_id) {
+            await pause_timer({ timer_id: timer.timer_id })
+            setTimer({
+                ...timer,
+                pause: true,
+                start: false,
+            })
+        }
 
         setBlurBg(false)
         setConfirmAnswerPopup(false)

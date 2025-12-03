@@ -15,22 +15,21 @@ export default function Home() {
                 id="banner-img"
                 src={banner}
                 alt="Background circle radius from the bottom right middle of the image that goes from a pastel bright orange (almost a pale yellow) to a dark orange / brown. There are math symbols floating in the forefront that are balloon shaped. Some symbols are an orange addition symbol in the lower right hand corner, a brown summation symbol on the upper left hand corner, a red subtraction symbol to the right of the summation symbol and to the right of that is a square root symbol that is a pastel orange. In the left center, it says 'A Free Way to Build Confidence in Math' in white."
-                className="w-full relative -top-20"
             />
 
-            <div className="w-full flex place-content-center-safe mt-[-20px] py-[56px]">
+            <div className="w-full flex place-content-center-safe py-[56px]">
                 <button
                     className="flex w-[180px] h-[60px] rounded-full py-1 px-2 place-items-center mt-[-10px] cursor-pointer
-                                outline-3 outline-dark-blue 
-                                bg-[linear-gradient(180deg,var(--color-white)_0%,var(--color-medium-blue)_100%)]
-                                shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
-                                transition-all ease-in-out
+            outline-3 outline-dark-blue 
+            bg-[linear-gradient(180deg,var(--color-white)_0%,var(--color-medium-blue)_100%)]
+            shadow-[-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+            transition-all ease-in-out
 
-                                hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
-                                hover:brightness-[1.1]
+            hover:shadow-[0_0_20px_var(--color-medium-blue),-4px_-4px_8px_var(--color-dark-blue),4px_4px_8px_var(--color-dark-blue)]
+            hover:brightness-[1.1]
 
-                                active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
-                                active:translate-y-[2px]"
+            active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
+            active:translate-y-[2px]"
                     onClick={(evt) => {
                         evt.preventDefault()
                         return router.push('/topics')

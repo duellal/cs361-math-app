@@ -107,7 +107,7 @@ export default function PracticeAddition() {
 
         let idx = randomIdx + 1
 
-        if (idx >= easyAdditionProblems.length) {
+        if (idx >= easyAdditionProblems.length - 1) {
             idx = 0
         }
 
@@ -119,8 +119,10 @@ export default function PracticeAddition() {
             setRandomIdx(idx)
         } else {
             while (
-                solvedProblems.addition.some(
-                    (prob) => prob.problem_id === easyAdditionProblems[idx],
+                !solvedProblems.addition.some(
+                    (prob) =>
+                        prob.problem_id ===
+                        easyAdditionProblems[idx].problem_id,
                 )
             ) {
                 idx += 1
@@ -142,6 +144,7 @@ export default function PracticeAddition() {
         setSolutionDiv(null)
         setAnswer('')
         setSubmitDisable(true)
+        await filterSolvedEasyAddition()
     }
 
     return (
