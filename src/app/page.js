@@ -10,7 +10,7 @@ export default function Home() {
     const router = useRouter()
 
     return (
-        <div className="w-full mt-[32px] h-[calc(100dvh-246px)] flex flex-wrap place-content-center">
+        <div className="w-full mt-[32px] min-h-[calc(100dvh-246px)] flex flex-wrap place-content-center">
             <Image
                 id="banner-img"
                 src={banner}
