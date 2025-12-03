@@ -24,9 +24,9 @@ export function SolutionPage(props) {
         handleNext,
         setAnswer,
         numStep,
-        prblmArr,
+        c_answer,
+        problem,
         setNumStep,
-        randomIdx,
         setSolutionDiv,
         tutorialDisable,
         setTutorialDisable,
@@ -37,7 +37,6 @@ export function SolutionPage(props) {
         u_answer,
     } = props
 
-    let c_answer = prblmArr[randomIdx]?.solution
     let solution_btns_arr = []
     let solution_border_color
     let solution_title
@@ -142,10 +141,7 @@ export function SolutionPage(props) {
                         className={`w-full ${!showAnswer && ' blur-sm'} justify-center flex`}
                     >
                         {/* Explanation */}
-                        <Explanation
-                            key="explanation"
-                            problem={prblmArr[randomIdx]}
-                        />
+                        <Explanation key="explanation" problem={problem} />
                     </div>
                 </div>
 
