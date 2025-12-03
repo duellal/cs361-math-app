@@ -24,8 +24,12 @@ export default function TimerDisplay({
     const user_id = user?.['_id'] ?? null
 
     const safeSetTimer = (data) => {
-        if (!data || typeof data !== 'object') return
-        if (!data.timer_id) return
+        if (!data || typeof data !== 'object') {
+            return
+        }
+        if (!data.timer_id) {
+            return
+        }
         setTimer(data)
     }
 
@@ -33,11 +37,13 @@ export default function TimerDisplay({
     // Poll microservice
     // -----------------------------
     const fetchTime = async () => {
-        if (!timer_id) return
+        if (!timer_id) {
+            return
+        }
         try {
             const res = await get_timer(timer_id)
             safeSetTimer(res.data)
-            setSeconds(Math.floor(res?.data?.total_time_ms ?? 0 / 1000))
+            setSeconds(Math.floor((res?.data?.total_time_ms ?? 0) / 1000))
         } catch (err) {
             console.error('Failed to fetch timer:', err)
         }
@@ -73,7 +79,9 @@ export default function TimerDisplay({
     // Pause timer
     // -----------------------------
     const handlePause = async () => {
-        if (!timer_id) return
+        if (!timer_id) {
+            return
+        }
 
         clearInterval(pollingRef.current)
 
@@ -89,7 +97,9 @@ export default function TimerDisplay({
     // Stop timer
     // -----------------------------
     const handleStop = async () => {
-        if (!timer_id) return
+        if (!timer_id) {
+            return
+        }
 
         clearInterval(pollingRef.current)
 
