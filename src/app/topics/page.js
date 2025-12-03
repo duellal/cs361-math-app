@@ -98,7 +98,6 @@ const PathComponent = () => {
                         >
                             {btn_txt.map((txt, idx) => {
                                 let disabled = path.disabled.includes(txt)
-                                console.log(`${txt} Disabled?`, disabled)
 
                                 return (
                                     <Link

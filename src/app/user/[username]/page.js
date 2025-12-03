@@ -6,6 +6,5 @@ import UserContext from '../../_context/userContext'
 
 export default function SignUp() {
     const { user } = useContext(UserContext)
-    console.log('USER in Profile?', user)
     return <PageUnderConstruction />
 }

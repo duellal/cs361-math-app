@@ -22,6 +22,7 @@ const easy_problems = async (props) => {
             },
         )
 
+        console.log('GET EASY ADDITION PROBLEMS\n', res.data)
         return res.data
     } catch {
         console.log('easy_problems ERR:', err)
