@@ -128,6 +128,7 @@ const PathComponent = () => {
 
                                             active:shadow-[inset_2px_2px_8px_var(--color-dark-blue)],inset_-2px_-2px_8px_var(--color-dark-blue)]
                                             active:translate-y-[2px]`}
+                                            disabled={disabled}
                                         >
                                             {txt}
                                         </Button>

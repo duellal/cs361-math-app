@@ -139,7 +139,7 @@ export default function PracticeAddition() {
     }
 
     return (
-        <div className="w-full mt-[32px] flex flex-wrap content-start justify-center">
+        <div className="w-full mt-[32px] flex flex-wrap h-[calc(100dvh-246px)] content-start justify-center">
             {/* Headers */}
             <div>
                 <h1 className="w-full">Practice Problems</h1>
