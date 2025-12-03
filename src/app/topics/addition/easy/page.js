@@ -16,12 +16,14 @@ import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsCont
 
 // HTTP Calls
 import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
+import TutorialContext from '@/app/_context/tutorialContext'
 
 export default function PracticeAddition() {
     // Context:
     const { easyAdditionProblems, filterSolvedEasyAddition } = useContext(
         EasyAdditionProblemsContext,
     )
+    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
     const { solvedProblems, setSolvedProblems } = useContext(
         SolvedProblemsContext,
     )
@@ -38,7 +40,6 @@ export default function PracticeAddition() {
     const [skipBtnDisabled, setSkipBtnDisabled] = useState(false)
     const [solutionDiv, setSolutionDiv] = useState(null)
     const [submitDisable, setSubmitDisable] = useState(true)
-    const [tutorialDisable, setTutorialDisable] = useState(false)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
     const [seconds, setSeconds] = useState(0)
     const [stopTimer, setStopTimer] = useState(false)

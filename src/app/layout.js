@@ -13,6 +13,7 @@ import UserContext from './_context/userContext'
 import SolvedProblemsContext from './_context/solvedProblemsContext'
 import TimerContext from './_context/timerContext'
 import EasyAdditionProblemsContext from './_context/easyAdditionProblemsContext'
+import TutorialContext from './_context/tutorialContext'
 
 // Functions
 import easy_problems from './topics/addition/easy/easyAdditionPrblms'
@@ -40,14 +41,17 @@ const metadata = {
 }
 
 export default function RootLayout({ children }) {
-    let [user, setUser] = useState(useContext(UserContext))
-    let [solvedProblems, setSolvedProblems] = useState(
+    const [user, setUser] = useState(useContext(UserContext))
+    const [solvedProblems, setSolvedProblems] = useState(
         useContext(SolvedProblemsContext),
     )
-    let [easyAdditionProblems, setEasyAdditionProblems] = useState(
+    const [easyAdditionProblems, setEasyAdditionProblems] = useState(
         useContext(EasyAdditionProblemsContext),
     )
-    let [timer, setTimer] = useState(useContext(TimerContext))
+    const [timer, setTimer] = useState(useContext(TimerContext))
+    const [tutorialDisable, setTutorialDisable] = useState(
+        useContext(TutorialContext),
+    )
 
     const filterSolvedEasyAddition = useCallback(() => {
         setEasyAdditionProblems((prev) =>
@@ -61,6 +65,11 @@ export default function RootLayout({ children }) {
     }, [solvedProblems])
 
     const userValue = useMemo(() => ({ user, setUser }), [user])
+
+    const tutorialValue = useMemo(
+        () => ({ tutorialDisable, setTutorialDisable }),
+        [tutorialDisable],
+    )
 
     const solvedValue = useMemo(
         () => ({ solvedProblems, setSolvedProblems }),
@@ -170,20 +179,24 @@ export default function RootLayout({ children }) {
 
             <body>
                 <UserContext value={userValue}>
-                    <EasyAdditionProblemsContext value={easyAdditionValue}>
-                        <SolvedProblemsContext value={solvedValue}>
-                            <TimerContext value={timerValue}>
-                                <AppRouterCacheProvider options={mui_options}>
-                                    <CssBaseline>
-                                        <Navigation />
+                    <TutorialContext value={tutorialValue}>
+                        <EasyAdditionProblemsContext value={easyAdditionValue}>
+                            <SolvedProblemsContext value={solvedValue}>
+                                <TimerContext value={timerValue}>
+                                    <AppRouterCacheProvider
+                                        options={mui_options}
+                                    >
+                                        <CssBaseline>
+                                            <Navigation />
 
-                                        <main>{children}</main>
-                                        <Footer />
-                                    </CssBaseline>
-                                </AppRouterCacheProvider>
-                            </TimerContext>
-                        </SolvedProblemsContext>
-                    </EasyAdditionProblemsContext>
+                                            <main>{children}</main>
+                                            <Footer />
+                                        </CssBaseline>
+                                    </AppRouterCacheProvider>
+                                </TimerContext>
+                            </SolvedProblemsContext>
+                        </EasyAdditionProblemsContext>
+                    </TutorialContext>
                 </UserContext>
             </body>
         </html>

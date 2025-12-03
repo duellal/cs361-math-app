@@ -1,18 +1,18 @@
 'use client'
 
+import { useContext } from 'react'
+
 import ContentDiv from '@/app/__components/contentDiv'
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
+
+import TutorialContext from '@/app/_context/tutorialContext'
 
 import { confirmAnswerBtnTw, h3Tw } from '@/app/_styling/tw_variables'
 
 export default function SkipTutorial(props) {
-    const {
-        popupDivTw,
-        setAnswer,
-        setSubmitDisable,
-        setSkipTutorial,
-        setTutorialDisable,
-    } = props
+    const { popupDivTw, setAnswer, setSubmitDisable, setSkipTutorial } = props
+
+    let { setTutorialDisable } = useContext(TutorialContext)
 
     let skipTutorialBtns = (
         <div

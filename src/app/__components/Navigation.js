@@ -63,7 +63,7 @@ export default function Navigation() {
                     const { name, href } = page
                     return (
                         <Link
-                            key={`${idx + Math.random()}-${name}`}
+                            key={`${idx}-${idx + Math.round(Math.random() * 1000)}-${name}`}
                             href={href}
                             className="mr-[17px] border-b-[3px] border-grey text-white hover:border-light-blue"
                         >
@@ -84,7 +84,7 @@ export default function Navigation() {
 
                           return (
                               <Link
-                                  key={`${Math.floor(Math.random() * 9)}-user`}
+                                  key={`${idx}-${Math.round(Math.random() * 9000)}-user`}
                                   href={href}
                                   onClick={() => {
                                       if (name.includes('out')) {
@@ -114,7 +114,7 @@ export default function Navigation() {
                           const { name, href } = page
                           return (
                               <Link
-                                  key={`${Math.floor(Math.random() * idx)}-${name}`}
+                                  key={`${idx}-${Math.round(Math.random() * 3000)}-${name}`}
                                   href={href}
                               >
                                   <Button

@@ -1,7 +1,7 @@
 'use client'
 
 // Node Modules
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
 
 // Components
@@ -15,6 +15,7 @@ import { bottomBtnsTw, divMarginsTw } from '@/app/_styling/tw_variables'
 
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
+import TutorialContext from '@/app/_context/tutorialContext'
 
 export function SolutionPage(props) {
     // Variables:
@@ -28,14 +29,14 @@ export function SolutionPage(props) {
         problem,
         setNumStep,
         setSolutionDiv,
-        tutorialDisable,
-        setTutorialDisable,
         setSubmitDisable,
         tutorialEndDiv,
         setTutorialEndDiv,
         setStopTimer,
         u_answer,
     } = props
+
+    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
 
     let solution_btns_arr = []
     let solution_border_color

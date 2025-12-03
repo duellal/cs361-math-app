@@ -1,6 +1,8 @@
 'use client'
 
 import PrblmBtn from '@/app/__components/PracticePrblmBtn'
+import TutorialContext from '@/app/_context/tutorialContext'
+import { useContext } from 'react'
 
 export default function TutorialComponent(props) {
     const {
@@ -18,7 +20,6 @@ export default function TutorialComponent(props) {
         setNumStep,
         setSolutionDiv,
         setSubmitDisable,
-        setTutorialDisable,
         skipHandleClick,
         skipText,
         skipTw,
@@ -31,6 +32,9 @@ export default function TutorialComponent(props) {
         setShowAnswer,
         setBlurBg,
     } = props
+
+    let { setTutorialDisable } = useContext(TutorialContext)
+
     return (
         <div className={`${mainDivTw}`}>
             <div className={`${bubbleDivTw} ${arrowBeforeTw} ${arrowAfterTw}`}>
@@ -79,7 +83,6 @@ export default function TutorialComponent(props) {
                                                     showAnswer,
                                                     setShowAnswer,
                                                     setBlurBg,
-                                                    setTutorialDisable,
                                                 })
                                             }
                                         />

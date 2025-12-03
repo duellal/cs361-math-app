@@ -18,6 +18,7 @@ import TutorialComponent from '../tutorial/tutorial'
 // Context:
 import UserContext from '@/app/_context/userContext'
 import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsContext'
+import TutorialContext from '@/app/_context/tutorialContext'
 
 // HTTP Call Functions:
 import submit_answer from '@/app/_apiFuncs/user/completed_problems/submitAnswer'
@@ -49,8 +50,6 @@ export default function PracticeProblemsDiv(props) {
         handleSkipPrblm,
         setSolutionDiv,
         skipBtnDisabled,
-        tutorialDisable,
-        setTutorialDisable,
         submitDisable,
         setSubmitDisable,
         tutorialEndDiv,
@@ -75,6 +74,7 @@ export default function PracticeProblemsDiv(props) {
 
     const { user } = useContext(UserContext)
     const { easyAdditionProblems } = useContext(EasyAdditionProblemsContext)
+    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
 
     const problem = easyAdditionProblems[randomIdx]
     // Styling with Variables:
@@ -137,8 +137,8 @@ export default function PracticeProblemsDiv(props) {
                 user_id,
             })
 
-            if (submitAnswer?.status !== 200) {
-                throw new Error(submitAnswer)
+            if (submitAnswer?.status !== 201) {
+                console.log('SUBMIT ANSWER ERROR:\n', submitAnswer.data)
             }
         }
 
