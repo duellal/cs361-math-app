@@ -16,6 +16,8 @@ import { bottomBtnsTw, divMarginsTw } from '@/app/_styling/tw_variables'
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
 import TutorialContext from '@/app/_context/tutorialContext'
+import TimerContext from '@/app/_context/timerContext'
+import start_timer from '@/app/_apiFuncs/timer/startTimer'
 
 export function SolutionPage(props) {
     // Variables:
@@ -32,11 +34,11 @@ export function SolutionPage(props) {
         setSubmitDisable,
         tutorialEndDiv,
         setTutorialEndDiv,
-        setStopTimer,
         u_answer,
     } = props
 
-    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
+    const { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
+    const { timer, setTimer } = useContext(TimerContext)
 
     let solution_btns_arr = []
     let solution_border_color
@@ -71,9 +73,15 @@ export function SolutionPage(props) {
         </p>
     )
 
-    const handleTryAgain = () => {
+    const handleTryAgain = async () => {
         setSolutionDiv(false)
-        setStopTimer(false)
+        setTimer({
+            ...timer,
+            stop: false,
+            pause: false,
+            start: true,
+        })
+        await start_timer({ timer_id: timer.timer_id })
     }
 
     return (

@@ -97,6 +97,19 @@ export default function RootLayout({ children }) {
         load()
     }, [])
 
+    useEffect(() => {
+        console.log(
+            '\nROOT LAYOUT\n\nAPP USER:\n',
+            user,
+            '\n\nTIMER:\n',
+            timer,
+            '\n\nSOLVED PROBLEMS:\n',
+            solvedProblems,
+            '\n\nCURRENT EASY ADD PROBLEMS:\n',
+            easyAdditionProblems,
+        )
+    }, [easyAdditionProblems, solvedProblems, timer, user])
+
     return (
         <html lang="en" suppressHydrationWarning>
             <head>

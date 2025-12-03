@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import TimerContext from '@/app/_context/timerContext'
 import UserContext from '@/app/_context/userContext'
 
@@ -8,13 +8,7 @@ import pause_timer from '@/app/_apiFuncs/timer/pauseTimer'
 import resume_timer from '@/app/_apiFuncs/timer/resumeTimer'
 import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
 
-export default function TimerDisplay({
-    start = false,
-    pause = false,
-    stop = false,
-    seconds,
-    setSeconds,
-}) {
+export default function TimerDisplay() {
     const pollingRef = useRef(null)
 
     const { timer, setTimer } = useContext(TimerContext)
@@ -30,7 +24,11 @@ export default function TimerDisplay({
         if (!data.timer_id) {
             return
         }
-        setTimer(data)
+        setTimer((prev) => ({
+            ...prev,
+            timer_id: data.timer_id,
+            timer_data: data,
+        }))
     }
 
     // -----------------------------
@@ -43,7 +41,11 @@ export default function TimerDisplay({
         try {
             const res = await get_timer(timer_id)
             safeSetTimer(res.data)
-            setSeconds(Math.floor((res?.data?.total_time_ms ?? 0) / 1000))
+            console.log('Res data:', res.data)
+            setTimer((prev) => ({
+                ...prev,
+                seconds: Math.round(res.data.total_time_ms / 1000),
+            }))
         } catch (err) {
             console.error('Failed to fetch timer:', err)
         }
@@ -68,7 +70,10 @@ export default function TimerDisplay({
 
             // Start polling every second
             pollingRef.current = setInterval(() => {
-                setSeconds((prev) => prev + 1)
+                setTimer((prev) => ({
+                    ...prev,
+                    seconds: prev.seconds + 1,
+                }))
             }, 1000)
         } catch (err) {
             console.error('Start timer failed:', err)
@@ -115,12 +120,12 @@ export default function TimerDisplay({
     // Controller effect
     // -----------------------------
     useEffect(() => {
-        if (start) handleStart()
-        if (pause) handlePause()
-        if (stop) handleStop()
+        if (timer.start) handleStart()
+        if (timer.pause) handlePause()
+        if (timer.stop) handleStop()
 
         return () => clearInterval(pollingRef.current)
-    }, [start, pause, stop])
+    }, [timer.start, timer.stop, timer.pause])
 
     // -----------------------------
     // Format for display
@@ -135,7 +140,7 @@ export default function TimerDisplay({
 
     return (
         <div className="flex h-[45px] items-center justify-center p-2 bg-light-blue rounded-md border-3 border-dark-blue text-dark-blue text-lg min-w-[90px]">
-            {format(seconds)}
+            {format(timer?.seconds)}
         </div>
     )
 }

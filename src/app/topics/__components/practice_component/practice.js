@@ -33,6 +33,9 @@ import {
 
 // Variables
 import tutorialStepsArr, { btnArr } from '../tutorial/tutorialArrays'
+import TimerContext from '@/app/_context/timerContext'
+import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
+import pause_timer from '@/app/_apiFuncs/timer/pauseTimer'
 
 export default function PracticeProblemsDiv(props) {
     const {
@@ -54,16 +57,6 @@ export default function PracticeProblemsDiv(props) {
         setSubmitDisable,
         tutorialEndDiv,
         setTutorialEndDiv,
-        seconds,
-        setSeconds,
-        stopTimer,
-        setStopTimer,
-        timerText,
-        setTimerText,
-        startTimer,
-        setStartTimer,
-        pauseTimer,
-        setPauseTimer,
     } = props
 
     // States:
@@ -74,7 +67,8 @@ export default function PracticeProblemsDiv(props) {
 
     const { user } = useContext(UserContext)
     const { easyAdditionProblems } = useContext(EasyAdditionProblemsContext)
-    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
+    const { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
+    const { timer, setTimer } = useContext(TimerContext)
 
     const problem = easyAdditionProblems[randomIdx]
     // Styling with Variables:
@@ -93,14 +87,20 @@ export default function PracticeProblemsDiv(props) {
     const handleTimerBtn = (evt) => {
         evt.preventDefault()
 
-        if (timerText.includes('pause')) {
-            setTimerText('start timer')
-            setStartTimer(false)
-            setPauseTimer(true)
+        if (timer?.timer_text.includes('pause')) {
+            setTimer({
+                ...timer,
+                timer_text: 'start timer',
+                start: false,
+                pause: true,
+            })
         } else {
-            setTimerText('pause timer')
-            setStartTimer(true)
-            setPauseTimer(false)
+            setTimer({
+                ...timer,
+                timer_text: 'pause timer',
+                start: true,
+                pause: false,
+            })
         }
     }
 
@@ -124,7 +124,8 @@ export default function PracticeProblemsDiv(props) {
         setTutorialDisable(true)
     }
 
-    const handleSubmitBtn = async () => {
+    const handleSubmitBtn = async (evt) => {
+        evt.preventDefault()
         let answer = Number(answerInput)
 
         if (Object.keys(user).length > 0) {
@@ -142,11 +143,16 @@ export default function PracticeProblemsDiv(props) {
             }
         }
 
+        await pause_timer({ timer_id: timer.timer_id })
+        setTimer({
+            ...timer,
+            pause: true,
+            start: false,
+        })
+
         setBlurBg(false)
         setConfirmAnswerPopup(false)
         setSolutionDiv(true)
-        setStopTimer(true)
-        setSeconds(0)
     }
 
     const hintCancelBtn = (
@@ -216,17 +222,15 @@ export default function PracticeProblemsDiv(props) {
                     <div className="min-h-[105px] gap-[12px] flex flex-wrap items-between">
                         <div className={`w-full flex justify-center`}>
                             <PrblmBtn
-                                text={timerText}
+                                text={timer.timer_text}
                                 handleClick={handleTimerBtn}
                                 tw={`${bottomBtnsTw} w-[132px] p-3 bg-white mx-[10px] capitalize`}
                             />
 
                             <TimerDisplay
-                                pause={pauseTimer}
-                                start={startTimer}
-                                stop={stopTimer}
-                                seconds={seconds}
-                                setSeconds={setSeconds}
+                                pause={timer.pause}
+                                start={timer.start}
+                                stop={timer.stop}
                             />
                         </div>
                         <div className={`w-full flex justify-center`}>

@@ -9,21 +9,22 @@ import PracticeProblems from '../../__components/practice_component/practice'
 import { SolutionPage } from '../../__components/practice_component/solution'
 
 // Context
-import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
-import UserContext from '@/app/_context/userContext'
-import TimerContext from '@/app/_context/timerContext'
 import EasyAdditionProblemsContext from '@/app/_context/easyAdditionProblemsContext'
+import SolvedProblemsContext from '@/app/_context/solvedProblemsContext'
+import TimerContext from '@/app/_context/timerContext'
+import TutorialContext from '@/app/_context/tutorialContext'
 
 // HTTP Calls
 import stop_timer from '@/app/_apiFuncs/timer/stopTimer'
-import TutorialContext from '@/app/_context/tutorialContext'
+import pause_timer from '@/app/_apiFuncs/timer/pauseTimer'
+import resume_timer from '@/app/_apiFuncs/timer/resumeTimer'
 
 export default function PracticeAddition() {
     // Context:
     const { easyAdditionProblems, filterSolvedEasyAddition } = useContext(
         EasyAdditionProblemsContext,
     )
-    let { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
+    const { tutorialDisable, setTutorialDisable } = useContext(TutorialContext)
     const { solvedProblems, setSolvedProblems } = useContext(
         SolvedProblemsContext,
     )
@@ -41,11 +42,6 @@ export default function PracticeAddition() {
     const [solutionDiv, setSolutionDiv] = useState(null)
     const [submitDisable, setSubmitDisable] = useState(true)
     const [tutorialEndDiv, setTutorialEndDiv] = useState(false)
-    const [seconds, setSeconds] = useState(0)
-    const [stopTimer, setStopTimer] = useState(false)
-    const [timerText, setTimerText] = useState('start timer')
-    const [startTimer, setStartTimer] = useState(false)
-    const [pauseTimer, setPauseTimer] = useState(false)
 
     useEffect(() => {
         filterSolvedEasyAddition()
@@ -55,14 +51,18 @@ export default function PracticeAddition() {
         }
     }, [easyAdditionProblems.length, filterSolvedEasyAddition])
 
-    const handleConfirm = () => {
+    const handleConfirm = async (evt) => {
+        evt.preventDefault()
         let answer = Number(answerInput)
 
         if (answer) {
-            if (Object.keys(timer).length > 0) {
-                stop_timer({ timer_id })
-                setTimer({})
-                setSeconds(0)
+            if (timer.timer_id) {
+                await pause_timer({ timer_id })
+                setTimer({
+                    ...timer,
+                    pause: true,
+                    start: false,
+                })
             }
 
             setConfirmAnswerPopup(true)
@@ -72,19 +72,24 @@ export default function PracticeAddition() {
         setBlurBg(true)
     }
 
-    const handleConfirmClose = () => {
+    const handleConfirmClose = async (evt) => {
+        evt.preventDefault()
+        await resume_timer({ timer_id })
+        setTimer({
+            ...timer,
+            pause: false,
+            start: true,
+        })
         setConfirmAnswerPopup(false)
         setBlurBg(false)
     }
 
-    const handleSkipPrblm = async () => {
-        if (Object.keys(timer) > 0) {
-            setTimer({})
-            setSeconds(0)
-            setTimerText('start timer')
-            setStartTimer(false)
-            setPauseTimer(false)
-            setStopTimer(false)
+    const handleSkipPrblm = async (evt) => {
+        evt.preventDefault()
+
+        if (timer.timer_id) {
+            await stop_timer({ timer_id: timer.timer_id })
+            setTimer({ ...timer.reset_timer, reset_timer: timer.reset_timer })
         }
 
         if (
@@ -167,7 +172,6 @@ export default function PracticeAddition() {
                     tutorialEndDiv={tutorialEndDiv}
                     setTutorialEndDiv={setTutorialEndDiv}
                     handleNext={handleSkipPrblm}
-                    setStopTimer={setStopTimer}
                 />
             ) : easyAdditionProblems?.length > 0 &&
               typeof randomIdx === 'number' ? (
@@ -195,16 +199,6 @@ export default function PracticeAddition() {
                     skipBtnDisabled={skipBtnDisabled}
                     setSkipBtnDisabled={setSkipBtnDisabled}
                     handleSkipPrblm={handleSkipPrblm}
-                    seconds={seconds}
-                    setSeconds={setSeconds}
-                    stopTimer={stopTimer}
-                    setStopTimer={setStopTimer}
-                    timerText={timerText}
-                    setTimerText={setTimerText}
-                    startTimer={startTimer}
-                    setStartTimer={setStartTimer}
-                    pauseTimer={pauseTimer}
-                    setPauseTimer={setPauseTimer}
                 />
             ) : (
                 <EmptyPracticeProblems
